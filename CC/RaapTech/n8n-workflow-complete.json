@@ -1,0 +1,524 @@
+{
+  "name": "RaapTech Lead Assessment with AI Audit",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "raaptech-assessment",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "id": "webhook-trigger",
+      "name": "Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        240,
+        460
+      ],
+      "webhookId": ""
+    },
+    {
+      "parameters": {
+        "jsCode": "// Extract and structure form data with lead ID\nconst formData = $input.item.json;\n\nreturn {\n  json: {\n    lead_id: `LEAD-${Date.now()}`,\n    timestamp: new Date().toISOString(),\n    company: formData.company,\n    contact_name: formData.name,\n    email: formData.email,\n    phone: formData.phone || '',\n    company_size: formData.size,\n    current_software: formData.software || 'Not specified',\n    pain_point: formData.pain || 'Not specified',\n    wants_ai_audit: formData.ai_audit === true || formData.ai_audit === 'yes',\n    source: formData.source || 'website',\n    submitted_at: formData.submitted_at || new Date().toISOString()\n  }\n};"
+      },
+      "id": "format-lead-data",
+      "name": "Format Lead Data",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        460,
+        460
+      ]
+    },
+    {
+      "parameters": {
+        "model": "claude-sonnet-4-20250514",
+        "options": {
+          "maxTokens": 1500,
+          "temperature": 0.3
+        },
+        "text": "=# Quick Lead Analysis\n\nAnalyze this contractor lead and provide scoring:\n\n## Lead Information:\n- Company: {{ $json.company }}\n- Size: {{ $json.company_size }} employees\n- Current Software: {{ $json.current_software }}\n- Pain Point: {{ $json.pain_point }}\n- Wants AI Audit: {{ $json.wants_ai_audit }}\n\n## RaapTech Services:\n1. AI Lead Response Systems (instant qualification, 24/7 automation)\n2. Workflow Automation (pricing updates, job tracking, document gen)\n3. Autodesk Database Consulting (CADmep, CAMduct, ESTmep optimization)\n\n## Scoring Criteria:\n**HOT LEAD** if:\n- Uses Autodesk Fabrication software (CADmep, CAMduct, ESTmep)\n- Company size 11+ employees\n- Clear automation pain point (slow leads, manual processes, knowledge loss)\n- Wants AI audit = higher intent\n\n**WARM LEAD** if:\n- Some automation potential\n- Medium company or unclear software\n- Generic pain point\n\n**COLD LEAD** if:\n- Very small company (1-5 employees) \n- No clear pain point\n- Just exploring\n\n## Required JSON Response Format:\n{\n  \"lead_score\": \"hot|warm|cold\",\n  \"score_reason\": \"2-3 sentence explanation\",\n  \"key_pain_points\": [\"point1\", \"point2\"],\n  \"recommended_services\": [\"service1\", \"service2\"],\n  \"estimated_monthly_value\": \"$X,XXX - $XX,XXX\",\n  \"urgency\": \"immediate|within_week|within_month\",\n  \"next_steps\": [\"action1\", \"action2\", \"action3\"]\n}\n\nRespond ONLY with valid JSON. No markdown, no explanation."
+      },
+      "id": "quick-ai-analysis",
+      "name": "Quick AI Analysis",
+      "type": "@n8n/n8n-nodes-langchain.anthropic",
+      "typeVersion": 1,
+      "position": [
+        680,
+        460
+      ],
+      "credentials": {
+        "anthropicApi": {
+          "id": "",
+          "name": "Anthropic API"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "// Parse AI response and merge with lead data\nconst leadData = $input.first().json;\nconst aiResponseRaw = $input.item.json.output;\n\n// Clean AI response (remove markdown if present)\nlet cleanResponse = aiResponseRaw;\nif (aiResponseRaw.includes('```json')) {\n  cleanResponse = aiResponseRaw.split('```json')[1].split('```')[0].trim();\n} else if (aiResponseRaw.includes('```')) {\n  cleanResponse = aiResponseRaw.split('```')[1].trim();\n}\n\nlet analysis;\ntry {\n  analysis = JSON.parse(cleanResponse);\n} catch (e) {\n  // Fallback if parsing fails\n  console.error('AI response parsing failed:', e);\n  analysis = {\n    lead_score: \"warm\",\n    score_reason: \"Needs manual review - AI parsing failed\",\n    key_pain_points: [leadData.pain_point],\n    recommended_services: [\"AI Lead Response Systems\"],\n    estimated_monthly_value: \"$5,000 - $15,000\",\n    urgency: \"within_week\",\n    next_steps: [\"Schedule assessment call\", \"Review current workflow\", \"Discuss pricing\"]\n  };\n}\n\n// Merge everything together\nreturn {\n  json: {\n    ...leadData,\n    analysis: analysis,\n    lead_score: analysis.lead_score,\n    score_reason: analysis.score_reason,\n    estimated_value: analysis.estimated_monthly_value,\n    urgency: analysis.urgency,\n    next_steps: analysis.next_steps,\n    recommended_services: analysis.recommended_services,\n    key_pain_points: analysis.key_pain_points\n  }\n};"
+      },
+      "id": "process-quick-analysis",
+      "name": "Process Quick Analysis",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        900,
+        460
+      ]
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": false,
+                  "leftValue": ""
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.wants_ai_audit }}",
+                    "rightValue": "true",
+                    "operator": {
+                      "type": "boolean",
+                      "operation": "equals"
+                    }
+                  },
+                  {
+                    "leftValue": "={{ $json.lead_score }}",
+                    "rightValue": "cold",
+                    "operator": {
+                      "type": "string",
+                      "operation": "notEquals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "ai_audit_requested"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": false
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.lead_score }}",
+                    "rightValue": "hot",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "hot_lead_standard"
+            }
+          ]
+        },
+        "options": {
+          "fallbackOutput": "extra"
+        },
+        "fallbackOutput": "standard_lead"
+      },
+      "id": "routing-switch",
+      "name": "Route Lead Flow",
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3,
+      "position": [
+        1120,
+        460
+      ]
+    },
+    {
+      "parameters": {
+        "model": "claude-sonnet-4-20250514",
+        "options": {
+          "maxTokens": 4000,
+          "temperature": 0.2
+        },
+        "text": "=# Comprehensive AI Audit for {{ $json.company }}\n\nPerform an in-depth analysis and create a detailed audit report.\n\n## Company Profile:\n- Name: {{ $json.company }}\n- Size: {{ $json.company_size }} employees  \n- Contact: {{ $json.contact_name }}\n- Current Software: {{ $json.current_software }}\n- Primary Pain Point: {{ $json.pain_point }}\n\n## Initial Quick Assessment:\n- Lead Score: {{ $json.lead_score }}\n- Reason: {{ $json.score_reason }}\n- Estimated Value: {{ $json.estimated_value }}\n\n## Deep Audit Requirements:\n\nAnalyze and provide:\n\n1. **Technology Stack Assessment**\n   - Current software capabilities vs. needs\n   - Integration opportunities\n   - Modernization roadmap\n\n2. **Workflow Analysis**\n   - Identified inefficiencies\n   - Automation opportunities (prioritized)\n   - Quick wins vs. long-term investments\n\n3. **ROI Projections** \n   - Time savings per solution\n   - Cost reduction estimates\n   - Revenue opportunity increases\n   - Payback period for each solution\n\n4. **Implementation Roadmap**\n   - Phase 1 (0-30 days): Quick wins\n   - Phase 2 (30-90 days): Core automation\n   - Phase 3 (90-180 days): Advanced integration\n\n5. **Resource Requirements**\n   - Staff time needed\n   - Training requirements\n   - Ongoing maintenance\n\n6. **Risk Assessment**\n   - Implementation challenges\n   - Mitigation strategies\n   - Success factors\n\n## Output Format (JSON):\n{\n  \"audit_summary\": \"2-3 paragraph executive summary\",\n  \"technology_stack\": {\n    \"current_state\": \"description\",\n    \"gaps\": [\"gap1\", \"gap2\"],\n    \"recommendations\": [\"rec1\", \"rec2\"]\n  },\n  \"workflow_analysis\": {\n    \"inefficiencies\": [{\"area\": \"name\", \"impact\": \"high|medium|low\", \"description\": \"...\"}],\n    \"automation_opportunities\": [{\"solution\": \"name\", \"priority\": \"high|medium|low\", \"effort\": \"low|medium|high\", \"roi_estimate\": \"...\"}]\n  },\n  \"roi_projections\": {\n    \"annual_time_savings_hours\": number,\n    \"annual_cost_reduction\": \"$XX,XXX\",\n    \"revenue_opportunity\": \"$XX,XXX\",\n    \"total_annual_value\": \"$XX,XXX\",\n    \"payback_period_months\": number\n  },\n  \"implementation_roadmap\": {\n    \"phase_1\": {\"timeline\": \"0-30 days\", \"solutions\": [\"...\"], \"cost_estimate\": \"$X,XXX\"},\n    \"phase_2\": {\"timeline\": \"30-90 days\", \"solutions\": [\"...\"], \"cost_estimate\": \"$X,XXX\"},\n    \"phase_3\": {\"timeline\": \"90-180 days\", \"solutions\": [\"...\"], \"cost_estimate\": \"$X,XXX\"}\n  },\n  \"resource_requirements\": {\n    \"staff_time_hours_monthly\": number,\n    \"training_hours\": number,\n    \"ongoing_maintenance\": \"description\"\n  },\n  \"risks\": [{\"risk\": \"description\", \"severity\": \"high|medium|low\", \"mitigation\": \"strategy\"}],\n  \"next_actions\": [\"action1\", \"action2\", \"action3\"]\n}\n\nProvide detailed, specific analysis. Use actual numbers based on the company size and pain points. Be comprehensive but practical."
+      },
+      "id": "deep-ai-audit",
+      "name": "Deep AI Audit",
+      "type": "@n8n/n8n-nodes-langchain.anthropic",
+      "typeVersion": 1,
+      "position": [
+        1360,
+        280
+      ],
+      "credentials": {
+        "anthropicApi": {
+          "id": "",
+          "name": "Anthropic API"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "// Parse detailed audit and merge\nconst leadData = $input.first().json;\nconst auditResponseRaw = $input.item.json.output;\n\n// Clean response\nlet cleanResponse = auditResponseRaw;\nif (auditResponseRaw.includes('```json')) {\n  cleanResponse = auditResponseRaw.split('```json')[1].split('```')[0].trim();\n} else if (auditResponseRaw.includes('```')) {\n  cleanResponse = auditResponseRaw.split('```')[1].trim();\n}\n\nlet detailedAudit;\ntry {\n  detailedAudit = JSON.parse(cleanResponse);\n} catch (e) {\n  console.error('Audit parsing failed:', e);\n  // Fallback audit\n  detailedAudit = {\n    audit_summary: `Based on ${leadData.company}'s needs, we recommend focusing on workflow automation to address their primary pain point: ${leadData.pain_point}. Expected ROI within 6 months.`,\n    roi_projections: {\n      annual_time_savings_hours: 500,\n      annual_cost_reduction: \"$35,000\",\n      revenue_opportunity: \"$50,000\",\n      total_annual_value: \"$85,000\",\n      payback_period_months: 4\n    },\n    next_actions: [\n      \"Schedule 30-minute deep-dive call\",\n      \"Review current workflow documentation\",\n      \"Prepare ROI calculator for specific use case\"\n    ]\n  };\n}\n\nreturn {\n  json: {\n    ...leadData,\n    detailed_audit: detailedAudit,\n    audit_summary: detailedAudit.audit_summary,\n    roi_annual_value: detailedAudit.roi_projections?.total_annual_value || leadData.estimated_value\n  }\n};"
+      },
+      "id": "process-audit",
+      "name": "Process Deep Audit",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1580,
+        280
+      ]
+    },
+    {
+      "parameters": {
+        "select": "channel",
+        "channelId": {
+          "__rl": true,
+          "value": "#leads-hot",
+          "mode": "name"
+        },
+        "messageType": "text",
+        "text": "=🔥 **HOT LEAD ALERT** 🔥\n\n**Company:** {{ $json.company }}\n**Contact:** {{ $json.contact_name }}\n**Email:** {{ $json.email }}\n**Phone:** {{ $json.phone }}\n**Size:** {{ $json.company_size }}\n\n**Score Reason:**\n{{ $json.score_reason }}\n\n**Pain Points:**\n{{ $json.key_pain_points.join('\\n• ') }}\n\n**Recommended Services:**\n{{ $json.recommended_services.join('\\n• ') }}\n\n**Estimated Value:** {{ $json.estimated_value }}/month\n**Urgency:** {{ $json.urgency }}\n\n**Next Steps:**\n{{ $json.next_steps.join('\\n1. ') }}\n\n---\n⚡ **ACTION REQUIRED:** Call within 1 hour\n📞 {{ $json.phone }}\n📧 {{ $json.email }}",
+        "options": {}
+      },
+      "id": "slack-hot-lead",
+      "name": "Slack: Hot Lead Alert",
+      "type": "n8n-nodes-base.slack",
+      "typeVersion": 2.2,
+      "position": [
+        1360,
+        520
+      ],
+      "credentials": {
+        "slackApi": {
+          "id": "",
+          "name": "Slack API"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "select": "channel",
+        "channelId": {
+          "__rl": true,
+          "value": "#leads",
+          "mode": "name"
+        },
+        "messageType": "text",
+        "text": "=📋 New Lead: *{{ $json.lead_score.toUpperCase() }}*\n\n**Company:** {{ $json.company }}\n**Contact:** {{ $json.contact_name }}\n**Email:** {{ $json.email }}\n**Phone:** {{ $json.phone }}\n**Size:** {{ $json.company_size }}\n\n**Analysis:** {{ $json.score_reason }}\n\n**Estimated Value:** {{ $json.estimated_value }}\n**Priority:** {{ $json.urgency }}",
+        "options": {}
+      },
+      "id": "slack-standard-lead",
+      "name": "Slack: Standard Lead",
+      "type": "n8n-nodes-base.slack",
+      "typeVersion": 2.2,
+      "position": [
+        1360,
+        640
+      ],
+      "credentials": {
+        "slackApi": {
+          "id": "",
+          "name": "Slack API"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "fromEmail": "noreply@raaptech.com",
+        "toEmail": "={{ $json.email }}",
+        "subject": "Your Free Assessment from RaapTech",
+        "emailType": "html",
+        "message": "=<!DOCTYPE html>\n<html>\n<head>\n<style>\nbody { font-family: 'DM Sans', Arial, sans-serif; line-height: 1.6; color: #0D0D0D; max-width: 600px; margin: 0 auto; }\n.header { background-color: #0D0D0D; color: white; padding: 30px 20px; text-align: center; }\n.content { padding: 30px 20px; background-color: #F9FAFB; }\n.highlight { background-color: #E3F2FD; padding: 20px; border-left: 4px solid #0066FF; margin: 20px 0; }\n.cta { text-align: center; margin: 30px 0; }\n.button { display: inline-block; padding: 14px 28px; background-color: #0066FF; color: white !important; text-decoration: none; border-radius: 4px; }\nul { padding-left: 20px; }\nli { margin-bottom: 10px; }\n.footer { background-color: #0D0D0D; color: #999; padding: 20px; text-align: center; font-size: 0.875rem; }\n</style>\n</head>\n<body>\n<div class=\"header\">\n  <h1>RaapTech LLC</h1>\n  <p>AI Solutions for Contractors</p>\n</div>\n\n<div class=\"content\">\n  <p>Hi {{ $json.contact_name }},</p>\n  \n  <p>Thanks for requesting your free assessment. I've analyzed {{ $json.company }}'s situation and have some insights.</p>\n  \n  <div class=\"highlight\">\n    <h3>Initial Analysis</h3>\n    <p><strong>{{ $json.score_reason }}</strong></p>\n    <p><strong>Key Issues I Identified:</strong></p>\n    <ul>\n      {{ $json.key_pain_points.map(p => `<li>${p}</li>`).join('') }}\n    </ul>\n  </div>\n  \n  <h3>What I Recommend</h3>\n  <p>For {{ $json.company }}, I'd suggest focusing on:</p>\n  <ul>\n    {{ $json.recommended_services.map(s => `<li><strong>${s}</strong></li>`).join('') }}\n  </ul>\n  \n  <p><strong>Estimated Monthly Value:</strong> {{ $json.estimated_value }} in time savings and increased revenue.</p>\n  \n  <div class=\"cta\">\n    <p><strong>Let's schedule a 15-minute call to discuss specifics.</strong></p>\n    <a href=\"tel:+12242026962\" class=\"button\">Call Me: 224-202-6962</a>\n    <p style=\"margin-top: 15px; color: #666;\">Or reply to this email with your availability.</p>\n  </div>\n  \n  <p>Looking forward to helping {{ $json.company }} win more jobs and work smarter.</p>\n  \n  <p style=\"margin-top: 30px;\">\n    Timothy K. Raap<br>\n    <strong>Founder, RaapTech LLC</strong><br>\n    📞 224-202-6962<br>\n    📧 TRaap@RaapTech.com\n  </p>\n</div>\n\n<div class=\"footer\">\n  <p>© 2026 RaapTech LLC | Elmwood Park, IL</p>\n  <p>You received this because you requested an assessment at raaptech.com</p>\n</div>\n</body>\n</html>",
+        "options": {}
+      },
+      "id": "email-standard",
+      "name": "Email: Standard Response",
+      "type": "n8n-nodes-base.emailSend",
+      "typeVersion": 2.1,
+      "position": [
+        1580,
+        580
+      ],
+      "credentials": {
+        "smtp": {
+          "id": "",
+          "name": "SMTP Account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "fromEmail": "noreply@raaptech.com",
+        "toEmail": "={{ $json.email }}",
+        "subject": "=Your Comprehensive AI Audit - {{ $json.company }}",
+        "emailType": "html",
+        "message": "=<!DOCTYPE html>\n<html>\n<head>\n<style>\nbody { font-family: 'DM Sans', Arial, sans-serif; line-height: 1.6; color: #0D0D0D; max-width: 700px; margin: 0 auto; }\n.header { background-color: #0066FF; color: white; padding: 40px 20px; text-align: center; }\n.content { padding: 40px 30px; background-color: #FFFFFF; }\n.section { margin: 30px 0; padding: 25px; background-color: #F9FAFB; border-left: 4px solid #0066FF; border-radius: 4px; }\n.section h3 { margin-top: 0; color: #0066FF; }\n.roi-box { background: linear-gradient(135deg, #0066FF 0%, #0052CC 100%); color: white; padding: 30px; border-radius: 8px; text-align: center; margin: 30px 0; }\n.roi-box h2 { margin: 0 0 10px 0; font-size: 2.5rem; }\n.roi-box p { margin: 5px 0; opacity: 0.9; }\n.phase { background-color: white; padding: 20px; margin: 15px 0; border-radius: 6px; border: 1px solid #E5E7EB; }\n.phase h4 { margin-top: 0; color: #0D0D0D; }\nul, ol { padding-left: 25px; }\nli { margin-bottom: 12px; }\n.cta { text-align: center; margin: 40px 0; }\n.button { display: inline-block; padding: 18px 36px; background-color: #0066FF; color: white !important; text-decoration: none; border-radius: 6px; font-weight: 600; font-size: 1.1rem; }\n.footer { background-color: #0D0D0D; color: #999; padding: 30px; text-align: center; font-size: 0.875rem; }\n.highlight { color: #0066FF; font-weight: 600; }\n</style>\n</head>\n<body>\n<div class=\"header\">\n  <h1>🎯 Your Comprehensive AI Audit</h1>\n  <p style=\"font-size: 1.2rem; margin: 10px 0 0 0;\">{{ $json.company }}</p>\n</div>\n\n<div class=\"content\">\n  <p>Hi {{ $json.contact_name }},</p>\n  \n  <p>You requested the <strong>Personalized AI Audit</strong>, so I did a deep dive into {{ $json.company }}'s operations. Here's what I found:</p>\n  \n  <div class=\"section\">\n    <h3>Executive Summary</h3>\n    <p>{{ $json.detailed_audit.audit_summary || 'Based on your company profile and pain points, I've identified significant automation opportunities that can deliver measurable ROI.' }}</p>\n  </div>\n\n  <div class=\"roi-box\">\n    <h2>{{ $json.roi_annual_value || $json.estimated_value }}</h2>\n    <p>Estimated Total Annual Value</p>\n    <p style=\"font-size: 0.9rem; margin-top: 15px;\">Time Savings + Cost Reduction + Revenue Growth</p>\n  </div>\n\n  <div class=\"section\">\n    <h3>Implementation Roadmap</h3>\n    <p>Here's how we'd roll this out for {{ $json.company }}:</p>\n    \n    {{ $json.detailed_audit.implementation_roadmap ? `\n    <div class=\"phase\">\n      <h4>📍 Phase 1: Quick Wins (${$json.detailed_audit.implementation_roadmap.phase_1.timeline})</h4>\n      <ul>\n        ${$json.detailed_audit.implementation_roadmap.phase_1.solutions.map(s => `<li>${s}</li>`).join('')}\n      </ul>\n      <p><strong>Investment:</strong> ${$json.detailed_audit.implementation_roadmap.phase_1.cost_estimate}</p>\n    </div>\n    \n    <div class=\"phase\">\n      <h4>🚀 Phase 2: Core Automation (${$json.detailed_audit.implementation_roadmap.phase_2.timeline})</h4>\n      <ul>\n        ${$json.detailed_audit.implementation_roadmap.phase_2.solutions.map(s => `<li>${s}</li>`).join('')}\n      </ul>\n      <p><strong>Investment:</strong> ${$json.detailed_audit.implementation_roadmap.phase_2.cost_estimate}</p>\n    </div>\n    \n    <div class=\"phase\">\n      <h4>⚡ Phase 3: Advanced Integration (${$json.detailed_audit.implementation_roadmap.phase_3.timeline})</h4>\n      <ul>\n        ${$json.detailed_audit.implementation_roadmap.phase_3.solutions.map(s => `<li>${s}</li>`).join('')}\n      </ul>\n      <p><strong>Investment:</strong> ${$json.detailed_audit.implementation_roadmap.phase_3.cost_estimate}</p>\n    </div>\n    ` : `\n    <ol>\n      ${$json.next_steps.map(step => `<li>${step}</li>`).join('')}\n    </ol>\n    `}\n  </div>\n\n  {{ $json.detailed_audit.workflow_analysis ? `\n  <div class=\"section\">\n    <h3>Top Automation Opportunities</h3>\n    <ul>\n      ${$json.detailed_audit.workflow_analysis.automation_opportunities?.slice(0, 5).map(opp => `\n        <li>\n          <strong>${opp.solution}</strong> (Priority: ${opp.priority})<br>\n          <span style=\"color: #666; font-size: 0.9rem;\">${opp.roi_estimate}</span>\n        </li>\n      `).join('') || ''}\n    </ul>\n  </div>\n  ` : ''}\n\n  <div class=\"cta\">\n    <p style=\"font-size: 1.2rem; margin-bottom: 20px;\"><strong>Ready to move forward?</strong></p>\n    <p>Let's schedule a 30-minute strategy call to discuss implementation.</p>\n    <a href=\"tel:+12242026962\" class=\"button\">Call Me: 224-202-6962</a>\n    <p style=\"margin-top: 20px; color: #666;\">Or reply to this email with your preferred times.</p>\n  </div>\n\n  <div class=\"section\">\n    <h3>Why This Works</h3>\n    <p>I've spent 20+ years in sheet metal fabrication and tested $50,000+ worth of software. This audit isn't theory—it's based on what actually works on the shop floor.</p>\n    <p>Every recommendation is proven, practical, and designed to deliver ROI within {{ $json.detailed_audit.roi_projections?.payback_period_months || 6 }} months.</p>\n  </div>\n\n  <p style=\"margin-top: 40px;\">\n    Looking forward to working with {{ $json.company }},<br><br>\n    <strong>Timothy K. Raap</strong><br>\n    Founder, RaapTech LLC<br>\n    📞 224-202-6962<br>\n    📧 TRaap@RaapTech.com\n  </p>\n</div>\n\n<div class=\"footer\">\n  <p><strong>© 2026 RaapTech LLC</strong> | Elmwood Park, IL</p>\n  <p style=\"margin-top: 10px;\">AI Solutions for Contractors Who Want to Win More Jobs</p>\n</div>\n</body>\n</html>",
+        "options": {}
+      },
+      "id": "email-ai-audit",
+      "name": "Email: AI Audit Response",
+      "type": "n8n-nodes-base.emailSend",
+      "typeVersion": 2.1,
+      "position": [
+        1800,
+        280
+      ],
+      "credentials": {
+        "smtp": {
+          "id": "",
+          "name": "SMTP Account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "appendOrUpdate",
+        "documentId": {
+          "__rl": true,
+          "value": "",
+          "mode": "list",
+          "cachedResultName": "RaapTech Leads"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Sheet1"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Timestamp": "={{ $json.timestamp }}",
+            "Lead_ID": "={{ $json.lead_id }}",
+            "Company": "={{ $json.company }}",
+            "Contact": "={{ $json.contact_name }}",
+            "Email": "={{ $json.email }}",
+            "Phone": "={{ $json.phone }}",
+            "Size": "={{ $json.company_size }}",
+            "Software": "={{ $json.current_software }}",
+            "Pain_Point": "={{ $json.pain_point }}",
+            "Wants_AI_Audit": "={{ $json.wants_ai_audit }}",
+            "Lead_Score": "={{ $json.lead_score }}",
+            "Score_Reason": "={{ $json.score_reason }}",
+            "Estimated_Value": "={{ $json.estimated_value }}",
+            "ROI_Annual_Value": "={{ $json.roi_annual_value || $json.estimated_value }}",
+            "Urgency": "={{ $json.urgency }}",
+            "Source": "={{ $json.source }}",
+            "Has_Detailed_Audit": "={{ $json.detailed_audit ? 'Yes' : 'No' }}"
+          }
+        },
+        "options": {}
+      },
+      "id": "save-to-sheets",
+      "name": "Save to Google Sheets",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [
+        1800,
+        520
+      ],
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "",
+          "name": "Google Sheets OAuth2 API"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={\n  \"success\": true,\n  \"message\": \"Assessment request received. {{ $json.wants_ai_audit ? 'Your comprehensive AI audit will be emailed shortly.' : 'Check your email for initial insights.' }}\",\n  \"lead_id\": \"{{ $json.lead_id }}\",\n  \"audit_included\": {{ $json.wants_ai_audit }}\n}",
+        "options": {}
+      },
+      "id": "webhook-response",
+      "name": "Respond to Webhook",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [
+        2020,
+        460
+      ]
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "Format Lead Data",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Format Lead Data": {
+      "main": [
+        [
+          {
+            "node": "Quick AI Analysis",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Quick AI Analysis": {
+      "main": [
+        [
+          {
+            "node": "Process Quick Analysis",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Process Quick Analysis": {
+      "main": [
+        [
+          {
+            "node": "Route Lead Flow",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Route Lead Flow": {
+      "main": [
+        [
+          {
+            "node": "Deep AI Audit",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Slack: Hot Lead Alert",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Email: Standard Response",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Slack: Standard Lead",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Email: Standard Response",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Deep AI Audit": {
+      "main": [
+        [
+          {
+            "node": "Process Deep Audit",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Process Deep Audit": {
+      "main": [
+        [
+          {
+            "node": "Email: AI Audit Response",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Save to Google Sheets",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Slack: Hot Lead Alert": {
+      "main": [
+        [
+          {
+            "node": "Save to Google Sheets",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Slack: Standard Lead": {
+      "main": [
+        [
+          {
+            "node": "Save to Google Sheets",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Email: Standard Response": {
+      "main": [
+        [
+          {
+            "node": "Save to Google Sheets",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Email: AI Audit Response": {
+      "main": [
+        [
+          {
+            "node": "Webhook Response",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Save to Google Sheets": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "",
+  "meta": {
+    "templateCredsSetupCompleted": false,
+    "instanceId": "your-instance-id"
+  },
+  "id": "",
+  "tags": []
+}
