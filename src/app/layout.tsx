@@ -22,7 +22,7 @@ export const metadata: Metadata = {
     template: "%s | RaapTech LLC",
   },
   description:
-    "20 years of Autodesk Fabrication experience. CADmep, ESTmep, CAMduct consulting and AI onboarding for sheet metal and MEP contractors. Founded by Kyle Raap.",
+    "20 years of Autodesk Fabrication experience. CADmep, ESTmep, CAMduct consulting and AI onboarding for sheet metal and MEP contractors. Founded by Tim Raap.",
   keywords: [
     "Autodesk Fabrication",
     "CADmep",
@@ -32,10 +32,10 @@ export const metadata: Metadata = {
     "MEP contractor",
     "AI onboarding",
     "fabrication database",
-    "Kyle Raap",
+    "Tim Raap",
     "RaapTech",
   ],
-  authors: [{ name: "Kyle Raap", url: "https://raaptech.com" }],
+  authors: [{ name: "Tim Raap", url: "https://raaptech.com" }],
   creator: "RaapTech LLC",
   openGraph: {
     type: "website",

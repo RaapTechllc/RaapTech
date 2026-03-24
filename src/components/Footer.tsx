@@ -58,10 +58,10 @@ export default function Footer() {
             <ul className="flex flex-col gap-2">
               <li>
                 <a
-                  href="mailto:kyle@raaptech.com"
+                  href="mailto:tim@raaptech.com"
                   className="text-slate-400 hover:text-brand-orange text-sm transition-colors"
                 >
-                  kyle@raaptech.com
+                  tim@raaptech.com
                 </a>
               </li>
             </ul>

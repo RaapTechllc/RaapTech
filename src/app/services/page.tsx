@@ -18,10 +18,10 @@ export default function ServicesPage() {
             <span className="section-tag">Services</span>
           </div>
           <h1 className="text-5xl md:text-6xl font-bold text-white leading-tight mb-6 max-w-3xl">
-            Two things we do. Both grounded in 20 years of trade work.
+            Two things we do. Both come from 20 years in the trade.
           </h1>
           <p className="text-slate-400 text-lg max-w-2xl">
-            Every engagement starts with the same question: what is actually slowing your shop down? Then we fix that. No extra layers, no upsells.
+            Every engagement starts the same way: what&apos;s actually slowing your shop down? Then we fix that. No extra layers, no upsells.
           </p>
         </div>
       </section>
@@ -39,10 +39,10 @@ export default function ServicesPage() {
                 Autodesk Fabrication Consulting
               </h2>
               <p className="text-slate-400 leading-relaxed mb-6">
-                Your fabrication database is the backbone of your shop. When it is wrong, estimates are wrong, BOMs are wrong, and someone eats the difference. Kyle has spent 20 years keeping these systems running.
+                Your fabrication database is the backbone of your shop. When it&apos;s wrong, estimates are wrong, BOMs are wrong, and someone eats the difference. Tim&apos;s spent 20 years keeping these systems running.
               </p>
               <p className="text-slate-400 leading-relaxed mb-8">
-                The real cost is not the software license. It is the tribal knowledge that walks out the door when your senior guy retires. Knowledge transfer is built into every engagement.
+                The real cost isn&apos;t the software license. It&apos;s the tribal knowledge that walks out the door when your senior guy retires. That&apos;s why knowledge transfer is baked into every engagement.
               </p>
             </div>
 
@@ -94,10 +94,10 @@ export default function ServicesPage() {
                 AI Onboarding for MEP &amp; Sheet Metal Contractors
               </h2>
               <p className="text-slate-400 leading-relaxed mb-6">
-                Your competitor is turning around quotes faster because they stopped doing everything by hand. AI is not going to replace your estimator. But an estimator with AI is going to outwork one without it.
+                Your competitor is turning around quotes faster because they stopped doing everything by hand. AI isn&apos;t going to replace your estimator — but an estimator with AI is going to outwork one without it.
               </p>
               <p className="text-slate-400 leading-relaxed mb-8">
-                This is not a generic AI workshop. Kyle sets up the tools for your actual workflows — the RFIs your team writes, the submittals you send, the change orders you process. Then he trains your people on-site until it sticks.
+                This isn&apos;t a generic AI workshop. Tim sets up the tools for your actual workflows — the RFIs your team writes, the submittals you send, the change orders you process. Then he trains your people on-site until it sticks.
               </p>
             </div>
 

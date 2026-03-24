@@ -86,7 +86,7 @@ export default function ContactForm() {
             required
             value={form.name}
             onChange={handleChange}
-            placeholder="Kyle Raap"
+            placeholder="Tim Raap"
             className="w-full bg-dark-surface border border-dark-border text-white text-sm px-4 py-3 placeholder:text-slate-600 focus:outline-none focus:border-brand-orange transition-colors font-sans"
           />
         </div>
@@ -104,7 +104,7 @@ export default function ContactForm() {
             required
             value={form.email}
             onChange={handleChange}
-            placeholder="kyle@company.com"
+            placeholder="tim@company.com"
             className="w-full bg-dark-surface border border-dark-border text-white text-sm px-4 py-3 placeholder:text-slate-600 focus:outline-none focus:border-brand-orange transition-colors font-sans"
           />
         </div>

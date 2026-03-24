@@ -19,7 +19,7 @@ const features = [
     tag: "01",
     title: "Autodesk Fabrication Consulting",
     description:
-      "CADmep, ESTmep, CAMduct setup and optimization. Database maintenance, pricing tables, custom libraries. On-site training your team actually retains. 20 years of keeping fabrication workflows running.",
+      "CADmep, ESTmep, CAMduct setup and optimization. Database maintenance, pricing tables, custom libraries. Training your team actually retains — not a binder that collects dust. Twenty years of keeping this stuff running.",
     icon: (
       <svg
         className="w-6 h-6"
@@ -39,7 +39,7 @@ const features = [
     tag: "02",
     title: "AI Onboarding for MEP & Sheet Metal Contractors",
     description:
-      "Assessment of where AI fits your workflow. Claude or ChatGPT configured for your shop. Prompt templates for estimating, RFIs, submittals, and change orders. On-site training. Monthly retainer so it sticks.",
+      "We figure out where AI actually helps in your shop — not everywhere, just where it counts. Claude or ChatGPT configured for your real workflows. Prompt templates for estimating, RFIs, submittals, change orders. On-site training and a monthly retainer so it actually sticks.",
     icon: (
       <svg
         className="w-6 h-6"
@@ -95,7 +95,7 @@ export default function HomePage() {
             </h1>
 
             <p className="text-slate-400 text-lg md:text-xl leading-relaxed max-w-2xl mb-12">
-              Kyle Raap has spent two decades inside Autodesk Fabrication &mdash; CADmep, ESTmep, CAMduct &mdash; on the shop floor, not behind a sales deck. Now he brings AI tools to the contractors who actually build things.
+              Tim Raap. Two decades of Autodesk Fabrication &mdash; CADmep, ESTmep, CAMduct &mdash; learned on the shop floor, not from a sales deck. Now he&apos;s bringing AI tools to the contractors who actually build things.
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4">
@@ -115,7 +115,7 @@ export default function HomePage() {
                 </svg>
               </Link>
               <Link href="/about" className="btn-secondary">
-                About Kyle
+                About Tim
               </Link>
             </div>
           </div>
