@@ -18,17 +18,20 @@ const jetbrainsMono = JetBrains_Mono({
 export const metadata: Metadata = {
   metadataBase: new URL("https://raaptech.com"),
   title: {
-    default: "RaapTech LLC — AI Infrastructure & Autonomous Agents",
+    default: "RaapTech LLC — Autodesk Fabrication Consulting & AI for the Trades",
     template: "%s | RaapTech LLC",
   },
   description:
-    "RaapTech LLC builds AI infrastructure and autonomous agent systems. Founded by Kyle Raap — engineering the future of intelligent automation.",
+    "20 years of Autodesk Fabrication experience. CADmep, ESTmep, CAMduct consulting and AI onboarding for sheet metal and MEP contractors. Founded by Kyle Raap.",
   keywords: [
-    "AI infrastructure",
-    "autonomous agents",
-    "machine learning",
-    "LLM",
-    "artificial intelligence",
+    "Autodesk Fabrication",
+    "CADmep",
+    "ESTmep",
+    "CAMduct",
+    "sheet metal consulting",
+    "MEP contractor",
+    "AI onboarding",
+    "fabrication database",
     "Kyle Raap",
     "RaapTech",
   ],
@@ -39,9 +42,9 @@ export const metadata: Metadata = {
     locale: "en_US",
     url: "https://raaptech.com",
     siteName: "RaapTech LLC",
-    title: "RaapTech LLC — AI Infrastructure & Autonomous Agents",
+    title: "RaapTech LLC — Autodesk Fabrication Consulting & AI for the Trades",
     description:
-      "Building AI infrastructure and autonomous agent systems that operate at machine speed.",
+      "20 years of Autodesk Fabrication. CADmep, ESTmep, CAMduct consulting and AI onboarding for sheet metal and MEP contractors.",
     images: [
       {
         url: "/og-image.png",
@@ -53,9 +56,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "RaapTech LLC — AI Infrastructure & Autonomous Agents",
+    title: "RaapTech LLC — Autodesk Fabrication Consulting & AI for the Trades",
     description:
-      "Building AI infrastructure and autonomous agent systems that operate at machine speed.",
+      "20 years of Autodesk Fabrication. CADmep, ESTmep, CAMduct consulting and AI onboarding for sheet metal and MEP contractors.",
     images: ["/og-image.png"],
     creator: "@raaptech",
   },

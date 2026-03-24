@@ -2,24 +2,24 @@ import type { Metadata } from "next";
 import Link from "next/link";
 
 export const metadata: Metadata = {
-  title: "RaapTech LLC — AI Infrastructure & Autonomous Agents",
+  title: "RaapTech LLC — Autodesk Fabrication Consulting & AI for the Trades",
   description:
-    "RaapTech LLC builds AI infrastructure and autonomous agent systems. Founded by Kyle Raap — engineering the future of intelligent automation.",
+    "20 years of Autodesk Fabrication experience. CADmep, ESTmep, CAMduct consulting and AI onboarding for sheet metal and MEP contractors.",
 };
 
 const stats = [
-  { value: "4+", label: "Active Projects" },
-  { value: "100K+", label: "Agents Deployed" },
-  { value: "24/7", label: "Autonomous Ops" },
-  { value: "< 50ms", label: "Avg Response" },
+  { value: "20+", label: "Years Autodesk Fabrication" },
+  { value: "4", label: "Active Clients" },
+  { value: "Daily", label: "On-Site" },
+  { value: "2023", label: "Founded" },
 ];
 
 const features = [
   {
     tag: "01",
-    title: "Autonomous Agent Fleets",
+    title: "Autodesk Fabrication Consulting",
     description:
-      "Deploy and orchestrate hundreds of AI agents working in parallel. Built-in mission control, real-time monitoring, and adaptive task routing.",
+      "CADmep, ESTmep, CAMduct setup and optimization. Database maintenance, pricing tables, custom libraries. On-site training your team actually retains. 20 years of keeping fabrication workflows running.",
     icon: (
       <svg
         className="w-6 h-6"
@@ -37,29 +37,9 @@ const features = [
   },
   {
     tag: "02",
-    title: "LLM Trading Systems",
+    title: "AI Onboarding for MEP & Sheet Metal Contractors",
     description:
-      "Production-grade language model integration for financial markets. Real-time signal generation, risk management, and algorithmic execution.",
-    icon: (
-      <svg
-        className="w-6 h-6"
-        fill="none"
-        viewBox="0 0 24 24"
-        stroke="currentColor"
-      >
-        <path
-          strokeLinecap="square"
-          strokeWidth={1.5}
-          d="M7 12l3-3 3 3 4-4M8 21l4-4 4 4M3 4h18M4 4h16v12a1 1 0 01-1 1H5a1 1 0 01-1-1V4z"
-        />
-      </svg>
-    ),
-  },
-  {
-    tag: "03",
-    title: "Intelligent SEO Systems",
-    description:
-      "AI-powered SEO health monitoring and automated reporting. Crawl, analyze, and surface actionable insights at scale.",
+      "Assessment of where AI fits your workflow. Claude or ChatGPT configured for your shop. Prompt templates for estimating, RFIs, submittals, and change orders. On-site training. Monthly retainer so it sticks.",
     icon: (
       <svg
         className="w-6 h-6"
@@ -100,29 +80,27 @@ export default function HomePage() {
             {/* Tag */}
             <div className="flex items-center gap-3 mb-8">
               <div className="w-8 h-px bg-brand-emerald" />
-              <span className="section-tag">AI Infrastructure</span>
+              <span className="section-tag">Fabrication Consulting + AI</span>
             </div>
 
             {/* Headline */}
             <h1 className="text-5xl md:text-7xl font-bold text-white leading-none tracking-tight mb-8">
-              Machines That
+              20 Years in
               <br />
-              <span className="text-brand-orange">Think.</span>
+              <span className="text-brand-orange">the Trade.</span>
               <br />
-              Systems That
+              AI-Native
               <br />
-              <span className="text-brand-emerald">Operate.</span>
+              <span className="text-brand-emerald">Since Day One.</span>
             </h1>
 
             <p className="text-slate-400 text-lg md:text-xl leading-relaxed max-w-2xl mb-12">
-              RaapTech LLC engineers AI infrastructure and autonomous agent
-              systems. From fleet orchestration to LLM-powered trading — we
-              build what operates at machine speed.
+              Kyle Raap has spent two decades inside Autodesk Fabrication &mdash; CADmep, ESTmep, CAMduct &mdash; on the shop floor, not behind a sales deck. Now he brings AI tools to the contractors who actually build things.
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4">
-              <Link href="/projects" className="btn-primary">
-                View Projects
+              <Link href="/services" className="btn-primary">
+                View Services
                 <svg
                   className="w-4 h-4"
                   fill="none"
@@ -137,7 +115,7 @@ export default function HomePage() {
                 </svg>
               </Link>
               <Link href="/about" className="btn-secondary">
-                About RaapTech
+                About Kyle
               </Link>
             </div>
           </div>
@@ -149,30 +127,30 @@ export default function HomePage() {
             <div className="flex items-center gap-2 mb-3 pb-3 border-b border-dark-border">
               <div className="w-2 h-2 bg-brand-orange" />
               <span className="font-mono text-xs text-slate-500">
-                agent.status
+                raaptech.status
               </span>
             </div>
             <div className="space-y-2 font-mono text-xs">
               <div className="flex justify-between">
-                <span className="text-slate-500">fleet_status</span>
-                <span className="text-brand-emerald">ACTIVE</span>
+                <span className="text-slate-500">specialty</span>
+                <span className="text-brand-emerald">FABRICATION</span>
               </div>
               <div className="flex justify-between">
-                <span className="text-slate-500">agents_online</span>
-                <span className="text-white">247</span>
+                <span className="text-slate-500">experience</span>
+                <span className="text-white">20+ yrs</span>
               </div>
               <div className="flex justify-between">
-                <span className="text-slate-500">tasks_queued</span>
-                <span className="text-white">1,842</span>
+                <span className="text-slate-500">active_clients</span>
+                <span className="text-white">4</span>
               </div>
               <div className="flex justify-between">
-                <span className="text-slate-500">throughput</span>
-                <span className="text-brand-orange">98.4%</span>
+                <span className="text-slate-500">on_site</span>
+                <span className="text-brand-orange">DAILY</span>
               </div>
               <div className="mt-3 pt-3 border-t border-dark-border">
                 <div className="flex items-center gap-2">
                   <div className="w-2 h-2 bg-brand-emerald animate-pulse" />
-                  <span className="text-brand-emerald">All systems nominal</span>
+                  <span className="text-brand-emerald">Available for new clients</span>
                 </div>
               </div>
             </div>
@@ -210,13 +188,13 @@ export default function HomePage() {
         <div className="max-w-7xl mx-auto px-6">
           <div className="flex items-center gap-3 mb-4">
             <div className="w-8 h-px bg-brand-emerald" />
-            <span className="section-tag">What We Build</span>
+            <span className="section-tag">What We Do</span>
           </div>
           <h2 className="text-3xl md:text-4xl font-bold text-white mb-16 max-w-xl">
-            Infrastructure for the autonomous era
+            Trade knowledge meets modern tooling
           </h2>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-px bg-dark-border">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-px bg-dark-border">
             {features.map((feature, i) => (
               <div key={i} className="bg-dark-bg p-8 hover:bg-dark-surface transition-colors group">
                 <div className="flex items-start justify-between mb-6">
@@ -244,17 +222,17 @@ export default function HomePage() {
         <div className="max-w-7xl mx-auto px-6">
           <div className="border border-dark-border bg-dark-surface p-12 flex flex-col md:flex-row items-start md:items-center justify-between gap-8">
             <div>
-              <span className="section-tag mb-3 block">Ready to Deploy</span>
+              <span className="section-tag mb-3 block">Ready to Talk</span>
               <h2 className="text-3xl font-bold text-white">
-                Let&apos;s build something that scales.
+                Your shop deserves someone who gets it.
               </h2>
             </div>
             <div className="flex gap-4">
               <Link href="/contact" className="btn-primary whitespace-nowrap">
                 Start a Conversation
               </Link>
-              <Link href="/projects" className="btn-secondary whitespace-nowrap">
-                See Projects
+              <Link href="/services" className="btn-secondary whitespace-nowrap">
+                See Services
               </Link>
             </div>
           </div>

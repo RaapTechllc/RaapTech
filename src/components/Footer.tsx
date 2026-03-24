@@ -20,9 +20,8 @@ export default function Footer() {
               </span>
             </div>
             <p className="text-slate-400 text-sm leading-relaxed max-w-sm">
-              Building AI infrastructure and autonomous agent systems that
-              operate at machine speed. Engineering the future of intelligent
-              automation.
+              Autodesk Fabrication consulting and AI onboarding for sheet metal
+              and MEP contractors. 20 years of trade experience.
             </p>
           </div>
 
@@ -35,6 +34,7 @@ export default function Footer() {
               {[
                 { href: "/", label: "Home" },
                 { href: "/about", label: "About" },
+                { href: "/services", label: "Services" },
                 { href: "/projects", label: "Projects" },
                 { href: "/contact", label: "Contact" },
               ].map((link) => (
@@ -73,7 +73,7 @@ export default function Footer() {
             &copy; {currentYear} RaapTech LLC. All rights reserved.
           </p>
           <p className="font-mono text-xs text-slate-600">
-            AI Infrastructure &amp; Autonomous Agents
+            Autodesk Fabrication Consulting &amp; AI for the Trades
           </p>
         </div>
       </div>

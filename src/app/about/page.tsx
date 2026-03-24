@@ -4,66 +4,66 @@ import Link from "next/link";
 export const metadata: Metadata = {
   title: "About",
   description:
-    "RaapTech LLC is an AI infrastructure company founded by Kyle Raap, engineering autonomous agent systems and intelligent automation platforms.",
+    "Kyle Raap — 20 years of Autodesk Fabrication experience. CADmep, ESTmep, CAMduct consulting for sheet metal and MEP contractors. Now bringing AI to the trades.",
 };
 
 const values = [
   {
     tag: "01",
-    title: "Machine-First Design",
+    title: "Trade Knowledge First",
     description:
-      "Every system is built to operate autonomously. Human oversight is a feature, not a requirement for function.",
+      "Every recommendation starts with understanding the work. CADmep, BOMs, submittals, fabrication databases. If you have not lived it, you cannot fix it.",
   },
   {
     tag: "02",
-    title: "Production Bias",
+    title: "AI as the Tool, Not the Product",
     description:
-      "Demos are not products. We ship infrastructure that runs in production, handles edge cases, and scales without babysitting.",
+      "AI is useful when it saves your estimator two hours on a reprice. It is not useful as a buzzword on a slide deck. We deploy what works and skip what does not.",
   },
   {
     tag: "03",
-    title: "Minimal Abstraction",
+    title: "Results Over Process",
     description:
-      "We build close to the metal where it matters. Fewer layers means fewer failure modes and lower latency.",
+      "Nobody cares how elegant the system is. They care that the material takeoff is right, the quote went out on time, and the crew has what they need.",
   },
   {
     tag: "04",
-    title: "Compounding Systems",
+    title: "On-Site Accountability",
     description:
-      "The best AI infrastructure gets better over time. Every agent interaction trains the next iteration.",
+      "Remote advice is cheap. Showing up at the shop, training the team in person, and being there when the workflow breaks — that is what makes it stick.",
   },
 ];
 
 const timeline = [
   {
-    year: "2022",
-    title: "Foundation",
+    year: "2005",
+    title: "Started in the Trade",
     description:
-      "RaapTech LLC founded with a focus on building AI-powered automation infrastructure for complex, multi-step workflows.",
+      "Began working with Autodesk Fabrication Suite. CADmep, ESTmep, CAMduct — learning the tools from the shop floor up.",
+  },
+  {
+    year: "2010",
+    title: "Fabrication Database Specialist",
+    description:
+      "Became the go-to person for Fabrication database setup, maintenance, and custom library development across multiple shops.",
+  },
+  {
+    year: "2018",
+    title: "Process Optimization Focus",
+    description:
+      "Shifted focus to estimating workflow optimization and knowledge transfer — helping shops retain what their senior people know.",
   },
   {
     year: "2023",
-    title: "Agent Fleet v1",
+    title: "Founded RaapTech LLC",
     description:
-      "Launched first version of AI Agent Fleet — a distributed orchestration system for deploying autonomous task agents at scale.",
-  },
-  {
-    year: "2024",
-    title: "LLM Trading Arena",
-    description:
-      "Developed LLM Trading Arena: a live evaluation framework where language models compete on financial signal generation with real capital exposure.",
+      "Launched RaapTech to formalize two decades of consulting work and bring AI tools to sheet metal and MEP contractors.",
   },
   {
     year: "2025",
-    title: "Platform Expansion",
+    title: "AI Onboarding for the Trades",
     description:
-      "Expanded into SEO intelligence with automated health reporting systems and launched BeanzNeez as a standalone consumer product.",
-  },
-  {
-    year: "2026",
-    title: "Mission Control",
-    description:
-      "Shipping Mission Control — a unified dashboard for managing multi-agent fleets, monitoring autonomous workflows, and scaling AI operations.",
+      "Started deploying AI tools on-site — Claude, ChatGPT — configured for real construction workflows. Estimating, RFIs, submittals, change orders.",
   },
 ];
 
@@ -78,12 +78,10 @@ export default function AboutPage() {
             <span className="section-tag">About RaapTech</span>
           </div>
           <h1 className="text-5xl md:text-6xl font-bold text-white leading-tight mb-8 max-w-3xl">
-            Engineering the autonomous infrastructure layer
+            Built by someone who has actually been on the job site
           </h1>
           <p className="text-slate-400 text-lg max-w-2xl leading-relaxed">
-            RaapTech LLC is a focused AI infrastructure company. We build the
-            systems that let intelligent agents operate, coordinate, and scale —
-            without requiring constant human intervention.
+            RaapTech is not a tech startup that read about construction. It is 20 years of Autodesk Fabrication work, packaged into a consulting practice that now includes AI.
           </p>
         </div>
       </section>
@@ -99,21 +97,13 @@ export default function AboutPage() {
               </div>
               <h2 className="text-3xl font-bold text-white mb-6">Kyle Raap</h2>
               <p className="text-slate-400 leading-relaxed mb-6">
-                Kyle Raap is the founder of RaapTech LLC, with a background
-                spanning systems engineering, AI research, and applied machine
-                learning. He started RaapTech to bridge the gap between
-                cutting-edge AI research and production-ready infrastructure.
+                Kyle has spent 20 years inside the Autodesk Fabrication Suite — CADmep, ESTmep, CAMduct, Fabrication databases. Not selling it. Using it. On the shop floor, in the field, training crews, fixing what broke.
               </p>
               <p className="text-slate-400 leading-relaxed mb-6">
-                His work focuses on the hard problems: deploying LLMs at scale,
-                orchestrating autonomous agent fleets, and building systems that
-                operate reliably without constant human oversight.
+                He founded RaapTech because the trades need someone who speaks both languages. Your shop does not need a Silicon Valley tech team. It needs someone who understands your fabrication database, knows what a BOM looks like, and can set up an AI tool that your estimator will actually use.
               </p>
               <p className="text-slate-400 leading-relaxed mb-8">
-                Before RaapTech, Kyle worked on distributed systems and
-                algorithmic trading platforms, experience that directly informs
-                the reliability-first approach to AI infrastructure he brings to
-                every project.
+                Today Kyle is on-site daily at sheet metal and MEP shops — not just consulting from an office. He uses AI tools in his own work every day, and he brings that same practical approach to every client engagement.
               </p>
               <div className="flex gap-4">
                 <Link href="/contact" className="btn-primary text-xs">
@@ -129,12 +119,12 @@ export default function AboutPage() {
                 </div>
                 <div className="space-y-3 font-mono text-sm">
                   {[
-                    { key: "primary", value: "AI Infrastructure" },
-                    { key: "secondary", value: "Autonomous Agents" },
-                    { key: "domain", value: "LLM Systems" },
-                    { key: "applied", value: "Algorithmic Trading" },
-                    { key: "tooling", value: "Distributed Systems" },
-                    { key: "stack", value: "Python, TypeScript, Rust" },
+                    { key: "primary", value: "Autodesk Fabrication Suite" },
+                    { key: "tools", value: "CADmep / ESTmep / CAMduct" },
+                    { key: "domain", value: "Sheet Metal & MEP Ops" },
+                    { key: "applied", value: "AI Workflow Design" },
+                    { key: "method", value: "Process Automation" },
+                    { key: "delivery", value: "On-Site Training" },
                   ].map((item) => (
                     <div key={item.key} className="flex justify-between gap-4">
                       <span className="text-slate-500">{item.key}</span>
@@ -148,7 +138,7 @@ export default function AboutPage() {
                 <div className="flex items-center gap-2">
                   <div className="w-2 h-2 bg-brand-emerald animate-pulse" />
                   <span className="font-mono text-xs text-brand-emerald">
-                    Currently building Mission Control v2
+                    On-site daily — available for new clients
                   </span>
                 </div>
               </div>
@@ -162,10 +152,10 @@ export default function AboutPage() {
         <div className="max-w-7xl mx-auto px-6">
           <div className="flex items-center gap-3 mb-6">
             <div className="w-8 h-px bg-brand-emerald" />
-            <span className="section-tag">Operating Principles</span>
+            <span className="section-tag">How Kyle Works</span>
           </div>
           <h2 className="text-3xl font-bold text-white mb-16">
-            How we think about building
+            Operating principles
           </h2>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-px bg-dark-border">
@@ -194,10 +184,10 @@ export default function AboutPage() {
         <div className="max-w-7xl mx-auto px-6">
           <div className="flex items-center gap-3 mb-6">
             <div className="w-8 h-px bg-brand-emerald" />
-            <span className="section-tag">Company Timeline</span>
+            <span className="section-tag">Timeline</span>
           </div>
           <h2 className="text-3xl font-bold text-white mb-16">
-            From concept to production
+            From the shop floor to AI
           </h2>
 
           <div className="relative">
