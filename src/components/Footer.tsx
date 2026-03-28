@@ -20,8 +20,8 @@ export default function Footer() {
               </span>
             </div>
             <p className="text-slate-400 text-sm leading-relaxed max-w-sm">
-              Autodesk Fabrication consulting and AI onboarding for sheet metal
-              and MEP contractors. 20 years of trade experience.
+              Construction workflow optimization for sheet metal and MEP
+              contractors. 20 years of trade experience.
             </p>
           </div>
 
@@ -73,7 +73,7 @@ export default function Footer() {
             &copy; {currentYear} RaapTech LLC. All rights reserved.
           </p>
           <p className="font-mono text-xs text-slate-600">
-            Autodesk Fabrication Consulting &amp; AI for the Trades
+            Construction Workflow Optimization
           </p>
         </div>
       </div>
