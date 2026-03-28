@@ -4,7 +4,7 @@ import Link from "next/link";
 export const metadata: Metadata = {
   title: "RaapTech LLC — Construction Workflow Optimization",
   description:
-    "20 years in MEP fabrication. Thousands of admin hours eliminated. We audit your construction workflows, find the bottlenecks, and fix them. Book a free workflow consultation.",
+    "20 years in MEP fabrication. We audit your construction workflows, find the bottlenecks, and fix them. Serving sheet metal, mechanical, and electrical contractors. Book a free workflow consultation.",
 };
 
 const painPoints = [
@@ -45,54 +45,7 @@ const steps = [
     number: "03",
     title: "You get your hours back",
     description:
-      "We fix the biggest bottleneck. Not a recommendation report — a working process change your team is already using. Most clients save 6–12 hours per week.",
-  },
-];
-
-const services = [
-  {
-    tier: "Free",
-    name: "Workflow Consultation",
-    price: "No cost",
-    timeline: "20 minutes",
-    description:
-      "A conversation about where your team is losing time. We'll tell you honestly whether we can help.",
-    cta: "Book a Call",
-    href: "/contact",
-    featured: false,
-  },
-  {
-    tier: "Starter",
-    name: "Workflow Audit + First Fix",
-    price: "$3K – $5K",
-    timeline: "5–10 business days",
-    description:
-      "Full documentation of your current admin workflows. Bottleneck identification. One workflow rebuilt, tested, and handed off. 30-day follow-up check-in.",
-    cta: "Get Started",
-    href: "/contact",
-    featured: true,
-  },
-  {
-    tier: "Full",
-    name: "Construction Ops Upgrade",
-    price: "$8K – $15K",
-    timeline: "4–8 weeks",
-    description:
-      "Multiple workflows redesigned. Field-to-office handoffs rebuilt. Staff training and documentation. Ongoing support through rollout.",
-    cta: "Let's Talk",
-    href: "/contact",
-    featured: false,
-  },
-  {
-    tier: "Ongoing",
-    name: "Operations Support",
-    price: "$2K – $6K/mo",
-    timeline: "Monthly retainer",
-    description:
-      "Continuous workflow monitoring and optimization. New process builds as your projects evolve. Priority support and regular check-ins.",
-    cta: "Learn More",
-    href: "/contact",
-    featured: false,
+      "We fix the biggest bottleneck. Not a recommendation report — a working process change your team is already using. Clients typically reclaim 6\u201312 hours per week.",
   },
 ];
 
@@ -122,20 +75,20 @@ export default function HomePage() {
             </div>
 
             <h1 className="text-5xl md:text-7xl font-bold text-white leading-none tracking-tight mb-8">
-              20 Years in MEP.
+              Your MEP Team Is Losing
               <br />
-              <span className="text-brand-orange">Thousands of Admin</span>
+              <span className="text-brand-orange">6&ndash;12 Hours a Week</span>
               <br />
-              <span className="text-brand-orange">Hours Eliminated.</span>
+              to Admin Work.
             </h1>
 
             <p className="text-slate-400 text-lg md:text-xl leading-relaxed max-w-2xl mb-12">
-              Your project managers are spending hours on work that should take minutes. We find the bottlenecks in your construction workflows and fix them &mdash; so your team can get back to building.
+              Chasing submittals, re-entering data, compiling reports nobody reads. Your PMs are spending hours on work that should take minutes. We find the bottlenecks and fix them &mdash; so your team can get back to running jobs.
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4">
               <Link href="/contact" className="btn-primary">
-                Book a Free Workflow Audit
+                Book a Free Workflow Consultation
                 <svg
                   className="w-4 h-4"
                   fill="none"
@@ -198,10 +151,10 @@ export default function HomePage() {
         <div className="max-w-7xl mx-auto px-6">
           <div className="grid grid-cols-2 md:grid-cols-4">
             {[
-              { value: "20", label: "Years in MEP" },
+              { value: "20", label: "Years in MEP Fabrication" },
               { value: "4", label: "Active Clients" },
               { value: "6–12", label: "Hours Saved / Week" },
-              { value: "Daily", label: "On-Site" },
+              { value: "3", label: "Trades Served" },
             ].map((stat, i) => (
               <div
                 key={i}
@@ -232,7 +185,7 @@ export default function HomePage() {
             The job isn&apos;t falling apart at the jobsite. It&apos;s falling apart in your inbox.
           </h2>
           <p className="text-slate-400 text-lg leading-relaxed max-w-2xl mb-16">
-            Missed follow-ups. RFIs that sat for two weeks. Subs waiting on approvals that were &ldquo;sent&rdquo; but never confirmed. Admin drag is a slow leak &mdash; it doesn&apos;t show up on a cost report, but it&apos;s costing you real money.
+            Missed follow-ups. RFIs that sat for two weeks. Subs waiting on approvals that were &ldquo;sent&rdquo; but never confirmed. Admin drag is a slow leak &mdash; it doesn&apos;t show up on a cost report, but it&apos;s costing you real money in overtime, in mistakes, and in burned-out project managers who eventually leave.
           </p>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-px bg-dark-border">
@@ -254,19 +207,19 @@ export default function HomePage() {
       </section>
 
       {/* ═══════════════════════════════════════════
-          SECTION 3: SOLUTION
+          SECTION 3: SOLUTION — Construction Workflow Audit
       ═══════════════════════════════════════════ */}
       <section className="py-24 border-t border-dark-border">
         <div className="max-w-7xl mx-auto px-6">
           <div className="flex items-center gap-3 mb-4">
             <div className="w-8 h-px bg-brand-emerald" />
-            <span className="section-tag">The Solution</span>
+            <span className="section-tag">Construction Workflow Audit</span>
           </div>
           <h2 className="text-3xl md:text-4xl font-bold text-white mb-6 max-w-2xl">
             A workflow audit that ends with something working &mdash; not a slide deck.
           </h2>
           <p className="text-slate-400 text-lg leading-relaxed max-w-2xl mb-12">
-            We map your PM workflows from daily log to submittal tracking to closeout, identify the top bottlenecks eating the most time, and fix one of them. Completely. In under two weeks.
+            We map your PM workflows from daily log to submittal tracking to closeout, identify the top bottlenecks eating the most time, and fix one of them. Completely. In under two weeks. You walk away with a working process change &mdash; not a recommendation report.
           </p>
 
           <div className="border border-dark-border bg-dark-surface p-8 md:p-12">
@@ -277,11 +230,12 @@ export default function HomePage() {
                 </h3>
                 <ul className="space-y-4">
                   {[
+                    "Full documentation of your current admin workflows and bottleneck identification",
                     "2-hour workflow mapping session with your PM team",
-                    "Written bottleneck analysis — plain English, no jargon",
-                    "One workflow rebuilt, tested, and handed off",
+                    "Prioritized improvement roadmap — plain English, no jargon",
+                    "One workflow fully built, tested, and handed off to your team",
                     "Documentation your staff can actually use",
-                    "30-day follow-up check-in",
+                    "30-day follow-up check-in to confirm results",
                   ].map((item, i) => (
                     <li key={i} className="flex items-start gap-3">
                       <div className="w-1.5 h-1.5 bg-brand-orange mt-2 shrink-0" />
@@ -298,6 +252,7 @@ export default function HomePage() {
                   <div>
                     <div className="font-mono text-xs text-slate-500 uppercase tracking-wider mb-1">Investment</div>
                     <div className="text-2xl font-bold text-white">$3,000 – $5,000</div>
+                    <div className="text-xs text-slate-500 mt-1">Final pricing confirmed after scoping call</div>
                   </div>
                   <div>
                     <div className="font-mono text-xs text-slate-500 uppercase tracking-wider mb-1">Timeline</div>
@@ -305,12 +260,18 @@ export default function HomePage() {
                   </div>
                   <div>
                     <div className="font-mono text-xs text-slate-500 uppercase tracking-wider mb-1">Typical result</div>
-                    <div className="text-white font-semibold">6–12 hours/week saved per PM</div>
+                    <div className="text-white font-semibold">Clients typically reclaim 6–12 hours/week</div>
+                    <div className="text-xs text-slate-500 mt-1">Results vary by team size and current workflow maturity</div>
+                  </div>
+                  <div>
+                    <div className="font-mono text-xs text-slate-500 uppercase tracking-wider mb-1">Capacity</div>
+                    <div className="text-white font-semibold">4–6 engagements per month</div>
+                    <div className="text-xs text-slate-500 mt-1">Limited to maintain quality on every engagement</div>
                   </div>
                 </div>
                 <div className="mt-8">
                   <Link href="/contact" className="btn-primary">
-                    Book a Free Workflow Audit
+                    Book a Free Workflow Consultation
                     <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                       <path strokeLinecap="square" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
                     </svg>
@@ -361,7 +322,7 @@ export default function HomePage() {
       </section>
 
       {/* ═══════════════════════════════════════════
-          SECTION 5: PROOF
+          SECTION 5: PROOF / CREDIBILITY
       ═══════════════════════════════════════════ */}
       <section className="py-24 border-t border-dark-border bg-dark-surface">
         <div className="max-w-7xl mx-auto px-6">
@@ -377,7 +338,7 @@ export default function HomePage() {
             {[
               {
                 stat: "20 Years",
-                label: "Autodesk Fabrication Experience",
+                label: "Hands-On MEP Fabrication",
                 description:
                   "CADmep, ESTmep, CAMduct — learned on the shop floor, not from a sales deck. Tim Raap has been solving fabrication workflow problems since before most consultants knew what BIM was.",
               },
@@ -388,10 +349,10 @@ export default function HomePage() {
                   "We limit new engagements to maintain quality. Every client gets direct access to Tim — not a junior associate, not a subcontractor. The person who scoped the work does the work.",
               },
               {
-                stat: "Daily",
-                label: "On-Site at a Sheet Metal Shop",
+                stat: "3 Trades",
+                label: "Sheet Metal, Mechanical, Electrical",
                 description:
-                  "Not remote-only. Not fly-in-fly-out. Tim works on-site daily at an active sheet metal fabrication shop. He sees the problems as they happen — not weeks later in a status report.",
+                  "Serving sheet metal fabrication shops, mechanical contractors, and electrical contractors. Tim works on-site daily at an active shop. He sees the problems as they happen — not weeks later in a status report.",
               },
             ].map((item, i) => (
               <div key={i} className="bg-dark-bg p-8">
@@ -411,62 +372,9 @@ export default function HomePage() {
       </section>
 
       {/* ═══════════════════════════════════════════
-          SECTION 6: SERVICES
+          SECTION 6: ABOUT TIM
       ═══════════════════════════════════════════ */}
       <section className="py-24 border-t border-dark-border">
-        <div className="max-w-7xl mx-auto px-6">
-          <div className="flex items-center gap-3 mb-4">
-            <div className="w-8 h-px bg-brand-emerald" />
-            <span className="section-tag">Services</span>
-          </div>
-          <h2 className="text-3xl md:text-4xl font-bold text-white mb-6 max-w-2xl">
-            Start with a conversation. Scale when it makes sense.
-          </h2>
-          <p className="text-slate-400 text-lg leading-relaxed max-w-2xl mb-16">
-            Every engagement starts with a free call. If we can help, we&apos;ll tell you exactly how. If we can&apos;t, we&apos;ll tell you that too.
-          </p>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-px bg-dark-border">
-            {services.map((service, i) => (
-              <div
-                key={i}
-                className={`p-8 flex flex-col ${
-                  service.featured
-                    ? "bg-dark-surface border border-brand-orange"
-                    : "bg-dark-bg"
-                }`}
-              >
-                <div className="font-mono text-xs text-brand-emerald tracking-widest uppercase mb-2">
-                  {service.tier}
-                </div>
-                <h3 className="font-semibold text-white text-lg mb-1">
-                  {service.name}
-                </h3>
-                <div className="font-mono text-2xl font-bold text-brand-orange mb-1">
-                  {service.price}
-                </div>
-                <div className="font-mono text-xs text-slate-500 mb-4">
-                  {service.timeline}
-                </div>
-                <p className="text-slate-400 text-sm leading-relaxed mb-8 flex-grow">
-                  {service.description}
-                </p>
-                <Link
-                  href={service.href}
-                  className={service.featured ? "btn-primary text-sm" : "btn-secondary text-sm"}
-                >
-                  {service.cta}
-                </Link>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ═══════════════════════════════════════════
-          SECTION 7: ABOUT
-      ═══════════════════════════════════════════ */}
-      <section className="py-24 border-t border-dark-border bg-dark-surface">
         <div className="max-w-7xl mx-auto px-6">
           <div className="flex items-center gap-3 mb-4">
             <div className="w-8 h-px bg-brand-emerald" />
@@ -486,12 +394,12 @@ export default function HomePage() {
                   He&apos;s not guessing at where construction companies waste time. He&apos;s seen it from the inside — daily, on-site, at an active sheet metal fabrication shop. The problems he solves are the ones he&apos;s lived with.
                 </p>
                 <p>
-                  RaapTech exists because most workflow consultants have never held a tape measure. Tim has. That&apos;s the difference.
+                  RaapTech focuses on construction workflow optimization: finding where your team&apos;s time actually goes, identifying the bottlenecks that cost you the most, and fixing them with process changes that stick.
                 </p>
               </div>
             </div>
 
-            <div className="border border-dark-border bg-dark-bg p-8">
+            <div className="border border-dark-border bg-dark-surface p-8">
               <h3 className="font-mono text-xs tracking-widest uppercase text-brand-emerald mb-6">
                 Tim Raap
               </h3>
@@ -513,6 +421,10 @@ export default function HomePage() {
                   <span className="text-white">CADmep / ESTmep / CAMduct</span>
                 </div>
                 <div className="flex justify-between border-b border-dark-border pb-3">
+                  <span className="text-slate-500">trades</span>
+                  <span className="text-white">Sheet Metal / Mech / Elec</span>
+                </div>
+                <div className="flex justify-between border-b border-dark-border pb-3">
                   <span className="text-slate-500">on_site</span>
                   <span className="text-brand-orange">Daily</span>
                 </div>
@@ -529,11 +441,11 @@ export default function HomePage() {
       </section>
 
       {/* ═══════════════════════════════════════════
-          SECTION 8: CTA
+          SECTION 7: CTA
       ═══════════════════════════════════════════ */}
-      <section className="py-24 border-t border-dark-border">
+      <section className="py-24 border-t border-dark-border bg-dark-surface">
         <div className="max-w-7xl mx-auto px-6">
-          <div className="border border-dark-border bg-dark-surface p-12 text-center">
+          <div className="border border-dark-border bg-dark-bg p-12 text-center">
             <div className="flex items-center justify-center gap-3 mb-6">
               <div className="w-8 h-px bg-brand-emerald" />
               <span className="section-tag">Ready to Talk</span>
@@ -547,7 +459,7 @@ export default function HomePage() {
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link href="/contact" className="btn-primary">
-                Book a Free Workflow Audit
+                Book a Free Workflow Consultation
                 <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="square" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
                 </svg>
