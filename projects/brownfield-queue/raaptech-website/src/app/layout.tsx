@@ -1,0 +1,95 @@
+import type { Metadata } from "next";
+import { Inter, JetBrains_Mono } from "next/font/google";
+import "./globals.css";
+import Navbar from "@/components/Navbar";
+import Footer from "@/components/Footer";
+import ThemeProvider from "@/components/ThemeProvider";
+
+const inter = Inter({
+  subsets: ["latin"],
+  variable: "--font-inter",
+});
+
+const jetbrainsMono = JetBrains_Mono({
+  subsets: ["latin"],
+  variable: "--font-jetbrains-mono",
+});
+
+export const metadata: Metadata = {
+  metadataBase: new URL("https://raaptech.com"),
+  title: {
+    default: "RaapTech LLC — AI Infrastructure & Autonomous Agents",
+    template: "%s | RaapTech LLC",
+  },
+  description:
+    "RaapTech LLC builds AI infrastructure and autonomous agent systems. Founded by Kyle Raap — engineering the future of intelligent automation.",
+  keywords: [
+    "AI infrastructure",
+    "autonomous agents",
+    "machine learning",
+    "LLM",
+    "artificial intelligence",
+    "Kyle Raap",
+    "RaapTech",
+  ],
+  authors: [{ name: "Kyle Raap", url: "https://raaptech.com" }],
+  creator: "RaapTech LLC",
+  openGraph: {
+    type: "website",
+    locale: "en_US",
+    url: "https://raaptech.com",
+    siteName: "RaapTech LLC",
+    title: "RaapTech LLC — AI Infrastructure & Autonomous Agents",
+    description:
+      "Building AI infrastructure and autonomous agent systems that operate at machine speed.",
+    images: [
+      {
+        url: "/og-image.png",
+        width: 1200,
+        height: 630,
+        alt: "RaapTech LLC",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "RaapTech LLC — AI Infrastructure & Autonomous Agents",
+    description:
+      "Building AI infrastructure and autonomous agent systems that operate at machine speed.",
+    images: ["/og-image.png"],
+    creator: "@raaptech",
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
+  },
+};
+
+export default function RootLayout({
+  children,
+}: Readonly<{
+  children: React.ReactNode;
+}>) {
+  return (
+    <html
+      lang="en"
+      className={`dark ${inter.variable} ${jetbrainsMono.variable}`}
+      suppressHydrationWarning
+    >
+      <body className="bg-dark-bg text-slate-200 font-sans antialiased">
+        <ThemeProvider>
+          <Navbar />
+          <main>{children}</main>
+          <Footer />
+        </ThemeProvider>
+      </body>
+    </html>
+  );
+}

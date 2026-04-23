@@ -1,0 +1,65 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --font-inter: 'Inter', system-ui, sans-serif;
+  --font-jetbrains-mono: 'JetBrains Mono', monospace;
+  --color-orange: #FF6B35;
+  --color-navy: #1E3A8A;
+  --color-emerald: #10B981;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-inter);
+  background-color: #080A0F;
+  color: #E2E8F0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.font-mono {
+  font-family: var(--font-jetbrains-mono);
+}
+
+/* Light mode */
+.light body {
+  background-color: #F8FAFC;
+  color: #0F172A;
+}
+
+/* Sharp edge utility */
+* {
+  border-radius: 0 !important;
+}
+
+/* Exception for full-round elements */
+.rounded-full {
+  border-radius: 9999px !important;
+}
+
+@layer components {
+  .btn-primary {
+    @apply inline-flex items-center gap-2 px-6 py-3 bg-brand-orange text-white font-semibold text-sm tracking-wider uppercase transition-all duration-200 hover:bg-opacity-90 hover:translate-y-[-1px];
+  }
+
+  .btn-secondary {
+    @apply inline-flex items-center gap-2 px-6 py-3 border border-brand-orange text-brand-orange font-semibold text-sm tracking-wider uppercase transition-all duration-200 hover:bg-brand-orange hover:text-white;
+  }
+
+  .section-tag {
+    @apply font-mono text-xs tracking-widest uppercase text-brand-emerald;
+  }
+
+  .card-dark {
+    @apply bg-dark-surface border border-dark-border p-6 transition-all duration-300 hover:border-brand-orange/30;
+  }
+
+  .grid-line {
+    @apply border-dark-border;
+  }
+}
