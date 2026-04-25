@@ -6,6 +6,7 @@ type FormState = "idle" | "submitting" | "success" | "error";
 
 export default function ContactForm() {
   const [formState, setFormState] = useState<FormState>("idle");
+  const [errorMessage, setErrorMessage] = useState("");
   const [form, setForm] = useState({
     name: "",
     email: "",
@@ -23,10 +24,37 @@ export default function ContactForm() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setFormState("submitting");
+    setErrorMessage("");
 
-    // Simulate form submission
-    await new Promise((resolve) => setTimeout(resolve, 1200));
-    setFormState("success");
+    try {
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(form),
+      });
+
+      const data = (await response.json().catch(() => null)) as
+        | { message?: string }
+        | null;
+
+      if (!response.ok) {
+        setFormState("error");
+        setErrorMessage(
+          data?.message ||
+            "We couldn’t send your message right now. Please email tim@raaptech.com instead."
+        );
+        return;
+      }
+
+      setFormState("success");
+    } catch {
+      setFormState("error");
+      setErrorMessage(
+        "We couldn’t send your message right now. Please email tim@raaptech.com instead."
+      );
+    }
   };
 
   if (formState === "success") {
@@ -48,11 +76,12 @@ export default function ContactForm() {
         </div>
         <h3 className="text-xl font-bold text-white mb-2">Message received.</h3>
         <p className="text-slate-400 text-sm mb-6">
-          We&apos;ll be in touch within 24 hours.
+          Your inquiry was sent to the RaapTech intake system. We&apos;ll follow up as soon as we review it.
         </p>
         <button
           onClick={() => {
             setFormState("idle");
+            setErrorMessage("");
             setForm({
               name: "",
               email: "",
@@ -173,10 +202,13 @@ export default function ContactForm() {
         />
       </div>
 
-      <div className="flex items-center justify-between pt-2">
+      <div className="flex items-center justify-between pt-2 gap-4">
         <p className="font-mono text-xs text-slate-600">
           * Required fields
         </p>
+        {formState === "error" ? (
+          <p className="max-w-xs text-right text-xs text-red-400">{errorMessage}</p>
+        ) : null}
         <button
           type="submit"
           disabled={formState === "submitting"}
