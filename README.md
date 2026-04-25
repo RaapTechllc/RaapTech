@@ -18,6 +18,7 @@ Customer-facing Next.js 15 website for RaapTech LLC.
 Copy `.env.example` to `.env` and set:
 
 - `RAAPTECH_CONTACT_WEBHOOK_URL` — server-side webhook target for contact form delivery
+- `RAAPTECH_HOST_PORT` — host port for the containerized site (`3035` on DVM)
 
 ## Contact Flow
 `/contact` submits to the local Next.js API route at `/api/contact`, which validates the payload and forwards it to the configured lead-intake webhook.
@@ -51,6 +52,6 @@ From `/home/dvm/projects/raaptech-website` on DVM:
 3. `docker compose up -d --build`
 
 ## Troubleshooting
-- If `/services` 404s live, the container is running an older image/source tree.
+- If `/services` 404s live, the live container is probably still serving an older image/source tree or the wrong host-port mapping.
 - If contact submission fails, verify `RAAPTECH_CONTACT_WEBHOOK_URL` is set in the container environment and the webhook target is active.
 - If build fails on DVM, clear stale image layers and rebuild: `docker compose build --no-cache web`.
