@@ -18,20 +18,20 @@ const jetbrainsMono = JetBrains_Mono({
 export const metadata: Metadata = {
   metadataBase: new URL("https://raaptech.com"),
   title: {
-    default: "RaapTech LLC — Autodesk Fabrication Consulting & AI for the Trades",
+    default: "RaapTech LLC — Construction Workflow Optimization",
     template: "%s | RaapTech LLC",
   },
   description:
-    "20 years of Autodesk Fabrication experience. CADmep, ESTmep, CAMduct consulting and AI onboarding for sheet metal and MEP contractors. Founded by Kyle Raap.",
+    "20 years in MEP fabrication. Thousands of admin hours eliminated. Construction workflow optimization for MEP and sheet metal contractors. Founded by Kyle Raap.",
   keywords: [
+    "construction workflow optimization",
+    "MEP contractor",
+    "sheet metal fabrication",
     "Autodesk Fabrication",
     "CADmep",
     "ESTmep",
     "CAMduct",
-    "sheet metal consulting",
-    "MEP contractor",
-    "AI onboarding",
-    "fabrication database",
+    "workflow audit",
     "Kyle Raap",
     "RaapTech",
   ],
@@ -42,9 +42,9 @@ export const metadata: Metadata = {
     locale: "en_US",
     url: "https://raaptech.com",
     siteName: "RaapTech LLC",
-    title: "RaapTech LLC — Autodesk Fabrication Consulting & AI for the Trades",
+    title: "RaapTech LLC — Construction Workflow Optimization",
     description:
-      "20 years of Autodesk Fabrication. CADmep, ESTmep, CAMduct consulting and AI onboarding for sheet metal and MEP contractors.",
+      "20 years in MEP fabrication. Construction workflow optimization for sheet metal and MEP contractors.",
     images: [
       {
         url: "/og-image.png",
@@ -56,9 +56,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "RaapTech LLC — Autodesk Fabrication Consulting & AI for the Trades",
+    title: "RaapTech LLC — Construction Workflow Optimization",
     description:
-      "20 years of Autodesk Fabrication. CADmep, ESTmep, CAMduct consulting and AI onboarding for sheet metal and MEP contractors.",
+      "20 years in MEP fabrication. Construction workflow optimization for sheet metal and MEP contractors.",
     images: ["/og-image.png"],
     creator: "@raaptech",
   },

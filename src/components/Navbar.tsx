@@ -97,7 +97,7 @@ export default function Navbar() {
             href="/contact"
             className="hidden md:inline-flex btn-primary text-xs"
           >
-            Get in Touch
+            Book a Call
           </Link>
 
           {/* Mobile menu button */}
@@ -162,7 +162,7 @@ export default function Navbar() {
                 onClick={() => setMobileOpen(false)}
                 className="btn-primary text-xs"
               >
-                Get in Touch
+                Book a Call
               </Link>
             </li>
           </ul>

@@ -4,14 +4,14 @@ import ContactForm from "@/components/ContactForm";
 export const metadata: Metadata = {
   title: "Contact",
   description:
-    "Get in touch with RaapTech LLC. We work with companies building on AI infrastructure, autonomous systems, and intelligent automation.",
+    "Get in touch with RaapTech LLC. Construction workflow optimization for MEP and sheet metal contractors. Book a free workflow consultation.",
 };
 
 const contactInfo = [
   {
     label: "Email",
-    value: "kyle@raaptech.com",
-    href: "mailto:kyle@raaptech.com",
+    value: "tim@raaptech.com",
+    href: "mailto:tim@raaptech.com",
     mono: true,
   },
   {
@@ -29,11 +29,10 @@ const contactInfo = [
 ];
 
 const workTypes = [
-  "AI Infrastructure Consulting",
-  "Autonomous Agent Development",
-  "LLM System Integration",
-  "Technical Advisory",
-  "Partnership / Collaboration",
+  "Workflow Audit + First Fix",
+  "Construction Ops Upgrade",
+  "Operations Support (Retainer)",
+  "Autodesk Fabrication Consulting",
 ];
 
 export default function ContactPage() {
@@ -52,8 +51,8 @@ export default function ContactPage() {
             <span className="text-brand-orange">serious.</span>
           </h1>
           <p className="text-slate-400 text-lg max-w-xl">
-            We work with companies that are serious about AI infrastructure.
-            Tell us what you&apos;re building.
+            Tell us where your team is losing time.
+            We&apos;ll tell you if we can help.
           </p>
         </div>
       </section>

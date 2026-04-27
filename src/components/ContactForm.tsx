@@ -104,7 +104,7 @@ export default function ContactForm() {
             required
             value={form.email}
             onChange={handleChange}
-            placeholder="kyle@company.com"
+            placeholder="tim@company.com"
             className="w-full bg-dark-surface border border-dark-border text-white text-sm px-4 py-3 placeholder:text-slate-600 focus:outline-none focus:border-brand-orange transition-colors font-sans"
           />
         </div>
@@ -146,11 +146,10 @@ export default function ContactForm() {
           <option value="" disabled>
             Select a topic
           </option>
-          <option value="ai-infrastructure">AI Infrastructure Consulting</option>
-          <option value="agent-development">Autonomous Agent Development</option>
-          <option value="llm-integration">LLM System Integration</option>
-          <option value="advisory">Technical Advisory</option>
-          <option value="partnership">Partnership / Collaboration</option>
+          <option value="workflow-audit">Workflow Audit + First Fix</option>
+          <option value="ops-upgrade">Construction Ops Upgrade</option>
+          <option value="ongoing-support">Operations Support</option>
+          <option value="fabrication">Fabrication Consulting</option>
           <option value="other">Other</option>
         </select>
       </div>
