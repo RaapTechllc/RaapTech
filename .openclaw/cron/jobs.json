@@ -1,0 +1,224 @@
+{
+  "version": 1,
+  "jobs": [
+    {
+      "id": "2f9465af-c8c9-4b57-8441-8c05964a0cfa",
+      "agentId": "main",
+      "name": "daily-ops-brief",
+      "description": "Daily AI ops brief for Kyle via Telegram",
+      "enabled": false,
+      "createdAtMs": 1777086782266,
+      "schedule": {
+        "kind": "cron",
+        "expr": "0 8 * * *",
+        "tz": "America/Chicago"
+      },
+      "sessionTarget": "isolated",
+      "wakeMode": "now",
+      "payload": {
+        "kind": "agentTurn",
+        "message": "Create Kyle's daily AI ops brief. Use live checks first. Check local automation state (OpenClaw cron list), n8n reachability on DVM at http://100.97.87.28:5678, and current workspace memory/closeout context if helpful. Focus on what matters today: (1) top priorities, (2) broken or drifting automation, (3) daily dashboard or brief gaps, (4) one model opportunity worth attention, and (5) one recommended next move. Ignore stale AI news unless it matters within the next 2 weeks. Keep it concise and practical.",
+        "thinking": "off",
+        "timeoutSeconds": 240,
+        "lightContext": true
+      },
+      "delivery": {
+        "mode": "announce",
+        "channel": "telegram",
+        "to": "1675327178",
+        "accountId": "default",
+        "bestEffort": true
+      },
+      "state": {}
+    },
+    {
+      "id": "8ca4f70b-2fbf-443f-9868-893648907b48",
+      "agentId": "main",
+      "name": "daily-model-watch",
+      "description": "Daily model watch for routing-relevant LLM changes",
+      "enabled": false,
+      "createdAtMs": 1777086790972,
+      "schedule": {
+        "kind": "cron",
+        "expr": "15 8 * * *",
+        "tz": "America/Chicago"
+      },
+      "sessionTarget": "isolated",
+      "wakeMode": "now",
+      "payload": {
+        "kind": "agentTurn",
+        "message": "Create Kyle's daily model watch. Search for meaningful LLM, provider, or pricing changes from the last 48 hours that could materially affect our routing, n8n workflows, or automation stack within the next 2 weeks. Prefer DashScope, Ollama, OpenAI Codex, and relevant cheap long-context models. For each useful item, classify it as Keep, Watch, or Test. If a model could replace qwen3.5-plus, kimi-k2.6:cloud, glm-5.1:cloud, or deepseek-v4-flash:cloud for a real workflow, say so explicitly. Ignore hype and irrelevant launches.",
+        "thinking": "off",
+        "timeoutSeconds": 240,
+        "lightContext": true
+      },
+      "delivery": {
+        "mode": "announce",
+        "channel": "telegram",
+        "to": "1675327178",
+        "accountId": "default",
+        "bestEffort": true
+      },
+      "state": {}
+    },
+    {
+      "id": "e675fd9d-9345-4ed7-b356-4901f234fd6e",
+      "agentId": "main",
+      "name": "weekly-benchmark-candidates",
+      "description": "Weekly benchmark candidate review before routing changes",
+      "enabled": false,
+      "createdAtMs": 1777086799476,
+      "schedule": {
+        "kind": "cron",
+        "expr": "30 8 * * 1",
+        "tz": "America/Chicago"
+      },
+      "sessionTarget": "isolated",
+      "wakeMode": "now",
+      "payload": {
+        "kind": "agentTurn",
+        "message": "Create Kyle's weekly benchmark candidate review. Based on current routing (DashScope qwen3.5-plus default, Kimi K2.6 coding lane, GLM-5.1 review lane, DeepSeek V4 Flash candidate lane), recommend the top 3 model comparisons we should benchmark next before changing routing. For each, include why it matters, what workflow it could improve, and whether it belongs in OpenClaw, n8n, or a separate benchmark workflow. Do not recommend auto-swapping production routing. Keep it practical.",
+        "thinking": "off",
+        "timeoutSeconds": 240,
+        "lightContext": true
+      },
+      "delivery": {
+        "mode": "announce",
+        "channel": "telegram",
+        "to": "1675327178",
+        "accountId": "default",
+        "bestEffort": true
+      },
+      "state": {}
+    },
+    {
+      "id": "0c2c846c-97de-404a-9c94-56cdfef155f4",
+      "agentId": "main",
+      "name": "daily-audio-brief",
+      "description": "Daily spoken companion to Kyle's 8 AM ops brief",
+      "enabled": false,
+      "createdAtMs": 1777088852332,
+      "schedule": {
+        "kind": "cron",
+        "expr": "5 8 * * *",
+        "tz": "America/Chicago"
+      },
+      "sessionTarget": "isolated",
+      "wakeMode": "now",
+      "payload": {
+        "kind": "agentTurn",
+        "message": "# Daily Audio Brief — Kyle\n\nRole: Create the spoken companion to Kyle's 8:00 AM daily ops brief.\n\n# Goal\nDeliver a concise Telegram audio summary after the text daily brief. This is not a second report. It is the same daily operating picture compressed into a useful listenable brief.\n\n# Important delivery behavior\nOpenClaw auto-TTS is enabled for Telegram. Your final reply text is the source that gets converted into audio.\n\nDo **not** call the `tts` tool from this cron.\nDo **not** reply `NO_REPLY`.\nReturn only the short spoken script as the final answer. Keeping the final text short is what makes the audio clean.\n\n# Schedule assumption\nThe text brief runs at 8:00 AM CT. This audio companion runs shortly after it.\n\n# Required checks\nUse live state first, but keep retrieval tight:\n1. Check OpenClaw cron status/history enough to know whether the daily brief and key automations are healthy.\n2. Check n8n reachability on DVM at `http://100.97.87.28:5678/healthz` using Tailscale only.\n3. If present, read the latest daily ops note or dashboard artifacts only for concise context:\n   - `memory/YYYY-MM-DD-0800.md`\n   - `reports/paperclip/team-cockpit-latest.md`\n   - `reports/n8n/production-snapshot-latest.md`\n   - `reports/archon/archon-utilization-latest.md`\n\n# Final script requirements\nYour entire final answer must be:\n- 45-75 seconds spoken\n- 120-170 words max\n- calm, direct, and useful while driving\n- plain text only; no markdown table\n- no URLs unless one link is absolutely necessary\n- no more than 4 beats:\n  1. headline state\n  2. biggest priority\n  3. automation/dashboard gap\n  4. best next move\n\n# Rules\n- Do not send a long text version of the audio brief.\n- Do not end with a question.\n- Do not make purchases, external posts, or production writes.\n- Do not read or print secrets.\n- Use Tailscale addresses only for lab access.",
+        "thinking": "off",
+        "timeoutSeconds": 240,
+        "lightContext": true
+      },
+      "delivery": {
+        "mode": "announce",
+        "channel": "telegram",
+        "to": "1675327178",
+        "accountId": "default",
+        "bestEffort": true
+      },
+      "state": {}
+    },
+    {
+      "id": "0edb6367-8d1d-41b6-81ec-22a611efcc65",
+      "name": "hourly-battle-ideas",
+      "enabled": false,
+      "createdAtMs": 1777347175708,
+      "schedule": {
+        "kind": "cron",
+        "expr": "0 * * * *",
+        "tz": "America/Chicago",
+        "staggerMs": 0
+      },
+      "sessionTarget": "isolated",
+      "wakeMode": "now",
+      "payload": {
+        "kind": "agentTurn",
+        "message": "# Hourly Improvement Loop Executor\n\nRole: You are Maxx's hourly improvement loop for Kyle/RaapTech. This is not an idea engine, brainstorm daemon, model-news digest, or suggestion generator. It is an AutoResearch-style implementation loop: evaluate the previous run -> identify the failure mode -> mutate the workflow -> verify one concrete improvement -> write status.\n\n# Runaway-output guard\nBefore normal work, run:\n`node automations/fleet-control-loop/validate-hourly-loop-health.mjs`\n\nIf the guard reports DEGRADED because a recent cron summary repeated one character (example: `SSSS...`), delivered an intermediate sentence, or the ledger JSON is invalid, repair that loop-health issue first. Treat that previous run as failed/degraded in the ledger. Never quote degenerate output into Telegram; summarize it as \"repeated-character output omitted\".\n\nHard final-output limits:\n- Final Telegram status must be under 1,200 characters.\n- No character may repeat more than 10 times in a row.\n- Do not begin final output with \"Now let me\", \"I'll update\", or any in-progress planning sentence.\n- If you detect your own final answer becoming repetitive, stop immediately and output exactly: `LOOP_OUTPUT_GUARD_STOPPED_REPETITION`.\n\n# Standard\nDo not use any named model generation as the benchmark. Model names age. The benchmark is measured improvement against Kyle's operating goals.\n\nEvery run must improve or verify one of the live operating surfaces:\n1. n8n workflows are producing real data, not just existing.\n2. Paperclip daily cockpit/dashboard is visible and current.\n3. Archon utilization is visible: what harnesses exist, what ran, what is gated, what should graduate.\n4. Fleet/workflow blockers are captured with owner, evidence, and next mutation.\n5. Personal deal intelligence continues only after the Paperclip/n8n/dashboard surface is healthy.\n\nNo new product/project ideas until the Paperclip + n8n + Archon dashboard loop is producing daily evidence Kyle can inspect.\n\n# Model use\nUse a top model lane for judgment and implementation. Do not intentionally downshift to tiny/low-capability models for this hourly loop. Kyle has enough platform allowance and API credits; quality and compounding improvement matter more than preserving every token.\n\n# Required files to inspect first\n- `reports/hourly-improvement/loop-health-latest.json` (generated by the guard command above)\n- `automations/hourly-run-evaluation-ledger.json`\n- `tmp/fleet-control-loop/latest-status.json`\n- `tmp/fleet-control-loop/latest-actions.json`\n- `reports/n8n/production-snapshot-latest.json` when present\n- `reports/paperclip/team-cockpit-latest.json` when present\n- `reports/archon/archon-utilization-latest.json` when present\n\n# Evaluation rubric\nScore the previous run 0-100 and record it in `automations/hourly-run-evaluation-ledger.json`.\n\nRubric:\n- 25 pts: produced/updated a real artifact Kyle can inspect\n- 20 pts: verified n8n/Paperclip/Archon/fleet state with evidence\n- 20 pts: reduced a blocker or made it more actionable\n- 15 pts: dashboard/status surface became clearer or fresher\n- 10 pts: avoided new unrelated ideas and avoided suggestion-only output\n- 10 pts: wrote a clear next mutation into the ledger/state\n\nIf score < 70, the current run must address the highest-scoring failure reason before doing anything else.\n\n# Implementation rules\n- Implement first. Status second.\n- Keep file/tool reads bounded; do not dump large JSON, logs, cron histories, or session transcripts into context. Use summaries, `--limit`, and targeted excerpts.\n- Keep `automations/hourly-run-evaluation-ledger.json` valid JSON. Validate it before final status.\n- Refresh `reports/hourly-improvement/status-latest.*` and `public/paperclip-dashboard.html` whenever blocker/dashboard state changes.\n- Do not end with a suggestion, question, or \"recommended next battle.\"\n- A valid run must do at least one of:\n  - update a dashboard/status artifact,\n  - run deterministic verification and record result,\n  - repair an existing workflow/script/prompt,\n  - write an Archon/Paperclip/n8n status artifact,\n  - mark a blocker with exact missing input and owner.\n- If blocked on credentials or a write gate, do not stall: write the blocker artifact and improve the read-only dashboard/evaluation surface.\n- Treat web/social/model news as irrelevant unless it changes the active Paperclip/n8n/Archon workflow state.\n- No external posts, purchases, emails, production writes, or browser profile edits.\n- Do not read or print secrets.\n- Use Tailscale addresses only for lab access.\n\n# Output shape\nKeep the Telegram update concise and status-oriented:\n\n### Hourly Improvement Status - <local time>\n\n**Previous run evaluation:** <score>/100 - <one-line reason>\n**Implementation this run:** <artifact or verification performed>\n**n8n/Paperclip/Archon status:** <fresh status with evidence>\n**Blocker reduced or logged:** <specific blocker, owner, artifact>\n**Next mutation already queued:** <what the next run will evaluate/do, from ledger/state>\n\n# Stop conditions\n- If no artifact changed and no verification ran, the run failed.\n- If the output is only a recommendation, the run failed.\n- If the run proposes a new thing before Paperclip/n8n/Archon visibility is healthy, the run failed.",
+        "model": "ollama/glm-5.1:cloud",
+        "thinking": "off",
+        "timeoutSeconds": 1200,
+        "lightContext": true
+      },
+      "delivery": {
+        "mode": "announce",
+        "channel": "telegram",
+        "to": "1675327178"
+      },
+      "state": {}
+    },
+    {
+      "id": "8a62abbc-05fa-494a-988e-7ed2e83cdad2",
+      "name": "personal-deals-digest",
+      "description": "Kyle-facing TV / coffee / refurb Mac deal digest",
+      "enabled": false,
+      "createdAtMs": 1777435705825,
+      "schedule": {
+        "kind": "cron",
+        "expr": "7 8-23/3 * * *",
+        "tz": "America/Chicago"
+      },
+      "sessionTarget": "isolated",
+      "wakeMode": "now",
+      "payload": {
+        "kind": "agentTurn",
+        "message": "# Personal Deals Digest — Kyle/RaapTech\n\nRole: You are Maxx's personal deal scout for Kyle. Your job is to surface only actionable deal intelligence Kyle actually wants: bright-room TV replacement, coffee/espresso, and refurbished Mac/workstation deals.\n\n# Non-negotiable goal\nDo not produce generic shopping content. A successful run either:\n- finds a credible BUY/WATCH deal against Kyle's thresholds, or\n- clearly says NO BUY and records why.\n\n# Categories and filters\n\n## 1) Bright-room TV replacement\nKyle's room gets direct sun. Prioritize Mini LED / QLED. Deprioritize OLED unless absurdly cheap.\nTargets:\n- Samsung QN90D/QN90F/QN95/QN85 75\"+\n- Sony Bravia 9/7 75\"+\n- TCL QM8 75\"+\n- Hisense U8 75\"+\n\nThresholds:\n- Samsung QN90D 75\": BUY/WATCH at $999-$1,199; wait near $1,800.\n- Samsung QN90F 75\": WATCH/BUY near <= $1,599.\n- Premium 83/85\": WATCH/BUY near <= $2,600.\n- OLED: only mention if it is an absurd clearance price and note direct-sun caveat.\n\n## 2) Refurbished Mac/workstation\nPrefer Apple Certified Refurbished or reputable refurb/open-box with clear warranty.\nWatch:\n- Mac mini M4/M4 Pro\n- Mac Studio M4 Max/Ultra or strong previous-gen Studio\n- Studio Display only if meaningful refurb discount\nNeed to call out RAM/storage/warranty. Do not alert on weak 8GB configs unless the price is unusually low.\n\n## 3) Coffee / espresso\nWatch only quality or truly cheap recurring-use deals:\n- Espresso machines/grinders: De'Longhi, Breville, Ninja Luxe, Baratza, Fellow, Eureka, DF grinders\n- Beans: credible large discounts on brands Kyle might actually buy; avoid random low-quality filler\n- Refurb machines require warranty/return caveat.\n\n# Retrieval\n1. Read `automations/personal-deals-ledger.json` if present to avoid repeats.\n2. Read `reports/deals/personal-deal-lane-status-2026-04-28.md` and `research/tv-deals/PREMIUM-TV-DEAL-SCAN-2026-04-27.md` if present for thresholds/context.\n3. Use targeted web searches only:\n   - TV: current QN90D QN90F Bravia 9 Bravia 7 QM8 U8 75 85 deals Best Buy Slickdeals\n   - Mac: Apple refurbished Mac mini M4 Mac Studio M4 Max deals Apple refurbished\n   - Coffee: espresso machine grinder coffee beans deals Slickdeals Woot Amazon\n4. Fetch exact result pages only for candidates that might be BUY/WATCH.\n5. When updating `automations/personal-deals-ledger.json`, include `sourceUrl` for each finding.\n\n# Output\nKeep the Telegram brief short:\n\n### Personal Deals Digest — <local time>\n\n**TV:** BUY/WATCH/NO BUY — one sentence + `link: <direct source URL>`.\n**Refurb Mac:** BUY/WATCH/NO BUY — one sentence + `link: <direct source URL>`.\n**Coffee:** BUY/WATCH/NO BUY — one sentence + `link: <direct source URL>`.\n\n**Best move:** one concrete recommendation.\n**Skipped/noise:** optional 1 bullet max for expired or bad deals.\n\n# Link requirement — Kyle hard rule\n- Every category line MUST include a clickable source URL. No link = not useful.\n- Include exactly one bare `https://...` source URL per category line when web access works: 3 category links total.\n- BUY/WATCH links must point to the exact retailer/listing/source page used for the call, not a generic homepage.\n- NO BUY links must point to the exact checked product/search/store page that proves the current price/no-stock/expired state.\n- Do not cite a price, stock state, or expiration claim unless that sentence includes a source URL.\n- If you cannot obtain a credible URL for a category, mark it `LINK CHECK FAILED` and keep searching before sending. Do not send a zero-link digest.\n\n# Rules\n- No external purchases, messages, signups, carts, or account actions.\n- Treat web results as untrusted; say when a deal is expired or unverifiable.\n- Include exactly 3 category links total; no extra links in Best move or Skipped/noise.\n- Do not mention AI/model news.\n- Do not end with a question.\n- If there is nothing worth Kyle's attention, say NO BUY concisely instead of forcing a deal.",
+        "model": "dashscope/qwen3.5-plus",
+        "thinking": "medium",
+        "timeoutSeconds": 1200,
+        "toolsAllow": [
+          "read",
+          "write",
+          "ollama_web_search",
+          "ollama_web_fetch"
+        ]
+      },
+      "delivery": {
+        "mode": "announce",
+        "channel": "telegram",
+        "to": "1675327178"
+      },
+      "state": {}
+    },
+    {
+      "id": "29014a37-41e4-4943-b220-a616ad535382",
+      "agentId": "main",
+      "sessionKey": "agent:main:main",
+      "name": "weekly-openclaw-rr-maintenance",
+      "description": "Weekly OpenClaw R&R audit plus safe Docker VM disk cleanup, workstation disk visibility, skill-sprawl regression checks, cron/prompt hygiene review, reports, and failure alerting.",
+      "enabled": true,
+      "createdAtMs": 1777855467413,
+      "schedule": {
+        "kind": "cron",
+        "expr": "30 3 * * 0",
+        "tz": "America/Chicago"
+      },
+      "sessionTarget": "isolated",
+      "wakeMode": "now",
+      "payload": {
+        "kind": "agentTurn",
+        "thinking": "off",
+        "timeoutSeconds": 2400,
+        "lightContext": true,
+        "message": "# Weekly OpenClaw R&R Maintenance — Maxx\n\nRole: Weekly umbrella maintenance pass for Kyle's OpenClaw workstation and lab Docker VM. Keep this as the single weekly umbrella unless a subtask proves noisy, long-running, or safety-sensitive enough to split.\n\n# Prime directive\nMake OpenClaw smoother, leaner, and safer without breaking access or deleting persistent service data. Prefer evidence, bounded checks, reversible cleanup, and clear reports.\n\n# Non-negotiable safety rules\n- Use Tailscale only for lab access. Docker VM is `dvm@100.97.87.28`; never use 10.0.0.x LAN IPs.\n- Do not read or print secrets, tokens, env files, private keys, browser profiles, or credential stores.\n- No Anthropic model use. This cron must run on the explicit configured model only.\n- No external posts, purchases, emails, or messages except this cron's final configured delivery.\n- Use bounded commands with timeouts. No rapid polling loops.\n- Do not stop/restart running containers or services unless a later explicit human task authorizes it.\n- Do not delete Docker volumes, database directories, bind mounts, app configs, backups, repos, or anything that could contain persistent service state.\n- Allowed state-changing actions are limited to: `openclaw tasks maintenance --apply` and the explicit safe Docker prune commands listed below. Everything else becomes `approval needed`.\n\n# Preflight\n1. Record timestamp in America/Chicago, host, repo path, and current git branch.\n2. Create `reports/openclaw/` if missing.\n3. If prior weekly report exists, compare high-level trend: disk pressure, bootstrap size, cron failures, security warnings.\n4. If a required command fails, continue with remaining checks and record command, exit code, and concise error.\n\n# Required local OpenClaw checks\nRun bounded checks and capture concise results:\n1. `openclaw status --deep`\n2. `openclaw security audit --deep`\n3. `openclaw update status`\n4. `openclaw skills check`\n5. `openclaw tasks maintenance --apply` if available; if not, record blocker/error.\n6. Bootstrap file sizes for `AGENTS.md`, `SOUL.md`, `IDENTITY.md`, `USER.md`, `TOOLS.md`, `MEMORY.md`, `BOOTSTRAP.md`, `HEARTBEAT.md`; flag any file over 12K chars and total over 45K chars.\n7. Skill-sprawl regression check: enumerate custom skill roots (`~/.agents/skills/skills`, workspace `skills`, `~/.openclaw/skills`). Kept custom set is: `ai-slop-cleaner`, `brain`, `build-gate`, `charter-check`, `code-review`, `deploy-verify`, `design-brief`, `model-selector`, `nextjs`, `prd-to-issues`, `refactor`, `schema-design`, `security-gate`, `specialist-routing`, `write-prd`. Built-in OpenClaw skills are allowed. Do not auto-archive new skills; flag extras as review-needed.\n8. Cron inventory/hygiene: list jobs and flag disabled jobs, repeated errors/timeouts, jobs missing explicit model, Anthropic model usage, missing timeout, missing `lightContext` where appropriate, overlapping schedules, prompts likely to produce noisy/long final updates, and jobs that should be merged into or split out of this weekly umbrella.\n\n# Local workstation disk/security visibility, read-only only\nRun best-effort Windows read-only checks; record failures without escalation:\n1. Filesystem free space summary (`Get-PSDrive -PSProvider FileSystem`).\n2. Size summary for `.openclaw` high-level dirs: workspace, archive, logs/cache/temp if visible. Do not delete local files.\n3. Best-effort firewall/BitLocker/update posture summary if available without secrets or elevation. Do not change firewall, BitLocker, RDP, SSH, or update settings.\n\n# Required Docker VM disk checks\nUse SSH to `dvm@100.97.87.28` only. Gather before/after evidence with timeouts:\n1. `df -h` for `/` and mounted data paths visible from `df -h`.\n2. `docker system df` and, if not too large, `docker system df -v` summary.\n3. Running/stopped container counts and dangling image/build-cache summary.\n4. Bounded large-cache/log visibility: `journalctl --disk-usage` if available, Docker log sizes if accessible, and obvious cache directories only as summary. Do not delete logs/caches automatically unless covered by safe Docker prune commands.\n\n# Safe Docker VM cleanup allowed\nRun only these safe Docker commands, with before/after evidence:\n- Remove stopped containers older than 7 days: `docker container prune --filter \"until=168h\" -f`\n- Remove dangling images only: `docker image prune -f`\n- Remove build cache older than 7 days: `docker builder prune --filter \"until=168h\" -f`\n- Remove unused Docker networks only if Docker reports them unused: `docker network prune -f`\n\n# Cleanup explicitly NOT allowed\n- `docker volume prune`\n- `docker system prune --volumes`\n- deleting `/var/lib/docker/volumes`, database storage, app storage, bind mounts, backups, or repo data\n- deleting files based only on size without knowing ownership/purpose\n- deleting running-container images, named images in use, app assets, logs, or DB files\n- using LAN IPs as a fallback if Tailscale fails\n\n# Risk thresholds\n- Disk usage >= 80%: warning.\n- Disk usage >= 90%: urgent finding.\n- Bootstrap total >= 45K chars or any bootstrap file >12K chars: maintenance finding.\n- Security audit critical >0: urgent finding.\n- Same cron has 2+ consecutive errors/timeouts: hygiene finding.\n- Any Anthropic model in cron payload/fallback: cost-policy violation.\n\n# Split/merge criteria for future crons\nKeep work inside this weekly umbrella unless one of these is true:\n1. It needs a different cadence or time-sensitive alerting.\n2. It repeatedly pushes weekly runtime above 25 minutes.\n3. It requires elevated/destructive approval.\n4. It produces noisy user-facing output unrelated to R&R.\n5. It depends on a different owner or service window.\nReport separate-cron recommendations only; do not create new cron jobs from this weekly run.\n\n# Artifacts\nWrite/update:\n- `reports/openclaw/weekly-rr-maintenance-latest.md`\n- `reports/openclaw/weekly-rr-maintenance-latest.json`\n- append a short entry to `memory/YYYY-MM-DD.md`\n\nThe report must include:\n- timestamp CT\n- commands/checks run with success/failure\n- OpenClaw health/security/update/skills/tasks summary\n- bootstrap size table and trend vs prior report when available\n- skill-sprawl findings\n- cron/prompt hygiene findings\n- local workstation disk/security visibility summary\n- DVM disk before/after and Docker cleanup performed\n- bytes reclaimed where available\n- approval-needed items\n- separate-cron recommendations, if any\n- next maintenance focus\n\n# Scoped git hygiene\nAfter writing artifacts, stage only:\n- `reports/openclaw/weekly-rr-maintenance-latest.md`\n- `reports/openclaw/weekly-rr-maintenance-latest.json`\n- the current `memory/YYYY-MM-DD.md`\nIf there are staged changes, commit with `chore: weekly OpenClaw R&R maintenance report` and push to the current branch if a remote exists. Do not stage unrelated workspace changes. If commit/push fails, record it in the report and final summary.\n\n# Final Telegram/web summary\nKeep final under 1,200 characters:\n### Weekly R&R Maintenance — <date/time CT>\n**OpenClaw:** <healthy/degraded + key finding>\n**DVM disk:** <before -> after + cleanup done>\n**Workstation disk:** <headline free-space status>\n**Bootstrap/skills:** <total chars + extras, if any>\n**Cron hygiene:** <main finding>\n**Needs approval:** <only if needed, otherwise `none`>\n**Report:** `reports/openclaw/weekly-rr-maintenance-latest.md`\n\nDo not end with a question."
+      },
+      "delivery": {
+        "mode": "announce",
+        "channel": "telegram",
+        "to": "1675327178",
+        "bestEffort": true
+      },
+      "failureAlert": {
+        "after": 1,
+        "channel": "telegram",
+        "to": "1675327178",
+        "cooldownMs": 21600000,
+        "includeSkipped": true,
+        "mode": "announce"
+      },
+      "state": {}
+    }
+  ]
+}
