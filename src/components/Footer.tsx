@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { SITE } from "@/lib/site";
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
@@ -7,7 +8,6 @@ export default function Footer() {
     <footer className="border-t border-dark-border bg-dark-surface mt-24">
       <div className="max-w-7xl mx-auto px-6 py-12">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-12">
-          {/* Brand */}
           <div className="md:col-span-2">
             <div className="flex items-center gap-3 mb-4">
               <div className="w-8 h-8 bg-brand-orange flex items-center justify-center">
@@ -25,7 +25,6 @@ export default function Footer() {
             </p>
           </div>
 
-          {/* Navigation */}
           <div>
             <h3 className="font-mono text-xs tracking-widest uppercase text-brand-emerald mb-4">
               Navigation
@@ -50,7 +49,6 @@ export default function Footer() {
             </ul>
           </div>
 
-          {/* Contact */}
           <div>
             <h3 className="font-mono text-xs tracking-widest uppercase text-brand-emerald mb-4">
               Contact
@@ -58,10 +56,18 @@ export default function Footer() {
             <ul className="flex flex-col gap-2">
               <li>
                 <a
-                  href="mailto:tim@raaptech.com"
+                  href={`mailto:${SITE.email}`}
                   className="text-slate-400 hover:text-brand-orange text-sm transition-colors"
                 >
-                  tim@raaptech.com
+                  {SITE.email}
+                </a>
+              </li>
+              <li>
+                <a
+                  href={SITE.phoneHref}
+                  className="text-slate-400 hover:text-brand-orange text-sm transition-colors"
+                >
+                  {SITE.phone}
                 </a>
               </li>
             </ul>
@@ -70,7 +76,7 @@ export default function Footer() {
 
         <div className="border-t border-dark-border pt-6 flex flex-col md:flex-row items-center justify-between gap-4">
           <p className="font-mono text-xs text-slate-500">
-            &copy; {currentYear} RaapTech LLC. All rights reserved.
+            &copy; {currentYear} {SITE.name}. All rights reserved.
           </p>
           <p className="font-mono text-xs text-slate-600">
             Construction Workflow Optimization

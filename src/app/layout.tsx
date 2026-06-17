@@ -1,9 +1,11 @@
 import type { Metadata } from "next";
 import { Inter, JetBrains_Mono } from "next/font/google";
+import Script from "next/script";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import ThemeProvider from "@/components/ThemeProvider";
+import { SITE } from "@/lib/site";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -16,13 +18,13 @@ const jetbrainsMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://raaptech.com"),
+  metadataBase: new URL(SITE.url),
   title: {
-    default: "RaapTech LLC — Construction Workflow Optimization",
-    template: "%s | RaapTech LLC",
+    default: `${SITE.name} — Construction Workflow Optimization`,
+    template: `%s | ${SITE.name}`,
   },
   description:
-    "20 years in MEP fabrication. Thousands of admin hours eliminated. Construction workflow optimization for MEP and sheet metal contractors. Founded by Kyle Raap.",
+    "20 years in MEP fabrication. Construction workflow optimization for MEP and sheet metal contractors. Founded by Tim Raap.",
   keywords: [
     "construction workflow optimization",
     "MEP contractor",
@@ -32,34 +34,25 @@ export const metadata: Metadata = {
     "ESTmep",
     "CAMduct",
     "workflow audit",
-    "Kyle Raap",
+    "Tim Raap",
     "RaapTech",
   ],
-  authors: [{ name: "Kyle Raap", url: "https://raaptech.com" }],
-  creator: "RaapTech LLC",
+  authors: [{ name: SITE.founder, url: SITE.url }],
+  creator: SITE.name,
   openGraph: {
     type: "website",
     locale: "en_US",
-    url: "https://raaptech.com",
-    siteName: "RaapTech LLC",
-    title: "RaapTech LLC — Construction Workflow Optimization",
+    url: SITE.url,
+    siteName: SITE.name,
+    title: `${SITE.name} — Construction Workflow Optimization`,
     description:
       "20 years in MEP fabrication. Construction workflow optimization for sheet metal and MEP contractors.",
-    images: [
-      {
-        url: "/og-image.png",
-        width: 1200,
-        height: 630,
-        alt: "RaapTech LLC",
-      },
-    ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "RaapTech LLC — Construction Workflow Optimization",
+    title: `${SITE.name} — Construction Workflow Optimization`,
     description:
       "20 years in MEP fabrication. Construction workflow optimization for sheet metal and MEP contractors.",
-    images: ["/og-image.png"],
     creator: "@raaptech",
   },
   robots: {
@@ -87,11 +80,23 @@ export default function RootLayout({
       suppressHydrationWarning
     >
       <body className="bg-dark-bg text-slate-200 font-sans antialiased">
+        <a
+          href="#main"
+          className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-[100] focus:px-4 focus:py-2 focus:bg-brand-orange focus:text-white focus:font-mono focus:text-xs"
+        >
+          Skip to main content
+        </a>
         <ThemeProvider>
           <Navbar />
-          <main>{children}</main>
+          <main id="main">{children}</main>
           <Footer />
         </ThemeProvider>
+        <Script
+          defer
+          data-domain="raaptech.com"
+          src="https://plausible.io/js/script.js"
+          strategy="afterInteractive"
+        />
       </body>
     </html>
   );
