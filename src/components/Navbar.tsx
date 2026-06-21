@@ -4,6 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
 import { useTheme } from "./ThemeProvider";
+import { SITE } from "@/lib/site";
 
 const navLinks = [
   { href: "/", label: "Home" },
@@ -21,7 +22,6 @@ export default function Navbar() {
   return (
     <header className="fixed top-0 left-0 right-0 z-50 border-b border-dark-border bg-dark-bg/90 backdrop-blur-sm">
       <nav className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
-        {/* Logo */}
         <Link
           href="/"
           className="flex items-center gap-3 group"
@@ -35,7 +35,6 @@ export default function Navbar() {
           </span>
         </Link>
 
-        {/* Desktop Nav */}
         <ul className="hidden md:flex items-center gap-8">
           {navLinks.map((link) => (
             <li key={link.href}>
@@ -53,9 +52,7 @@ export default function Navbar() {
           ))}
         </ul>
 
-        {/* Right controls */}
-        <div className="flex items-center gap-4">
-          {/* Theme toggle */}
+        <div className="flex items-center gap-3">
           <button
             onClick={toggleTheme}
             className="w-8 h-8 flex items-center justify-center text-slate-400 hover:text-white transition-colors"
@@ -67,6 +64,7 @@ export default function Navbar() {
                 fill="none"
                 viewBox="0 0 24 24"
                 stroke="currentColor"
+                aria-hidden="true"
               >
                 <path
                   strokeLinecap="square"
@@ -81,6 +79,7 @@ export default function Navbar() {
                 fill="none"
                 viewBox="0 0 24 24"
                 stroke="currentColor"
+                aria-hidden="true"
               >
                 <path
                   strokeLinecap="square"
@@ -92,19 +91,19 @@ export default function Navbar() {
             )}
           </button>
 
-          {/* CTA */}
           <Link
-            href="/contact"
-            className="hidden md:inline-flex btn-primary text-xs"
+            href="/contact#book"
+            className="btn-primary text-xs whitespace-nowrap"
           >
-            Book a Call
+            <span className="hidden sm:inline">{SITE.cta}</span>
+            <span className="sm:hidden">{SITE.ctaShort}</span>
           </Link>
 
-          {/* Mobile menu button */}
           <button
             className="md:hidden w-8 h-8 flex items-center justify-center text-slate-400 hover:text-white"
             onClick={() => setMobileOpen(!mobileOpen)}
             aria-label="Toggle menu"
+            aria-expanded={mobileOpen}
           >
             {mobileOpen ? (
               <svg
@@ -112,6 +111,7 @@ export default function Navbar() {
                 fill="none"
                 viewBox="0 0 24 24"
                 stroke="currentColor"
+                aria-hidden="true"
               >
                 <path
                   strokeLinecap="square"
@@ -125,6 +125,7 @@ export default function Navbar() {
                 fill="none"
                 viewBox="0 0 24 24"
                 stroke="currentColor"
+                aria-hidden="true"
               >
                 <path
                   strokeLinecap="square"
@@ -137,7 +138,6 @@ export default function Navbar() {
         </div>
       </nav>
 
-      {/* Mobile menu */}
       {mobileOpen && (
         <div className="md:hidden border-t border-dark-border bg-dark-surface">
           <ul className="flex flex-col px-6 py-4 gap-4">
@@ -156,15 +156,6 @@ export default function Navbar() {
                 </Link>
               </li>
             ))}
-            <li>
-              <Link
-                href="/contact"
-                onClick={() => setMobileOpen(false)}
-                className="btn-primary text-xs"
-              >
-                Book a Call
-              </Link>
-            </li>
           </ul>
         </div>
       )}

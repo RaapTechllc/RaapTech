@@ -1,10 +1,11 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { SITE } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "About",
   description:
-    "Kyle Raap — 20 years of Autodesk Fabrication experience. CADmep, ESTmep, CAMduct consulting for sheet metal and MEP contractors. Now bringing AI to the trades.",
+    "Tim Raap — 20 years of Autodesk Fabrication and construction workflow experience. CADmep, ESTmep, CAMduct consulting for sheet metal and MEP contractors.",
 };
 
 const values = [
@@ -16,9 +17,9 @@ const values = [
   },
   {
     tag: "02",
-    title: "AI as the Tool, Not the Product",
+    title: "Process Before Tools",
     description:
-      "AI is useful when it saves your estimator two hours on a reprice. It is not useful as a buzzword on a slide deck. We deploy what works and skip what does not.",
+      "Software does not fix a broken workflow. We map how information actually moves through your projects first, then apply the right tool — including AI when it earns its place.",
   },
   {
     tag: "03",
@@ -57,20 +58,19 @@ const timeline = [
     year: "2023",
     title: "Founded RaapTech LLC",
     description:
-      "Launched RaapTech to formalize two decades of consulting work and bring AI tools to sheet metal and MEP contractors.",
+      "Launched RaapTech to formalize two decades of consulting work for sheet metal and MEP contractors.",
   },
   {
     year: "2025",
-    title: "AI Onboarding for the Trades",
+    title: "Construction Workflow Optimization",
     description:
-      "Started deploying AI tools on-site, configured for real construction workflows. Estimating, RFIs, submittals, change orders.",
+      "Expanded focus to PM admin workflows — submittals, daily reports, change orders — and practical AI deployment on-site.",
   },
 ];
 
 export default function AboutPage() {
   return (
     <>
-      {/* Hero */}
       <section className="pt-32 pb-24 border-b border-dark-border">
         <div className="max-w-7xl mx-auto px-6">
           <div className="flex items-center gap-3 mb-6">
@@ -81,12 +81,13 @@ export default function AboutPage() {
             Built by someone who has actually been on the job site
           </h1>
           <p className="text-slate-400 text-lg max-w-2xl leading-relaxed">
-            RaapTech is not a tech startup that read about construction. It is 20 years of Autodesk Fabrication work, packaged into a consulting practice that now includes AI.
+            RaapTech is not a tech startup that read about construction. It is 20
+            years of Autodesk Fabrication work, packaged into a consulting practice
+            focused on workflow optimization for MEP and sheet metal contractors.
           </p>
         </div>
       </section>
 
-      {/* Founder */}
       <section className="py-24 border-b border-dark-border">
         <div className="max-w-7xl mx-auto px-6">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-16 items-start">
@@ -95,21 +96,28 @@ export default function AboutPage() {
                 <div className="w-8 h-px bg-brand-emerald" />
                 <span className="section-tag">Founder</span>
               </div>
-              <h2 className="text-3xl font-bold text-white mb-6">Kyle Raap</h2>
+              <h2 className="text-3xl font-bold text-white mb-6">Tim Raap</h2>
               <p className="text-slate-400 leading-relaxed mb-6">
-                Kyle has spent 20 years inside the Autodesk Fabrication Suite — CADmep, ESTmep, CAMduct, Fabrication databases. Not selling it. Using it. On the shop floor, in the field, training crews, fixing what broke.
+                Tim has spent 20 years inside the Autodesk Fabrication Suite —
+                CADmep, ESTmep, CAMduct, Fabrication databases. Not selling it.
+                Using it. On the shop floor, in the field, training crews, fixing
+                what broke.
               </p>
               <p className="text-slate-400 leading-relaxed mb-6">
-                He founded RaapTech because the trades need someone who speaks both languages. Your shop does not need a Silicon Valley tech team. It needs someone who understands your fabrication database, knows what a BOM looks like, and can set up an AI tool that your estimator will actually use.
+                He founded RaapTech because the trades need someone who speaks
+                both languages. Your shop does not need a Silicon Valley tech team.
+                It needs someone who understands your fabrication database, knows
+                what a BOM looks like, and can fix the admin workflows that eat
+                your PMs&apos; week.
               </p>
               <p className="text-slate-400 leading-relaxed mb-8">
-                Today Kyle is on-site daily at sheet metal and MEP shops — not just consulting from an office. He uses AI tools in his own work every day, and he brings that same practical approach to every client engagement.
+                Today Tim is on-site daily at sheet metal and MEP shops — not just
+                consulting from an office. He brings that same practical approach
+                to every client engagement.
               </p>
-              <div className="flex gap-4">
-                <Link href="/contact" className="btn-primary text-xs">
-                  Get in Touch
-                </Link>
-              </div>
+              <Link href="/contact#book" className="btn-primary text-xs">
+                {SITE.cta}
+              </Link>
             </div>
 
             <div className="space-y-4">
@@ -119,16 +127,18 @@ export default function AboutPage() {
                 </div>
                 <div className="space-y-3 font-mono text-sm">
                   {[
-                    { key: "primary", value: "Autodesk Fabrication Suite" },
+                    { key: "primary", value: "Construction Workflow Ops" },
                     { key: "tools", value: "CADmep / ESTmep / CAMduct" },
-                    { key: "domain", value: "Sheet Metal & MEP Ops" },
-                    { key: "applied", value: "AI Workflow Design" },
+                    { key: "domain", value: "Sheet Metal & MEP" },
+                    { key: "applied", value: "Workflow Audit & Fix" },
                     { key: "method", value: "Process Automation" },
                     { key: "delivery", value: "On-Site Training" },
                   ].map((item) => (
                     <div key={item.key} className="flex justify-between gap-4">
                       <span className="text-slate-500">{item.key}</span>
-                      <span className="text-brand-orange">&quot;{item.value}&quot;</span>
+                      <span className="text-brand-orange">
+                        &quot;{item.value}&quot;
+                      </span>
                     </div>
                   ))}
                 </div>
@@ -147,20 +157,22 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* Values */}
       <section className="py-24 border-b border-dark-border">
         <div className="max-w-7xl mx-auto px-6">
           <div className="flex items-center gap-3 mb-6">
             <div className="w-8 h-px bg-brand-emerald" />
-            <span className="section-tag">How Kyle Works</span>
+            <span className="section-tag">How Tim Works</span>
           </div>
           <h2 className="text-3xl font-bold text-white mb-16">
             Operating principles
           </h2>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-px bg-dark-border">
-            {values.map((value, i) => (
-              <div key={i} className="bg-dark-bg p-8 hover:bg-dark-surface transition-colors">
+            {values.map((value) => (
+              <div
+                key={value.tag}
+                className="bg-dark-bg p-8 hover:bg-dark-surface transition-colors"
+              >
                 <div className="flex items-center gap-3 mb-4">
                   <span className="font-mono text-xs text-slate-600">
                     {value.tag}
@@ -179,7 +191,6 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* Timeline */}
       <section className="py-24">
         <div className="max-w-7xl mx-auto px-6">
           <div className="flex items-center gap-3 mb-6">
@@ -187,15 +198,15 @@ export default function AboutPage() {
             <span className="section-tag">Timeline</span>
           </div>
           <h2 className="text-3xl font-bold text-white mb-16">
-            From the shop floor to AI
+            From the shop floor to workflow optimization
           </h2>
 
           <div className="relative">
-            <div className="absolute left-24 top-0 bottom-0 w-px bg-dark-border" />
+            <div className="absolute left-16 sm:left-24 top-0 bottom-0 w-px bg-dark-border" />
             <div className="space-y-0">
-              {timeline.map((item, i) => (
-                <div key={i} className="flex gap-8 group">
-                  <div className="w-24 shrink-0 pt-8">
+              {timeline.map((item) => (
+                <div key={item.year} className="flex gap-6 sm:gap-8 group">
+                  <div className="w-16 sm:w-24 shrink-0 pt-8">
                     <span className="font-mono text-sm font-bold text-brand-orange">
                       {item.year}
                     </span>

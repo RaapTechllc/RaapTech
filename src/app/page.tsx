@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { SITE } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "RaapTech LLC — Construction Workflow Optimization",
@@ -86,9 +87,14 @@ export default function HomePage() {
               Chasing submittals, re-entering data, compiling reports nobody reads. Your PMs are spending hours on work that should take minutes. We find the bottlenecks and fix them &mdash; so your team can get back to running jobs.
             </p>
 
+            <p className="font-mono text-xs text-slate-500 tracking-wide mb-8 max-w-2xl">
+              20+ Years on the Shop Floor · Local Union 73 · CADmep · ESTmep ·
+              CAMduct · Navisworks
+            </p>
+
             <div className="flex flex-col sm:flex-row gap-4">
-              <Link href="/contact" className="btn-primary">
-                Book a Free Workflow Consultation
+              <Link href="/contact#book" className="btn-primary">
+                {SITE.cta}
                 <svg
                   className="w-4 h-4"
                   fill="none"
@@ -158,7 +164,11 @@ export default function HomePage() {
             ].map((stat, i) => (
               <div
                 key={i}
-                className={`px-8 py-10 ${i < 3 ? "border-r border-dark-border" : ""}`}
+                className={`px-8 py-10 border-dark-border ${
+                  i % 2 === 0 ? "border-r" : ""
+                } ${i < 2 ? "border-b md:border-b-0" : ""} ${
+                  i < 3 ? "md:border-r" : "md:border-r-0"
+                }`}
               >
                 <div className="font-mono text-3xl font-bold text-brand-orange mb-1">
                   {stat.value}
@@ -219,7 +229,7 @@ export default function HomePage() {
             A workflow audit that ends with something working &mdash; not a slide deck.
           </h2>
           <p className="text-slate-400 text-lg leading-relaxed max-w-2xl mb-12">
-            We map your PM workflows from daily log to submittal tracking to closeout, identify the top bottlenecks eating the most time, and fix one of them. Completely. In under two weeks. You walk away with a working process change &mdash; not a recommendation report.
+            We map your PM workflows from daily log to submittal tracking to closeout, identify the top bottlenecks eating the most time, and fix one of them &mdash; fully built, tested, and handed off. In 5&ndash;10 business days. You walk away with a working process change, not a recommendation report.
           </p>
 
           <div className="border border-dark-border bg-dark-surface p-8 md:p-12">
@@ -270,8 +280,8 @@ export default function HomePage() {
                   </div>
                 </div>
                 <div className="mt-8">
-                  <Link href="/contact" className="btn-primary">
-                    Book a Free Workflow Consultation
+                  <Link href="/contact#book" className="btn-primary">
+                    {SITE.cta}
                     <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                       <path strokeLinecap="square" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
                     </svg>
@@ -340,19 +350,19 @@ export default function HomePage() {
                 stat: "20 Years",
                 label: "Hands-On MEP Fabrication",
                 description:
-                  "CADmep, ESTmep, CAMduct — learned on the shop floor, not from a sales deck. Kyle Raap has been solving fabrication workflow problems since before most consultants knew what BIM was.",
+                  "CADmep, ESTmep, CAMduct — learned on the shop floor, not from a sales deck. Tim Raap has been solving fabrication workflow problems since before most consultants knew what BIM was.",
               },
               {
                 stat: "4 Active",
                 label: "Construction Clients",
                 description:
-                  "We limit new engagements to maintain quality. Every client gets direct access to Kyle — not a junior associate, not a subcontractor. The person who scoped the work does the work.",
+                  "We limit new engagements to maintain quality. Every client gets direct access to Tim — not a junior associate, not a subcontractor. The person who scoped the work does the work.",
               },
               {
                 stat: "3 Trades",
                 label: "Sheet Metal, Mechanical, Electrical",
                 description:
-                  "Serving sheet metal fabrication shops, mechanical contractors, and electrical contractors. Kyle works on-site daily at an active shop. He sees the problems as they happen — not weeks later in a status report.",
+                  "Serving sheet metal fabrication shops, mechanical contractors, and electrical contractors. Tim works on-site daily at an active shop. He sees the problems as they happen — not weeks later in a status report.",
               },
             ].map((item, i) => (
               <div key={i} className="bg-dark-bg p-8">
@@ -372,7 +382,7 @@ export default function HomePage() {
       </section>
 
       {/* ═══════════════════════════════════════════
-          SECTION 6: ABOUT KYLE
+          SECTION 6: ABOUT TIM
       ═══════════════════════════════════════════ */}
       <section className="py-24 border-t border-dark-border">
         <div className="max-w-7xl mx-auto px-6">
@@ -388,7 +398,7 @@ export default function HomePage() {
               </h2>
               <div className="space-y-4 text-slate-400 leading-relaxed">
                 <p>
-                  Kyle Raap spent two decades in Autodesk Fabrication and MEP project environments. He knows how shop drawings, change orders, and field coordination are supposed to flow — and what it looks like when they don&apos;t.
+                  Tim Raap spent two decades in Autodesk Fabrication and MEP project environments. He knows how shop drawings, change orders, and field coordination are supposed to flow — and what it looks like when they don&apos;t.
                 </p>
                 <p>
                   He&apos;s not guessing at where construction companies waste time. He&apos;s seen it from the inside — daily, on-site, at an active sheet metal fabrication shop. The problems he solves are the ones he&apos;s lived with.
@@ -401,7 +411,7 @@ export default function HomePage() {
 
             <div className="border border-dark-border bg-dark-surface p-8">
               <h3 className="font-mono text-xs tracking-widest uppercase text-brand-emerald mb-6">
-                Kyle Raap
+                Tim Raap
               </h3>
               <div className="space-y-4 font-mono text-sm">
                 <div className="flex justify-between border-b border-dark-border pb-3">
@@ -430,8 +440,8 @@ export default function HomePage() {
                 </div>
                 <div className="flex justify-between">
                   <span className="text-slate-500">contact</span>
-                  <a href="mailto:tim@raaptech.com" className="text-brand-orange hover:text-white transition-colors">
-                    tim@raaptech.com
+                  <a href={`mailto:${SITE.email}`} className="text-brand-orange hover:text-white transition-colors">
+                    {SITE.email}
                   </a>
                 </div>
               </div>
@@ -458,8 +468,8 @@ export default function HomePage() {
               20 minutes. No pitch deck. We&apos;ll talk about where your team is losing time — and whether we can help.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link href="/contact" className="btn-primary">
-                Book a Free Workflow Consultation
+              <Link href="/contact#book" className="btn-primary">
+                {SITE.cta}
                 <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="square" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
                 </svg>
