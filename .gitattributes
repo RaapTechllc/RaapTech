@@ -1,0 +1,4 @@
+# Normalize line endings to LF on commit and checkout.
+# Prevents CR/line-ending corruption of source files (see commit history:
+# stray CRs once hard-wrapped the services/about pages and broke the build).
+* text=auto eol=lf
