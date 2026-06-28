@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { ArrowRight } from "@/components/icons";
 
 export const metadata: Metadata = {
   title: "About",
@@ -81,14 +82,7 @@ export default function AboutPage() {
     <>
       {/* Hero — inverted */}
       <section className="relative overflow-hidden bg-ink pt-16 text-paper">
-        <div
-          className="absolute inset-0"
-          style={{
-            backgroundImage:
-              "linear-gradient(rgba(237,233,224,0.06) 1px, transparent 1px), linear-gradient(90deg, rgba(237,233,224,0.06) 1px, transparent 1px)",
-            backgroundSize: "72px 72px",
-          }}
-        />
+        <div className="absolute inset-0 grid-backdrop" />
 
         <div className="relative mx-auto grid w-full max-w-7xl grid-cols-1 gap-12 px-6 py-24 lg:grid-cols-12">
           <div className="lg:col-span-9">
@@ -99,7 +93,7 @@ export default function AboutPage() {
             <h1 className="font-display text-display-2xl font-bold tracking-tight text-paper">
               Built by someone who has
               <br />
-              <span className="bg-hazard px-2 text-ink">actually</span> been on
+              <span className="highlight">actually</span> been on
               <br />
               the job site.
             </h1>
@@ -113,9 +107,7 @@ export default function AboutPage() {
             <div className="mt-12 flex flex-col gap-4 sm:flex-row">
               <Link href="/contact" className="btn-primary">
                 Get in Touch
-                <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="square" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                </svg>
+                <ArrowRight />
               </Link>
               <Link href="/services" className="btn-on-ink">
                 See Services
@@ -184,7 +176,7 @@ export default function AboutPage() {
                     </div>
                   ))}
                   <div className="mt-3 flex items-center gap-2 border-t-2 border-paper/30 pt-3">
-                    <span className="h-2 w-2 animate-pulse rounded-full bg-volt" />
+                    <span className="status-dot" />
                     <span className="text-volt">
                       On-site daily — available for new clients
                     </span>

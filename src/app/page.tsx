@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { ArrowRight } from "@/components/icons";
 
 export const metadata: Metadata = {
   title: "RaapTech LLC — Autodesk Fabrication Consulting & AI for the Trades",
@@ -65,14 +66,7 @@ export default function HomePage() {
     <>
       {/* Hero — inverted */}
       <section className="relative flex min-h-screen items-center overflow-hidden bg-ink pt-16 text-paper">
-        <div
-          className="absolute inset-0 opacity-100"
-          style={{
-            backgroundImage:
-              "linear-gradient(rgba(237,233,224,0.06) 1px, transparent 1px), linear-gradient(90deg, rgba(237,233,224,0.06) 1px, transparent 1px)",
-            backgroundSize: "72px 72px",
-          }}
-        />
+        <div className="absolute inset-0 grid-backdrop" />
 
         <div className="relative mx-auto grid w-full max-w-7xl grid-cols-1 gap-12 px-6 py-24 lg:grid-cols-12">
           <div className="lg:col-span-8">
@@ -87,7 +81,7 @@ export default function HomePage() {
               <br />
               AI-Native by
               <br />
-              <span className="bg-hazard px-2 text-ink">Default.</span>
+              <span className="highlight">Default.</span>
             </h1>
 
             <p className="mt-10 max-w-2xl font-sans text-body-lg text-paper-dim">
@@ -100,9 +94,7 @@ export default function HomePage() {
             <div className="mt-12 flex flex-col gap-4 sm:flex-row">
               <Link href="/services" className="btn-primary">
                 View Services
-                <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="square" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                </svg>
+                <ArrowRight />
               </Link>
               <Link href="/about" className="btn-on-ink">
                 About Kyle
@@ -132,7 +124,7 @@ export default function HomePage() {
                   </div>
                 ))}
                 <div className="mt-3 flex items-center gap-2 border-t-2 border-paper/30 pt-3">
-                  <span className="h-2 w-2 animate-pulse rounded-full bg-volt" />
+                  <span className="status-dot" />
                   <span className="text-volt">Available for new clients</span>
                 </div>
               </div>

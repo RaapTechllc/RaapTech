@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { ArrowRight } from "@/components/icons";
 
 export const metadata: Metadata = {
   title: "Projects",
@@ -12,14 +13,7 @@ export default function ProjectsPage() {
     <>
       {/* Hero — inverted */}
       <section className="relative overflow-hidden bg-ink pt-32 pb-20 text-paper">
-        <div
-          className="absolute inset-0 opacity-100"
-          style={{
-            backgroundImage:
-              "linear-gradient(rgba(237,233,224,0.06) 1px, transparent 1px), linear-gradient(90deg, rgba(237,233,224,0.06) 1px, transparent 1px)",
-            backgroundSize: "72px 72px",
-          }}
-        />
+        <div className="absolute inset-0 grid-backdrop" />
 
         <div className="relative mx-auto max-w-7xl px-6">
           <span className="section-number absolute right-6 top-8 text-[12rem] leading-none text-paper/[0.04] md:text-[16rem]">
@@ -47,7 +41,7 @@ export default function ProjectsPage() {
         <div className="mx-auto max-w-7xl px-6">
           <div className="border-2 border-ink bg-ink p-10 text-paper shadow-hard md:p-16">
             <div className="flex items-center gap-2 border-b-2 border-paper/30 pb-4">
-              <span className="h-2 w-2 animate-pulse rounded-full bg-volt" />
+              <span className="status-dot" />
               <span className="font-mono text-xs uppercase tracking-label text-volt">
                 In Progress
               </span>
@@ -77,9 +71,7 @@ export default function ProjectsPage() {
                 <div className="mt-10">
                   <Link href="/contact" className="btn-primary">
                     Ask About Our Work
-                    <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="square" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                    </svg>
+                    <ArrowRight />
                   </Link>
                 </div>
               </div>

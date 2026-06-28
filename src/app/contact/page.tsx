@@ -42,14 +42,7 @@ export default function ContactPage() {
     <>
       {/* Hero — inverted */}
       <section className="relative overflow-hidden bg-ink pt-16 text-paper">
-        <div
-          className="absolute inset-0 opacity-100"
-          style={{
-            backgroundImage:
-              "linear-gradient(rgba(237,233,224,0.06) 1px, transparent 1px), linear-gradient(90deg, rgba(237,233,224,0.06) 1px, transparent 1px)",
-            backgroundSize: "72px 72px",
-          }}
-        />
+        <div className="absolute inset-0 grid-backdrop" />
 
         <div className="relative mx-auto max-w-7xl px-6 py-24">
           <div className="eyebrow eyebrow-ink mb-8">
@@ -59,7 +52,7 @@ export default function ContactPage() {
           <h1 className="font-display text-display-2xl font-bold tracking-tight text-paper">
             Let&apos;s talk
             <br />
-            <span className="bg-hazard px-2 text-ink">shop.</span>
+            <span className="highlight">shop.</span>
           </h1>
 
           <p className="mt-10 max-w-2xl font-sans text-body-lg text-paper-dim">
