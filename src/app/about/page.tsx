@@ -63,7 +63,7 @@ const timeline = [
     year: "2025",
     title: "AI Onboarding for the Trades",
     description:
-      "Started deploying AI tools on-site — Claude, ChatGPT — configured for real construction workflows. Estimating, RFIs, submittals, change orders.",
+      "Started deploying AI tools on-site, configured for real construction workflows. Estimating, RFIs, submittals, change orders.",
   },
 ];
 

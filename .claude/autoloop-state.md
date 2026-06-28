@@ -68,31 +68,43 @@ injected mid-token and mid-string, plus mangled em-dashes (`—` → U+FFFD `�
   action: add `README.md` documenting stack, scripts, structure, deploy, and the Google-Fonts
   build caveat. commit: (pending)
 
-## Needs sign-off queue
+## Round 2 (post-merge of PR #2 — user delegated the open items)
 
-1. **Vendor-name removal never happened.** Commits `88ae5b7`/`157e992` intended to "remove
-   brand-specific AI vendor names" but the copy still says "Claude.ai or ChatGPT for Business"
-   (services) and "Claude, ChatGPT" (about/timeline). Restoring the clean versions preserves
-   this existing copy. **Question:** do you want these AI vendor names removed/genericized,
-   and to what wording? (Content decision — not made autonomously.)
+- **It.5** — target: needs-sign-off #1, vendor names. Genericized brand mentions in
+  `services/page.tsx`, `page.tsx`, `about/page.tsx` ("Claude.ai/ChatGPT" → "a business-grade
+  AI assistant"; dropped "Claude, ChatGPT" parenthetical). gate: tsc + lint clean.
+  commit: **699af8c** `content: genericize AI vendor names in site copy`. ✅ resolves sign-off #1.
+- **It.6** — target: needs-sign-off #3 / rung 7, establish tests. Added Vitest 3 + RTL +
+  jest-dom + jsdom; `npm test`; 12 tests across Footer/ThemeProvider/Navbar/ContactForm.
+  gate: 12/12 pass, tsc clean, lint clean.
+  commit: **8fbcd48** `test: add Vitest + RTL smoke/characterization suite`. ✅ resolves sign-off #3.
+
+## Needs sign-off queue (remaining)
+
+1. ✅ RESOLVED in It.5 — vendor names genericized.
 2. **Build is not network-self-contained.** `next/font/google` (Inter, JetBrains Mono) fetches
    from Google Fonts at build time; blocked by this env's network policy. Builds fine on Vercel.
    **Question:** want fonts self-hosted (`next/font/local`) so builds work offline/air-gapped?
-   (Behavior/architecture change.)
-3. **No test suite at all.** **Question:** add a test runner (e.g. Vitest + React Testing
-   Library) and a minimal smoke/characterization suite? (Tooling + dependency decision.)
+   (Behavior/architecture change. NOTE: can't be done in this env — fetching the font files is
+   also blocked by the same network policy.)
+3. ✅ RESOLVED in It.6 — Vitest + RTL smoke suite added.
+4. **`next lint` deprecation** (removed in Next 16). Deferred — works for now; migrate to the
+   ESLint CLI before a Next 16 upgrade. (Recommended, not yet done.)
 
-## Last full-suite checkpoint (after all commits, HEAD `11ef605`)
-- typecheck ✅ (`tsc --noEmit` exit 0)
+## Last full-suite checkpoint (Round 2, after It.6)
+- test ✅ (`npm test`: 12/12 pass)
+- typecheck ✅ (`tsc --noEmit` exit 0; now also covers `*.test.tsx` + vitest config)
 - lint ✅ (`next lint`: 0 warnings/errors)
-- build ⚠️ env-blocked: fails ONLY at the Google-Fonts fetch. **Proven** via a temporary,
-  immediately-reverted stub that bypassed `next/font/google`: `next build` then exited 0,
-  compiling + statically generating all 8 routes (`/`, `/about`, `/contact`, `/projects`,
-  `/services`, `/_not-found`). The corruption fix is therefore complete; the only remaining
-  build blocker is environmental (network policy denies `fonts.googleapis.com`).
+- build ⚠️ env-blocked: still fails ONLY at the Google-Fonts fetch (test files are not
+  route-imported, so they never enter the bundle; the TS program tsc mirrors is clean).
 
-## Commits this run (on branch `claude/brownfield-code-quality-loop-wigjmv`)
+## Commits — Round 1 (merged via PR #2, squash `83a2b2b`)
 - `38adf30` fix(pages): repair hard-wrap/CR corruption in services & about pages
 - `78c9ca2` chore: add .gitattributes to enforce LF line endings
 - `11ef605` docs: add README with setup, scripts, structure, and deploy notes
-- (state file commit follows)
+- `fba318b` chore: add autoloop state file
+
+## Commits — Round 2 (branch `claude/brownfield-code-quality-loop-wigjmv`, new PR)
+- `699af8c` content: genericize AI vendor names in site copy
+- `8fbcd48` test: add Vitest + RTL smoke/characterization suite
+- (state file update commit follows)
