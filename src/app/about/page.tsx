@@ -7,6 +7,15 @@ export const metadata: Metadata = {
     "Kyle Raap — 20 years of Autodesk Fabrication experience. CADmep, ESTmep, CAMduct consulting for sheet metal and MEP contractors. Now bringing AI to the trades.",
 };
 
+const expertiseStack = [
+  { key: "primary", value: "Autodesk Fabrication Suite" },
+  { key: "tools", value: "CADmep / ESTmep / CAMduct" },
+  { key: "domain", value: "Sheet Metal & MEP Ops" },
+  { key: "applied", value: "AI Workflow Design" },
+  { key: "method", value: "Process Automation" },
+  { key: "delivery", value: "On-Site Training" },
+];
+
 const values = [
   {
     tag: "01",
@@ -70,76 +79,116 @@ const timeline = [
 export default function AboutPage() {
   return (
     <>
-      {/* Hero */}
-      <section className="pt-32 pb-24 border-b border-dark-border">
-        <div className="max-w-7xl mx-auto px-6">
-          <div className="flex items-center gap-3 mb-6">
-            <div className="w-8 h-px bg-brand-emerald" />
-            <span className="section-tag">About RaapTech</span>
+      {/* Hero — inverted */}
+      <section className="relative overflow-hidden bg-ink pt-16 text-paper">
+        <div
+          className="absolute inset-0"
+          style={{
+            backgroundImage:
+              "linear-gradient(rgba(237,233,224,0.06) 1px, transparent 1px), linear-gradient(90deg, rgba(237,233,224,0.06) 1px, transparent 1px)",
+            backgroundSize: "72px 72px",
+          }}
+        />
+
+        <div className="relative mx-auto grid w-full max-w-7xl grid-cols-1 gap-12 px-6 py-24 lg:grid-cols-12">
+          <div className="lg:col-span-9">
+            <div className="eyebrow eyebrow-ink mb-8">
+              <span className="text-hazard">About RaapTech</span>
+            </div>
+
+            <h1 className="font-display text-display-2xl font-bold tracking-tight text-paper">
+              Built by someone who has
+              <br />
+              <span className="bg-hazard px-2 text-ink">actually</span> been on
+              <br />
+              the job site.
+            </h1>
+
+            <p className="mt-10 max-w-2xl font-sans text-body-lg text-paper-dim">
+              RaapTech is not a tech startup that read about construction. It is
+              20 years of Autodesk Fabrication work, packaged into a consulting
+              practice that now includes AI.
+            </p>
+
+            <div className="mt-12 flex flex-col gap-4 sm:flex-row">
+              <Link href="/contact" className="btn-primary">
+                Get in Touch
+                <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="square" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                </svg>
+              </Link>
+              <Link href="/services" className="btn-on-ink">
+                See Services
+              </Link>
+            </div>
           </div>
-          <h1 className="text-5xl md:text-6xl font-bold text-white leading-tight mb-8 max-w-3xl">
-            Built by someone who has actually been on the job site
-          </h1>
-          <p className="text-slate-400 text-lg max-w-2xl leading-relaxed">
-            RaapTech is not a tech startup that read about construction. It is 20 years of Autodesk Fabrication work, packaged into a consulting practice that now includes AI.
-          </p>
         </div>
       </section>
 
       {/* Founder */}
-      <section className="py-24 border-b border-dark-border">
-        <div className="max-w-7xl mx-auto px-6">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-16 items-start">
-            <div>
-              <div className="flex items-center gap-3 mb-6">
-                <div className="w-8 h-px bg-brand-emerald" />
-                <span className="section-tag">Founder</span>
+      <section className="bg-paper py-24">
+        <div className="mx-auto max-w-7xl px-6">
+          <div className="eyebrow mb-4">Founder</div>
+          <h2 className="mb-16 max-w-2xl font-display text-display-lg font-bold text-ink">
+            Kyle Raap
+          </h2>
+
+          <div className="grid grid-cols-1 items-start gap-12 lg:grid-cols-12 lg:gap-16">
+            {/* Bio */}
+            <div className="lg:col-span-7">
+              <div className="space-y-6 font-sans text-base leading-relaxed text-steel">
+                <p>
+                  Kyle has spent 20 years inside the Autodesk Fabrication Suite —
+                  CADmep, ESTmep, CAMduct, Fabrication databases. Not selling it.
+                  Using it. On the shop floor, in the field, training crews,
+                  fixing what broke.
+                </p>
+                <p>
+                  He founded RaapTech because the trades need someone who speaks
+                  both languages. Your shop does not need a Silicon Valley tech
+                  team. It needs someone who understands your fabrication
+                  database, knows what a BOM looks like, and can set up an AI tool
+                  that your estimator will actually use.
+                </p>
+                <p>
+                  Today Kyle is on-site daily at sheet metal and MEP shops — not
+                  just consulting from an office. He uses AI tools in his own work
+                  every day, and he brings that same practical approach to every
+                  client engagement.
+                </p>
               </div>
-              <h2 className="text-3xl font-bold text-white mb-6">Kyle Raap</h2>
-              <p className="text-slate-400 leading-relaxed mb-6">
-                Kyle has spent 20 years inside the Autodesk Fabrication Suite — CADmep, ESTmep, CAMduct, Fabrication databases. Not selling it. Using it. On the shop floor, in the field, training crews, fixing what broke.
-              </p>
-              <p className="text-slate-400 leading-relaxed mb-6">
-                He founded RaapTech because the trades need someone who speaks both languages. Your shop does not need a Silicon Valley tech team. It needs someone who understands your fabrication database, knows what a BOM looks like, and can set up an AI tool that your estimator will actually use.
-              </p>
-              <p className="text-slate-400 leading-relaxed mb-8">
-                Today Kyle is on-site daily at sheet metal and MEP shops — not just consulting from an office. He uses AI tools in his own work every day, and he brings that same practical approach to every client engagement.
-              </p>
-              <div className="flex gap-4">
-                <Link href="/contact" className="btn-primary text-xs">
+
+              <div className="mt-10 flex gap-4">
+                <Link href="/contact" className="btn-secondary">
                   Get in Touch
                 </Link>
               </div>
             </div>
 
-            <div className="space-y-4">
-              <div className="border border-dark-border bg-dark-surface p-6">
-                <div className="font-mono text-xs text-slate-500 mb-4">
-                  {"// expertise_stack"}
+            {/* Expertise spec card — ink panel */}
+            <div className="lg:col-span-5 lg:self-start">
+              <div className="border-2 border-ink bg-ink text-paper shadow-hard">
+                <div className="flex items-center gap-2 border-b-2 border-paper px-4 py-3">
+                  <span className="h-2.5 w-2.5 bg-hazard" />
+                  <span className="font-mono text-xs uppercase tracking-label text-paper-dim">
+                    expertise_stack
+                  </span>
                 </div>
-                <div className="space-y-3 font-mono text-sm">
-                  {[
-                    { key: "primary", value: "Autodesk Fabrication Suite" },
-                    { key: "tools", value: "CADmep / ESTmep / CAMduct" },
-                    { key: "domain", value: "Sheet Metal & MEP Ops" },
-                    { key: "applied", value: "AI Workflow Design" },
-                    { key: "method", value: "Process Automation" },
-                    { key: "delivery", value: "On-Site Training" },
-                  ].map((item) => (
+                <div className="space-y-3 p-4 font-mono text-xs">
+                  {expertiseStack.map((item) => (
                     <div key={item.key} className="flex justify-between gap-4">
-                      <span className="text-slate-500">{item.key}</span>
-                      <span className="text-brand-orange">&quot;{item.value}&quot;</span>
+                      <span className="text-paper-dim">{item.key}</span>
+                      <span className="text-right text-signal">
+                        &quot;{item.value}&quot;
+                      </span>
                     </div>
                   ))}
-                </div>
-              </div>
-
-              <div className="border border-dark-border bg-dark-surface p-4">
-                <div className="flex items-center gap-2">
-                  <div className="w-2 h-2 bg-brand-emerald animate-pulse" />
-                  <span className="font-mono text-xs text-brand-emerald">
-                    On-site daily — available for new clients
-                  </span>
+                  <div className="mt-3 flex items-center gap-2 border-t-2 border-paper/30 pt-3">
+                    <span className="h-2 w-2 animate-pulse rounded-full bg-volt" />
+                    <span className="text-volt">
+                      On-site daily — available for new clients
+                    </span>
+                  </div>
                 </div>
               </div>
             </div>
@@ -147,30 +196,35 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* Values */}
-      <section className="py-24 border-b border-dark-border">
-        <div className="max-w-7xl mx-auto px-6">
-          <div className="flex items-center gap-3 mb-6">
-            <div className="w-8 h-px bg-brand-emerald" />
-            <span className="section-tag">How Kyle Works</span>
+      {/* Values — inverted */}
+      <section className="bg-ink py-24 text-paper">
+        <div className="mx-auto max-w-7xl px-6">
+          <div className="eyebrow eyebrow-ink mb-4">
+            <span className="text-hazard">How Kyle Works</span>
           </div>
-          <h2 className="text-3xl font-bold text-white mb-16">
+          <h2 className="mb-16 max-w-2xl font-display text-display-lg font-bold text-paper">
             Operating principles
           </h2>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-px bg-dark-border">
-            {values.map((value, i) => (
-              <div key={i} className="bg-dark-bg p-8 hover:bg-dark-surface transition-colors">
-                <div className="flex items-center gap-3 mb-4">
-                  <span className="font-mono text-xs text-slate-600">
+          <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
+            {values.map((value) => (
+              <div
+                key={value.tag}
+                className="group relative border-2 border-paper bg-ink p-8 shadow-hard-paper transition-transform duration-150 hover:translate-x-[6px] hover:translate-y-[6px] hover:shadow-none"
+              >
+                <span className="section-number absolute right-6 top-4 text-6xl text-paper/10">
+                  {value.tag}
+                </span>
+                <div className="mb-4 flex items-center gap-3">
+                  <span className="font-mono text-xs uppercase tracking-label text-hazard">
                     {value.tag}
                   </span>
-                  <div className="h-px flex-1 bg-dark-border" />
+                  <span className="h-[2px] flex-1 bg-paper/20" />
                 </div>
-                <h3 className="font-semibold text-white text-lg mb-3">
+                <h3 className="mb-3 font-display text-xl font-bold text-paper">
                   {value.title}
                 </h3>
-                <p className="text-slate-400 text-sm leading-relaxed">
+                <p className="text-sm leading-relaxed text-paper-dim">
                   {value.description}
                 </p>
               </div>
@@ -180,37 +234,57 @@ export default function AboutPage() {
       </section>
 
       {/* Timeline */}
-      <section className="py-24">
-        <div className="max-w-7xl mx-auto px-6">
-          <div className="flex items-center gap-3 mb-6">
-            <div className="w-8 h-px bg-brand-emerald" />
-            <span className="section-tag">Timeline</span>
-          </div>
-          <h2 className="text-3xl font-bold text-white mb-16">
+      <section className="bg-paper py-24">
+        <div className="mx-auto max-w-7xl px-6">
+          <div className="eyebrow mb-4">Timeline</div>
+          <h2 className="mb-16 max-w-2xl font-display text-display-lg font-bold text-ink">
             From the shop floor to AI
           </h2>
 
-          <div className="relative">
-            <div className="absolute left-24 top-0 bottom-0 w-px bg-dark-border" />
-            <div className="space-y-0">
-              {timeline.map((item, i) => (
-                <div key={i} className="flex gap-8 group">
-                  <div className="w-24 shrink-0 pt-8">
-                    <span className="font-mono text-sm font-bold text-brand-orange">
-                      {item.year}
-                    </span>
-                  </div>
-                  <div className="relative pt-8 pb-8 flex-1 border-b border-dark-border last:border-b-0">
-                    <div className="absolute left-0 top-10 w-3 h-3 border border-brand-orange bg-dark-bg -translate-x-[calc(50%+0.5px)] group-hover:bg-brand-orange transition-colors" />
-                    <h3 className="font-semibold text-white mb-2">
-                      {item.title}
-                    </h3>
-                    <p className="text-slate-400 text-sm leading-relaxed">
-                      {item.description}
-                    </p>
-                  </div>
+          <div className="border-t-2 border-ink">
+            {timeline.map((item) => (
+              <div
+                key={item.year}
+                className="group grid grid-cols-1 gap-4 border-b-2 border-ink py-10 md:grid-cols-12 md:gap-8"
+              >
+                <div className="md:col-span-4 lg:col-span-3">
+                  <span className="section-number block text-6xl text-ink transition-colors group-hover:text-hazard sm:text-7xl lg:text-8xl">
+                    {item.year}
+                  </span>
                 </div>
-              ))}
+                <div className="md:col-span-8 lg:col-span-7 lg:col-start-5 md:self-center">
+                  <h3 className="mb-3 font-display text-xl font-bold text-ink">
+                    {item.title}
+                  </h3>
+                  <p className="max-w-2xl text-sm leading-relaxed text-steel">
+                    {item.description}
+                  </p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* CTA — inverted */}
+      <section className="bg-ink py-24 text-paper">
+        <div className="mx-auto max-w-7xl px-6">
+          <div className="flex flex-col items-start justify-between gap-8 border-2 border-hazard bg-ink p-10 shadow-hard-hazard md:flex-row md:items-center md:p-12">
+            <div>
+              <div className="eyebrow eyebrow-ink mb-3">
+                <span className="text-hazard">Ready to Talk</span>
+              </div>
+              <h2 className="font-display text-display-lg font-bold text-paper">
+                Someone who gets the shop floor and the software.
+              </h2>
+            </div>
+            <div className="flex flex-col gap-4 sm:flex-row">
+              <Link href="/contact" className="btn-primary whitespace-nowrap">
+                Start a Conversation
+              </Link>
+              <Link href="/services" className="btn-on-ink whitespace-nowrap">
+                See Services
+              </Link>
             </div>
           </div>
         </div>

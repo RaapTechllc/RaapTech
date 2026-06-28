@@ -28,7 +28,7 @@ describe("ContactForm", () => {
 
     await user.type(screen.getByLabelText(/Name/), "Test User");
     await user.type(screen.getByLabelText(/Email/), "test@example.com");
-    await user.selectOptions(screen.getByLabelText(/Subject/), "advisory");
+    await user.selectOptions(screen.getByLabelText(/Subject/), "ai-onboarding");
     await user.type(screen.getByLabelText(/Message/), "Hello there");
     await user.click(screen.getByRole("button", { name: /Send Message/i }));
 

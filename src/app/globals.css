@@ -2,12 +2,16 @@
 @tailwind components;
 @tailwind utilities;
 
+/* RaapTech — Industrial Neo-Brutalism. See DESIGN.md for the full spec. */
+
 :root {
-  --font-inter: 'Inter', system-ui, sans-serif;
-  --font-jetbrains-mono: 'JetBrains Mono', monospace;
-  --color-orange: #FF6B35;
-  --color-navy: #1E3A8A;
-  --color-emerald: #10B981;
+  --ink: #0b0b0c;
+  --paper: #ede9e0;
+  --concrete: #dbd6ca;
+  --steel: #57544c;
+  --hazard: #ff4d00;
+  --signal: #1453ff;
+  --volt: #c8ff00;
 }
 
 html {
@@ -15,51 +19,107 @@ html {
 }
 
 body {
-  font-family: var(--font-inter);
-  background-color: #080A0F;
-  color: #E2E8F0;
+  font-family: var(--font-inter), system-ui, sans-serif;
+  background-color: var(--paper);
+  color: var(--ink);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-.font-mono {
-  font-family: var(--font-jetbrains-mono);
+/* Square by default — brutalist hard edges. Circles opt back in. */
+*,
+*::before,
+*::after {
+  border-radius: 0;
 }
-
-/* Light mode */
-.light body {
-  background-color: #F8FAFC;
-  color: #0F172A;
-}
-
-/* Sharp edge utility */
-* {
-  border-radius: 0 !important;
-}
-
-/* Exception for full-round elements */
 .rounded-full {
-  border-radius: 9999px !important;
+  border-radius: 9999px;
+}
+
+::selection {
+  background-color: var(--hazard);
+  color: var(--ink);
+}
+
+/* Visible, structural focus — no soft glow. */
+:focus-visible {
+  outline: 3px solid var(--signal);
+  outline-offset: 2px;
 }
 
 @layer components {
+  /* Eyebrow / section label */
+  .eyebrow {
+    @apply inline-flex items-center gap-3 font-mono text-xs font-medium uppercase tracking-label text-hazard;
+  }
+  .eyebrow::before {
+    content: "";
+    @apply inline-block h-[2px] w-8 bg-hazard;
+  }
+  .eyebrow-ink {
+    @apply text-paper;
+  }
+  .eyebrow-ink::before {
+    @apply bg-hazard;
+  }
+
+  /* Buttons — hard offset shadow that "presses" on hover */
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 border-2 border-ink px-7 py-4 font-mono text-xs font-medium uppercase tracking-label transition-transform duration-150 will-change-transform;
+  }
   .btn-primary {
-    @apply inline-flex items-center gap-2 px-6 py-3 bg-brand-orange text-white font-semibold text-sm tracking-wider uppercase transition-all duration-200 hover:bg-opacity-90 hover:translate-y-[-1px];
+    @apply btn bg-hazard text-ink shadow-hard hover:translate-x-[6px] hover:translate-y-[6px] hover:shadow-none active:translate-x-[6px] active:translate-y-[6px] active:shadow-none;
   }
-
   .btn-secondary {
-    @apply inline-flex items-center gap-2 px-6 py-3 border border-brand-orange text-brand-orange font-semibold text-sm tracking-wider uppercase transition-all duration-200 hover:bg-brand-orange hover:text-white;
+    @apply btn bg-paper text-ink shadow-hard hover:translate-x-[6px] hover:translate-y-[6px] hover:shadow-none hover:bg-ink hover:text-paper;
+  }
+  /* On inverted (ink) sections */
+  .btn-on-ink {
+    @apply btn border-paper bg-transparent text-paper shadow-hard-paper hover:translate-x-[6px] hover:translate-y-[6px] hover:shadow-none hover:bg-paper hover:text-ink;
   }
 
-  .section-tag {
-    @apply font-mono text-xs tracking-widest uppercase text-brand-emerald;
+  /* Cards */
+  .card {
+    @apply border-2 border-ink bg-paper p-8;
+  }
+  .card-pop {
+    @apply card shadow-hard transition-transform duration-150 hover:translate-x-[6px] hover:translate-y-[6px] hover:shadow-none;
   }
 
-  .card-dark {
-    @apply bg-dark-surface border border-dark-border p-6 transition-all duration-300 hover:border-brand-orange/30;
+  /* Form fields */
+  .field-label {
+    @apply mb-2 block font-mono text-xs font-medium uppercase tracking-label text-steel;
+  }
+  .field {
+    @apply w-full border-2 border-ink bg-paper px-4 py-3 font-sans text-sm text-ink placeholder:text-steel/60 focus:border-hazard focus:outline-none;
   }
 
-  .grid-line {
-    @apply border-dark-border;
+  /* Giant structural section number */
+  .section-number {
+    @apply font-display font-bold leading-none text-concrete;
+  }
+
+  /* Marquee ticker */
+  .marquee {
+    @apply flex w-max animate-marquee;
+  }
+  .marquee-pause:hover .marquee {
+    animation-play-state: paused;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .animate-marquee,
+  .animate-blink {
+    animation: none;
+  }
+  .btn-primary:hover,
+  .btn-secondary:hover,
+  .btn-on-ink:hover,
+  .card-pop:hover {
+    transform: none;
   }
 }

@@ -3,7 +3,6 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
-import { useTheme } from "./ThemeProvider";
 
 const navLinks = [
   { href: "/", label: "Home" },
@@ -15,36 +14,36 @@ const navLinks = [
 
 export default function Navbar() {
   const pathname = usePathname();
-  const { theme, toggleTheme } = useTheme();
   const [mobileOpen, setMobileOpen] = useState(false);
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 border-b border-dark-border bg-dark-bg/90 backdrop-blur-sm">
-      <nav className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
+    <header className="fixed left-0 right-0 top-0 z-50 border-b-2 border-ink bg-paper">
+      <nav className="mx-auto flex h-16 max-w-7xl items-center justify-between px-6">
         {/* Logo */}
         <Link
           href="/"
-          className="flex items-center gap-3 group"
+          className="group flex items-center gap-3"
           aria-label="RaapTech Home"
+          onClick={() => setMobileOpen(false)}
         >
-          <div className="w-8 h-8 bg-brand-orange flex items-center justify-center">
-            <span className="font-mono font-bold text-white text-sm">RT</span>
+          <div className="flex h-9 w-9 items-center justify-center border-2 border-ink bg-hazard transition-transform duration-150 group-hover:translate-x-[2px] group-hover:translate-y-[2px]">
+            <span className="font-mono text-sm font-bold text-ink">RT</span>
           </div>
-          <span className="font-mono font-semibold text-white tracking-tight">
+          <span className="font-display text-lg font-bold tracking-tight text-ink">
             RAAPTECH
           </span>
         </Link>
 
-        {/* Desktop Nav */}
-        <ul className="hidden md:flex items-center gap-8">
+        {/* Desktop nav */}
+        <ul className="hidden items-center gap-8 md:flex">
           {navLinks.map((link) => (
             <li key={link.href}>
               <Link
                 href={link.href}
-                className={`font-mono text-xs tracking-widest uppercase transition-colors duration-200 ${
+                className={`font-mono text-xs font-medium uppercase tracking-label transition-colors ${
                   pathname === link.href
-                    ? "text-brand-orange"
-                    : "text-slate-400 hover:text-white"
+                    ? "text-hazard"
+                    : "text-ink hover:text-hazard"
                 }`}
               >
                 {link.label}
@@ -55,112 +54,57 @@ export default function Navbar() {
 
         {/* Right controls */}
         <div className="flex items-center gap-4">
-          {/* Theme toggle */}
-          <button
-            onClick={toggleTheme}
-            className="w-8 h-8 flex items-center justify-center text-slate-400 hover:text-white transition-colors"
-            aria-label="Toggle theme"
-          >
-            {theme === "dark" ? (
-              <svg
-                className="w-4 h-4"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path
-                  strokeLinecap="square"
-                  strokeLinejoin="miter"
-                  strokeWidth={2}
-                  d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"
-                />
-              </svg>
-            ) : (
-              <svg
-                className="w-4 h-4"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path
-                  strokeLinecap="square"
-                  strokeLinejoin="miter"
-                  strokeWidth={2}
-                  d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"
-                />
-              </svg>
-            )}
-          </button>
-
-          {/* CTA */}
-          <Link
-            href="/contact"
-            className="hidden md:inline-flex btn-primary text-xs"
-          >
+          <Link href="/contact" className="hidden md:inline-flex btn-primary">
             Get in Touch
           </Link>
 
           {/* Mobile menu button */}
           <button
-            className="md:hidden w-8 h-8 flex items-center justify-center text-slate-400 hover:text-white"
+            className="flex h-9 w-9 items-center justify-center border-2 border-ink text-ink md:hidden"
             onClick={() => setMobileOpen(!mobileOpen)}
             aria-label="Toggle menu"
+            aria-expanded={mobileOpen}
           >
-            {mobileOpen ? (
-              <svg
-                className="w-5 h-5"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path
-                  strokeLinecap="square"
-                  strokeWidth={2}
-                  d="M6 18L18 6M6 6l12 12"
-                />
-              </svg>
-            ) : (
-              <svg
-                className="w-5 h-5"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path
-                  strokeLinecap="square"
-                  strokeWidth={2}
-                  d="M4 6h16M4 12h16M4 18h16"
-                />
-              </svg>
-            )}
+            <svg
+              className="h-5 w-5"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                strokeLinecap="square"
+                strokeWidth={2}
+                d={mobileOpen ? "M6 18L18 6M6 6l12 12" : "M4 6h16M4 12h16M4 18h16"}
+              />
+            </svg>
           </button>
         </div>
       </nav>
 
       {/* Mobile menu */}
       {mobileOpen && (
-        <div className="md:hidden border-t border-dark-border bg-dark-surface">
-          <ul className="flex flex-col px-6 py-4 gap-4">
+        <div className="border-t-2 border-ink bg-paper md:hidden">
+          <ul className="flex flex-col px-6 py-4">
             {navLinks.map((link) => (
-              <li key={link.href}>
+              <li key={link.href} className="border-b border-ink/15 last:border-b-0">
                 <Link
                   href={link.href}
                   onClick={() => setMobileOpen(false)}
-                  className={`font-mono text-xs tracking-widest uppercase transition-colors ${
+                  className={`block py-3 font-mono text-xs font-medium uppercase tracking-label transition-colors ${
                     pathname === link.href
-                      ? "text-brand-orange"
-                      : "text-slate-400 hover:text-white"
+                      ? "text-hazard"
+                      : "text-ink hover:text-hazard"
                   }`}
                 >
                   {link.label}
                 </Link>
               </li>
             ))}
-            <li>
+            <li className="pt-4">
               <Link
                 href="/contact"
                 onClick={() => setMobileOpen(false)}
-                className="btn-primary text-xs"
+                className="btn-primary w-full"
               >
                 Get in Touch
               </Link>

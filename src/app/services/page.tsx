@@ -7,71 +7,106 @@ export const metadata: Metadata = {
     "Autodesk Fabrication consulting and AI onboarding for sheet metal and MEP contractors. CADmep, ESTmep, CAMduct, database maintenance, and AI workflow setup.",
 };
 
+const fabricationCoverage = [
+  "CADmep, ESTmep, CAMduct setup and configuration",
+  "Fabrication database maintenance and custom libraries",
+  "Pricing table updates and estimating workflow optimization",
+  "On-site training your team actually retains",
+  "Knowledge transfer — documenting what your senior people know",
+  "Process audits and workflow fixes",
+];
+
+const aiCoverage = [
+  "Assessment: where AI actually helps in your workflow",
+  "Setup: a business-grade AI assistant, configured for your shop",
+  "Templates: estimating, RFIs, submittals, change orders, safety docs",
+  "On-site training session with your team",
+  "Monthly retainer for ongoing support and prompt updates",
+];
+
 export default function ServicesPage() {
   return (
     <>
-      {/* Hero */}
-      <section className="pt-32 pb-16 border-b border-dark-border">
-        <div className="max-w-7xl mx-auto px-6">
-          <div className="flex items-center gap-3 mb-6">
-            <div className="w-8 h-px bg-brand-emerald" />
-            <span className="section-tag">Services</span>
+      {/* Hero — inverted */}
+      <section className="relative overflow-hidden bg-ink pt-32 pb-20 text-paper">
+        <div
+          className="absolute inset-0 opacity-100"
+          style={{
+            backgroundImage:
+              "linear-gradient(rgba(237,233,224,0.06) 1px, transparent 1px), linear-gradient(90deg, rgba(237,233,224,0.06) 1px, transparent 1px)",
+            backgroundSize: "72px 72px",
+          }}
+        />
+
+        <div className="relative mx-auto max-w-7xl px-6">
+          <div className="eyebrow eyebrow-ink mb-8">
+            <span className="text-hazard">Services</span>
           </div>
-          <h1 className="text-5xl md:text-6xl font-bold text-white leading-tight mb-6 max-w-3xl">
+          <h1 className="max-w-4xl font-display text-display-xl font-bold tracking-tight text-paper">
             Two things we do. Both grounded in 20 years of trade work.
           </h1>
-          <p className="text-slate-400 text-lg max-w-2xl">
-            Every engagement starts with the same question: what is actually slowing your shop down? Then we fix that. No extra layers, no upsells.
+          <p className="mt-10 max-w-2xl font-sans text-body-lg text-paper-dim">
+            Every engagement starts with the same question: what is actually
+            slowing your shop down? Then we fix that. No extra layers, no
+            upsells.
           </p>
         </div>
       </section>
 
-      {/* Service 1 */}
-      <section className="py-24 border-b border-dark-border">
-        <div className="max-w-7xl mx-auto px-6">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
+      {/* Service 01 — paper */}
+      <section className="relative overflow-hidden bg-paper py-24">
+        <span className="section-number pointer-events-none absolute -top-8 right-4 select-none text-[12rem] text-ink/[0.06] sm:text-[18rem]">
+          01
+        </span>
+        <div className="relative mx-auto max-w-7xl px-6">
+          <div className="grid grid-cols-1 gap-16 lg:grid-cols-2">
             <div>
-              <div className="flex items-center gap-3 mb-6">
-                <span className="font-mono text-xs text-slate-600">01</span>
-                <div className="h-px flex-1 bg-dark-border" />
-              </div>
-              <h2 className="text-3xl font-bold text-white mb-6">
+              <div className="eyebrow mb-6">Autodesk Fabrication</div>
+              <h2 className="mb-6 font-display text-display-lg font-bold text-ink">
                 Autodesk Fabrication Consulting
               </h2>
-              <p className="text-slate-400 leading-relaxed mb-6">
-                Your fabrication database is the backbone of your shop. When it is wrong, estimates are wrong, BOMs are wrong, and someone eats the difference. Kyle has spent 20 years keeping these systems running.
+              <p className="mb-6 max-w-2xl font-sans leading-relaxed text-steel">
+                Your fabrication database is the backbone of your shop. When it
+                is wrong, estimates are wrong, BOMs are wrong, and someone eats
+                the difference. Kyle has spent 20 years keeping these systems
+                running.
               </p>
-              <p className="text-slate-400 leading-relaxed mb-8">
-                The real cost is not the software license. It is the tribal knowledge that walks out the door when your senior guy retires. Knowledge transfer is built into every engagement.
+              <p className="mb-8 max-w-2xl font-sans leading-relaxed text-steel">
+                The real cost is not the software license. It is the tribal
+                knowledge that walks out the door when your senior guy retires.
+                Knowledge transfer is built into every engagement.
               </p>
+              <Link href="/contact" className="btn-primary">
+                Start a Conversation
+                <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="square" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                </svg>
+              </Link>
             </div>
 
-            <div className="space-y-4">
-              <div className="border border-dark-border bg-dark-surface p-6">
-                <h3 className="font-mono text-xs text-brand-emerald mb-4 tracking-widest uppercase">
-                  What This Covers
-                </h3>
-                <ul className="space-y-3">
-                  {[
-                    "CADmep, ESTmep, CAMduct setup and configuration",
-                    "Fabrication database maintenance and custom libraries",
-                    "Pricing table updates and estimating workflow optimization",
-                    "On-site training your team actually retains",
-                    "Knowledge transfer — documenting what your senior people know",
-                    "Process audits and workflow fixes",
-                  ].map((item, i) => (
-                    <li key={i} className="flex items-start gap-3 text-sm text-slate-400">
-                      <div className="w-1.5 h-1.5 bg-brand-orange mt-1.5 shrink-0" />
+            <div className="space-y-6">
+              <div className="card-pop bg-concrete">
+                <div className="eyebrow mb-6">What This Covers</div>
+                <ul className="space-y-4">
+                  {fabricationCoverage.map((item, i) => (
+                    <li
+                      key={i}
+                      className="flex items-start gap-3 font-sans text-sm leading-relaxed text-ink"
+                    >
+                      <span className="mt-1.5 h-2 w-2 shrink-0 bg-hazard" />
                       {item}
                     </li>
                   ))}
                 </ul>
               </div>
 
-              <div className="border border-dark-border bg-dark-surface p-4">
-                <div className="font-mono text-xs text-slate-500">
+              <div className="border-2 border-ink bg-paper p-4">
+                <div className="font-mono text-xs uppercase tracking-label text-steel">
                   Pricing: project-based or hourly.{" "}
-                  <Link href="/contact" className="text-brand-orange hover:text-white transition-colors">
+                  <Link
+                    href="/contact"
+                    className="text-signal underline-offset-4 hover:underline"
+                  >
                     Contact for details.
                   </Link>
                 </div>
@@ -81,51 +116,65 @@ export default function ServicesPage() {
         </div>
       </section>
 
-      {/* Service 2 */}
-      <section className="py-24 border-b border-dark-border">
-        <div className="max-w-7xl mx-auto px-6">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
+      {/* Service 02 — inverted */}
+      <section className="relative overflow-hidden bg-ink py-24 text-paper">
+        <span className="section-number pointer-events-none absolute -top-8 right-4 select-none text-[12rem] text-paper/[0.06] sm:text-[18rem]">
+          02
+        </span>
+        <div className="relative mx-auto max-w-7xl px-6">
+          <div className="grid grid-cols-1 gap-16 lg:grid-cols-2">
             <div>
-              <div className="flex items-center gap-3 mb-6">
-                <span className="font-mono text-xs text-slate-600">02</span>
-                <div className="h-px flex-1 bg-dark-border" />
+              <div className="eyebrow eyebrow-ink mb-6">
+                <span className="text-hazard">AI Onboarding</span>
               </div>
-              <h2 className="text-3xl font-bold text-white mb-6">
+              <h2 className="mb-6 font-display text-display-lg font-bold text-paper">
                 AI Onboarding for MEP &amp; Sheet Metal Contractors
               </h2>
-              <p className="text-slate-400 leading-relaxed mb-6">
-                Your competitor is turning around quotes faster because they stopped doing everything by hand. AI is not going to replace your estimator. But an estimator with AI is going to outwork one without it.
+              <p className="mb-6 max-w-2xl font-sans leading-relaxed text-paper-dim">
+                Your competitor is turning around quotes faster because they
+                stopped doing everything by hand. AI is not going to replace
+                your estimator. But an estimator with AI is going to outwork one
+                without it.
               </p>
-              <p className="text-slate-400 leading-relaxed mb-8">
-                This is not a generic AI workshop. Kyle sets up the tools for your actual workflows — the RFIs your team writes, the submittals you send, the change orders you process. Then he trains your people on-site until it sticks.
+              <p className="mb-8 max-w-2xl font-sans leading-relaxed text-paper-dim">
+                This is not a generic AI workshop. Kyle sets up the tools for
+                your actual workflows — the RFIs your team writes, the
+                submittals you send, the change orders you process. Then he
+                trains your people on-site until it sticks.
               </p>
+              <Link href="/contact" className="btn-primary">
+                Start a Conversation
+                <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="square" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                </svg>
+              </Link>
             </div>
 
-            <div className="space-y-4">
-              <div className="border border-dark-border bg-dark-surface p-6">
-                <h3 className="font-mono text-xs text-brand-emerald mb-4 tracking-widest uppercase">
-                  How It Works
-                </h3>
-                <ul className="space-y-3">
-                  {[
-                    "Assessment: where AI actually helps in your workflow",
-                    "Setup: a business-grade AI assistant, configured for your shop",
-                    "Templates: estimating, RFIs, submittals, change orders, safety docs",
-                    "On-site training session with your team",
-                    "Monthly retainer for ongoing support and prompt updates",
-                  ].map((item, i) => (
-                    <li key={i} className="flex items-start gap-3 text-sm text-slate-400">
-                      <div className="w-1.5 h-1.5 bg-brand-orange mt-1.5 shrink-0" />
+            <div className="space-y-6">
+              <div className="group relative border-2 border-paper bg-ink p-8 text-paper shadow-hard-paper transition-transform duration-150 hover:translate-x-[6px] hover:translate-y-[6px] hover:shadow-none">
+                <div className="eyebrow eyebrow-ink mb-6">
+                  <span className="text-hazard">How It Works</span>
+                </div>
+                <ul className="space-y-4">
+                  {aiCoverage.map((item, i) => (
+                    <li
+                      key={i}
+                      className="flex items-start gap-3 font-sans text-sm leading-relaxed text-paper"
+                    >
+                      <span className="mt-1.5 h-2 w-2 shrink-0 bg-hazard" />
                       {item}
                     </li>
                   ))}
                 </ul>
               </div>
 
-              <div className="border border-dark-border bg-dark-surface p-4">
-                <div className="font-mono text-xs text-slate-500">
+              <div className="border-2 border-paper bg-ink p-4">
+                <div className="font-mono text-xs uppercase tracking-label text-paper-dim">
                   Monthly retainer available.{" "}
-                  <Link href="/contact" className="text-brand-orange hover:text-white transition-colors">
+                  <Link
+                    href="/contact"
+                    className="text-signal underline-offset-4 hover:underline"
+                  >
                     Contact for details.
                   </Link>
                 </div>
@@ -135,13 +184,13 @@ export default function ServicesPage() {
         </div>
       </section>
 
-      {/* CTA */}
-      <section className="py-24">
-        <div className="max-w-7xl mx-auto px-6">
-          <div className="border border-dark-border bg-dark-surface p-12 flex flex-col md:flex-row items-start md:items-center justify-between gap-8">
+      {/* CTA — paper */}
+      <section className="bg-paper py-24">
+        <div className="mx-auto max-w-7xl px-6">
+          <div className="flex flex-col items-start justify-between gap-8 border-2 border-ink bg-concrete p-10 shadow-hard md:flex-row md:items-center md:p-12">
             <div>
-              <span className="section-tag mb-3 block">Next Step</span>
-              <h2 className="text-3xl font-bold text-white">
+              <div className="eyebrow mb-3">Next Step</div>
+              <h2 className="font-display text-display-lg font-bold text-ink">
                 Not sure which service fits? Let&apos;s talk about your shop.
               </h2>
             </div>
