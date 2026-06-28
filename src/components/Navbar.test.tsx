@@ -7,19 +7,10 @@ vi.mock("next/navigation", () => ({
 }));
 
 import Navbar from "./Navbar";
-import ThemeProvider from "./ThemeProvider";
-
-function renderNavbar() {
-  return render(
-    <ThemeProvider>
-      <Navbar />
-    </ThemeProvider>,
-  );
-}
 
 describe("Navbar", () => {
   it("renders the brand link and the primary navigation", () => {
-    renderNavbar();
+    render(<Navbar />);
     expect(screen.getByLabelText("RaapTech Home")).toBeInTheDocument();
     for (const label of ["Home", "About", "Services", "Projects", "Contact"]) {
       expect(
@@ -28,14 +19,16 @@ describe("Navbar", () => {
     }
   });
 
-  it("exposes a theme toggle control", () => {
-    renderNavbar();
-    expect(screen.getByLabelText("Toggle theme")).toBeInTheDocument();
+  it("exposes a Get in Touch call to action", () => {
+    render(<Navbar />);
+    expect(
+      screen.getAllByRole("link", { name: /Get in Touch/i }).length,
+    ).toBeGreaterThan(0);
   });
 
   it("reveals the mobile menu when the menu button is clicked", async () => {
     const user = userEvent.setup();
-    renderNavbar();
+    render(<Navbar />);
 
     const before = screen.getAllByRole("link", { name: "Home" }).length;
     await user.click(screen.getByLabelText("Toggle menu"));

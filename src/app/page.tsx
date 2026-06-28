@@ -14,6 +14,19 @@ const stats = [
   { value: "2023", label: "Founded" },
 ];
 
+const ticker = [
+  "CADmep",
+  "ESTmep",
+  "CAMduct",
+  "Fabrication Databases",
+  "AI Onboarding",
+  "Estimating",
+  "RFIs",
+  "Submittals",
+  "Change Orders",
+  "On-Site Training",
+];
+
 const features = [
   {
     tag: "01",
@@ -21,12 +34,7 @@ const features = [
     description:
       "CADmep, ESTmep, CAMduct setup and optimization. Database maintenance, pricing tables, custom libraries. On-site training your team actually retains. 20 years of keeping fabrication workflows running.",
     icon: (
-      <svg
-        className="w-6 h-6"
-        fill="none"
-        viewBox="0 0 24 24"
-        stroke="currentColor"
-      >
+      <svg className="h-7 w-7" fill="none" viewBox="0 0 24 24" stroke="currentColor">
         <path
           strokeLinecap="square"
           strokeWidth={1.5}
@@ -41,12 +49,7 @@ const features = [
     description:
       "Assessment of where AI fits your workflow. A business-grade AI assistant configured for your shop. Prompt templates for estimating, RFIs, submittals, and change orders. On-site training. Monthly retainer so it sticks.",
     icon: (
-      <svg
-        className="w-6 h-6"
-        fill="none"
-        viewBox="0 0 24 24"
-        stroke="currentColor"
-      >
+      <svg className="h-7 w-7" fill="none" viewBox="0 0 24 24" stroke="currentColor">
         <path
           strokeLinecap="square"
           strokeWidth={1.5}
@@ -60,97 +63,77 @@ const features = [
 export default function HomePage() {
   return (
     <>
-      {/* Hero */}
-      <section className="relative min-h-screen flex items-center pt-16 overflow-hidden">
-        {/* Grid background */}
+      {/* Hero — inverted */}
+      <section className="relative flex min-h-screen items-center overflow-hidden bg-ink pt-16 text-paper">
         <div
-          className="absolute inset-0 opacity-5"
+          className="absolute inset-0 opacity-100"
           style={{
             backgroundImage:
-              "linear-gradient(#FF6B35 1px, transparent 1px), linear-gradient(90deg, #FF6B35 1px, transparent 1px)",
-            backgroundSize: "64px 64px",
+              "linear-gradient(rgba(237,233,224,0.06) 1px, transparent 1px), linear-gradient(90deg, rgba(237,233,224,0.06) 1px, transparent 1px)",
+            backgroundSize: "72px 72px",
           }}
         />
 
-        {/* Accent line */}
-        <div className="absolute left-0 top-0 bottom-0 w-px bg-gradient-to-b from-transparent via-brand-orange to-transparent opacity-40" />
-
-        <div className="max-w-7xl mx-auto px-6 py-24">
-          <div className="max-w-4xl">
-            {/* Tag */}
-            <div className="flex items-center gap-3 mb-8">
-              <div className="w-8 h-px bg-brand-emerald" />
-              <span className="section-tag">Fabrication Consulting + AI</span>
+        <div className="relative mx-auto grid w-full max-w-7xl grid-cols-1 gap-12 px-6 py-24 lg:grid-cols-12">
+          <div className="lg:col-span-8">
+            <div className="eyebrow eyebrow-ink mb-8">
+              <span className="text-hazard">Fabrication Consulting + AI</span>
             </div>
 
-            {/* Headline */}
-            <h1 className="text-5xl md:text-7xl font-bold text-white leading-none tracking-tight mb-8">
+            <h1 className="font-display text-display-2xl font-bold tracking-tight text-paper">
               20 Years in
               <br />
-              <span className="text-brand-orange">the Trade.</span>
+              <span className="text-hazard">the Trade.</span>
               <br />
-              AI-Native
+              AI-Native by
               <br />
-              <span className="text-brand-emerald">Since Day One.</span>
+              <span className="bg-hazard px-2 text-ink">Default.</span>
             </h1>
 
-            <p className="text-slate-400 text-lg md:text-xl leading-relaxed max-w-2xl mb-12">
-              Kyle Raap has spent two decades inside Autodesk Fabrication &mdash; CADmep, ESTmep, CAMduct &mdash; on the shop floor, not behind a sales deck. Now he brings AI tools to the contractors who actually build things.
+            <p className="mt-10 max-w-2xl font-sans text-body-lg text-paper-dim">
+              Kyle Raap has spent two decades inside Autodesk Fabrication
+              &mdash; CADmep, ESTmep, CAMduct &mdash; on the shop floor, not
+              behind a sales deck. Now he brings AI tools to the contractors who
+              actually build things.
             </p>
 
-            <div className="flex flex-col sm:flex-row gap-4">
+            <div className="mt-12 flex flex-col gap-4 sm:flex-row">
               <Link href="/services" className="btn-primary">
                 View Services
-                <svg
-                  className="w-4 h-4"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  <path
-                    strokeLinecap="square"
-                    strokeWidth={2}
-                    d="M17 8l4 4m0 0l-4 4m4-4H3"
-                  />
+                <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="square" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
                 </svg>
               </Link>
-              <Link href="/about" className="btn-secondary">
+              <Link href="/about" className="btn-on-ink">
                 About Kyle
               </Link>
             </div>
           </div>
-        </div>
 
-        {/* Terminal accent */}
-        <div className="absolute right-6 top-1/2 -translate-y-1/2 hidden xl:block">
-          <div className="border border-dark-border bg-dark-surface p-4 w-72">
-            <div className="flex items-center gap-2 mb-3 pb-3 border-b border-dark-border">
-              <div className="w-2 h-2 bg-brand-orange" />
-              <span className="font-mono text-xs text-slate-500">
-                raaptech.status
-              </span>
-            </div>
-            <div className="space-y-2 font-mono text-xs">
-              <div className="flex justify-between">
-                <span className="text-slate-500">specialty</span>
-                <span className="text-brand-emerald">FABRICATION</span>
+          {/* Spec panel */}
+          <div className="lg:col-span-4 lg:self-center">
+            <div className="border-2 border-paper bg-ink shadow-hard-paper">
+              <div className="flex items-center gap-2 border-b-2 border-paper px-4 py-3">
+                <span className="h-2.5 w-2.5 bg-hazard" />
+                <span className="font-mono text-xs uppercase tracking-label text-paper-dim">
+                  raaptech.status
+                </span>
               </div>
-              <div className="flex justify-between">
-                <span className="text-slate-500">experience</span>
-                <span className="text-white">20+ yrs</span>
-              </div>
-              <div className="flex justify-between">
-                <span className="text-slate-500">active_clients</span>
-                <span className="text-white">4</span>
-              </div>
-              <div className="flex justify-between">
-                <span className="text-slate-500">on_site</span>
-                <span className="text-brand-orange">DAILY</span>
-              </div>
-              <div className="mt-3 pt-3 border-t border-dark-border">
-                <div className="flex items-center gap-2">
-                  <div className="w-2 h-2 bg-brand-emerald animate-pulse" />
-                  <span className="text-brand-emerald">Available for new clients</span>
+              <div className="space-y-3 p-4 font-mono text-xs">
+                {[
+                  ["specialty", "FABRICATION", "text-signal"],
+                  ["experience", "20+ YRS", "text-paper"],
+                  ["active_clients", "4", "text-paper"],
+                  ["on_site", "DAILY", "text-hazard"],
+                ].map(([k, v, c]) => (
+                  <div key={k} className="flex justify-between">
+                    <span className="text-paper-dim">{k}</span>
+                    <span className={c}>{v}</span>
+                  </div>
+                ))}
+                <div className="mt-3 flex items-center gap-2 border-t-2 border-paper/30 pt-3">
+                  <span className="h-2 w-2 animate-pulse rounded-full bg-volt" />
+                  <span className="text-volt">Available for new clients</span>
                 </div>
               </div>
             </div>
@@ -158,23 +141,40 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* Marquee ticker */}
+      <div className="overflow-hidden border-y-2 border-ink bg-hazard">
+        <div className="marquee py-3">
+          {[0, 1].map((dup) => (
+            <div key={dup} className="flex shrink-0" aria-hidden={dup === 1}>
+              {ticker.map((t) => (
+                <span
+                  key={t}
+                  className="flex items-center gap-4 whitespace-nowrap px-4 font-mono text-xs font-medium uppercase tracking-label text-ink"
+                >
+                  {t}
+                  <span className="text-ink/40">/</span>
+                </span>
+              ))}
+            </div>
+          ))}
+        </div>
+      </div>
+
       {/* Stats */}
-      <section className="border-y border-dark-border bg-dark-surface">
-        <div className="max-w-7xl mx-auto px-6">
-          <div className="grid grid-cols-2 md:grid-cols-4">
+      <section className="bg-paper">
+        <div className="mx-auto max-w-7xl px-6">
+          <div className="grid grid-cols-2 border-x-2 border-ink md:grid-cols-4">
             {stats.map((stat, i) => (
               <div
-                key={i}
-                className={`px-8 py-10 ${
-                  i < stats.length - 1
-                    ? "border-r border-dark-border"
-                    : ""
-                }`}
+                key={stat.label}
+                className={`px-6 py-12 ${
+                  i < stats.length - 1 ? "border-r-2 border-ink" : ""
+                } ${i < 2 ? "border-b-2 border-ink md:border-b-0" : ""}`}
               >
-                <div className="font-mono text-3xl font-bold text-brand-orange mb-1">
+                <div className="font-display text-5xl font-bold text-hazard">
                   {stat.value}
                 </div>
-                <div className="font-mono text-xs text-slate-500 tracking-wider uppercase">
+                <div className="mt-2 font-mono text-xs uppercase tracking-label text-steel">
                   {stat.label}
                 </div>
               </div>
@@ -184,31 +184,26 @@ export default function HomePage() {
       </section>
 
       {/* Features */}
-      <section className="py-24">
-        <div className="max-w-7xl mx-auto px-6">
-          <div className="flex items-center gap-3 mb-4">
-            <div className="w-8 h-px bg-brand-emerald" />
-            <span className="section-tag">What We Do</span>
-          </div>
-          <h2 className="text-3xl md:text-4xl font-bold text-white mb-16 max-w-xl">
+      <section className="bg-paper py-24">
+        <div className="mx-auto max-w-7xl px-6">
+          <div className="eyebrow mb-4">What We Do</div>
+          <h2 className="mb-16 max-w-2xl font-display text-display-lg font-bold text-ink">
             Trade knowledge meets modern tooling
           </h2>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-px bg-dark-border">
-            {features.map((feature, i) => (
-              <div key={i} className="bg-dark-bg p-8 hover:bg-dark-surface transition-colors group">
-                <div className="flex items-start justify-between mb-6">
-                  <div className="text-brand-orange group-hover:text-white transition-colors">
-                    {feature.icon}
-                  </div>
-                  <span className="font-mono text-xs text-slate-600">
-                    {feature.tag}
-                  </span>
+          <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
+            {features.map((feature) => (
+              <div key={feature.tag} className="card-pop group relative bg-concrete">
+                <span className="section-number absolute right-6 top-4 text-6xl text-ink/10">
+                  {feature.tag}
+                </span>
+                <div className="mb-6 inline-flex border-2 border-ink bg-hazard p-3 text-ink">
+                  {feature.icon}
                 </div>
-                <h3 className="font-semibold text-white text-lg mb-3">
+                <h3 className="mb-3 font-display text-xl font-bold text-ink">
                   {feature.title}
                 </h3>
-                <p className="text-slate-400 text-sm leading-relaxed">
+                <p className="text-sm leading-relaxed text-steel">
                   {feature.description}
                 </p>
               </div>
@@ -217,21 +212,23 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* CTA */}
-      <section className="py-24 border-t border-dark-border">
-        <div className="max-w-7xl mx-auto px-6">
-          <div className="border border-dark-border bg-dark-surface p-12 flex flex-col md:flex-row items-start md:items-center justify-between gap-8">
+      {/* CTA — inverted */}
+      <section className="bg-ink py-24 text-paper">
+        <div className="mx-auto max-w-7xl px-6">
+          <div className="flex flex-col items-start justify-between gap-8 border-2 border-hazard bg-ink p-10 shadow-hard-hazard md:flex-row md:items-center md:p-12">
             <div>
-              <span className="section-tag mb-3 block">Ready to Talk</span>
-              <h2 className="text-3xl font-bold text-white">
+              <div className="eyebrow eyebrow-ink mb-3">
+                <span className="text-hazard">Ready to Talk</span>
+              </div>
+              <h2 className="font-display text-display-lg font-bold text-paper">
                 Your shop deserves someone who gets it.
               </h2>
             </div>
-            <div className="flex gap-4">
+            <div className="flex flex-col gap-4 sm:flex-row">
               <Link href="/contact" className="btn-primary whitespace-nowrap">
                 Start a Conversation
               </Link>
-              <Link href="/services" className="btn-secondary whitespace-nowrap">
+              <Link href="/services" className="btn-on-ink whitespace-nowrap">
                 See Services
               </Link>
             </div>

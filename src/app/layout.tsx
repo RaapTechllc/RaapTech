@@ -1,9 +1,8 @@
 import type { Metadata } from "next";
-import { Inter, JetBrains_Mono } from "next/font/google";
+import { Inter, JetBrains_Mono, Space_Grotesk } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import ThemeProvider from "@/components/ThemeProvider";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -13,6 +12,12 @@ const inter = Inter({
 const jetbrainsMono = JetBrains_Mono({
   subsets: ["latin"],
   variable: "--font-jetbrains-mono",
+});
+
+const spaceGrotesk = Space_Grotesk({
+  subsets: ["latin"],
+  weight: ["500", "700"],
+  variable: "--font-space-grotesk",
 });
 
 export const metadata: Metadata = {
@@ -83,15 +88,13 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`dark ${inter.variable} ${jetbrainsMono.variable}`}
+      className={`${inter.variable} ${jetbrainsMono.variable} ${spaceGrotesk.variable}`}
       suppressHydrationWarning
     >
-      <body className="bg-dark-bg text-slate-200 font-sans antialiased">
-        <ThemeProvider>
-          <Navbar />
-          <main>{children}</main>
-          <Footer />
-        </ThemeProvider>
+      <body className="bg-paper font-sans text-ink antialiased">
+        <Navbar />
+        <main>{children}</main>
+        <Footer />
       </body>
     </html>
   );

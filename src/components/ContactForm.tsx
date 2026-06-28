@@ -15,7 +15,9 @@ export default function ContactForm() {
   });
 
   const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
+    e: React.ChangeEvent<
+      HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
+    >,
   ) => {
     setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
@@ -31,23 +33,21 @@ export default function ContactForm() {
 
   if (formState === "success") {
     return (
-      <div className="flex flex-col items-start justify-center h-full py-12">
-        <div className="w-12 h-12 border-2 border-brand-emerald flex items-center justify-center mb-6">
+      <div className="flex h-full flex-col items-start justify-center border-2 border-ink bg-volt p-10 shadow-hard">
+        <div className="mb-6 flex h-12 w-12 items-center justify-center border-2 border-ink bg-paper">
           <svg
-            className="w-6 h-6 text-brand-emerald"
+            className="h-6 w-6 text-ink"
             fill="none"
             viewBox="0 0 24 24"
             stroke="currentColor"
           >
-            <path
-              strokeLinecap="square"
-              strokeWidth={2}
-              d="M5 13l4 4L19 7"
-            />
+            <path strokeLinecap="square" strokeWidth={2} d="M5 13l4 4L19 7" />
           </svg>
         </div>
-        <h3 className="text-xl font-bold text-white mb-2">Message received.</h3>
-        <p className="text-slate-400 text-sm mb-6">
+        <h3 className="mb-2 font-display text-2xl font-bold text-ink">
+          Message received.
+        </h3>
+        <p className="mb-6 text-sm text-ink/80">
           We&apos;ll be in touch within 24 hours.
         </p>
         <button
@@ -61,7 +61,7 @@ export default function ContactForm() {
               message: "",
             });
           }}
-          className="btn-secondary text-xs"
+          className="btn-secondary"
         >
           Send Another
         </button>
@@ -71,12 +71,9 @@ export default function ContactForm() {
 
   return (
     <form onSubmit={handleSubmit} className="space-y-5">
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+      <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
         <div>
-          <label
-            htmlFor="name"
-            className="font-mono text-xs text-slate-500 uppercase tracking-wider block mb-2"
-          >
+          <label htmlFor="name" className="field-label">
             Name *
           </label>
           <input
@@ -87,14 +84,11 @@ export default function ContactForm() {
             value={form.name}
             onChange={handleChange}
             placeholder="Kyle Raap"
-            className="w-full bg-dark-surface border border-dark-border text-white text-sm px-4 py-3 placeholder:text-slate-600 focus:outline-none focus:border-brand-orange transition-colors font-sans"
+            className="field"
           />
         </div>
         <div>
-          <label
-            htmlFor="email"
-            className="font-mono text-xs text-slate-500 uppercase tracking-wider block mb-2"
-          >
+          <label htmlFor="email" className="field-label">
             Email *
           </label>
           <input
@@ -105,16 +99,13 @@ export default function ContactForm() {
             value={form.email}
             onChange={handleChange}
             placeholder="kyle@company.com"
-            className="w-full bg-dark-surface border border-dark-border text-white text-sm px-4 py-3 placeholder:text-slate-600 focus:outline-none focus:border-brand-orange transition-colors font-sans"
+            className="field"
           />
         </div>
       </div>
 
       <div>
-        <label
-          htmlFor="company"
-          className="font-mono text-xs text-slate-500 uppercase tracking-wider block mb-2"
-        >
+        <label htmlFor="company" className="field-label">
           Company
         </label>
         <input
@@ -124,15 +115,12 @@ export default function ContactForm() {
           value={form.company}
           onChange={handleChange}
           placeholder="Your company name"
-          className="w-full bg-dark-surface border border-dark-border text-white text-sm px-4 py-3 placeholder:text-slate-600 focus:outline-none focus:border-brand-orange transition-colors font-sans"
+          className="field"
         />
       </div>
 
       <div>
-        <label
-          htmlFor="subject"
-          className="font-mono text-xs text-slate-500 uppercase tracking-wider block mb-2"
-        >
+        <label htmlFor="subject" className="field-label">
           Subject *
         </label>
         <select
@@ -141,25 +129,28 @@ export default function ContactForm() {
           required
           value={form.subject}
           onChange={handleChange}
-          className="w-full bg-dark-surface border border-dark-border text-white text-sm px-4 py-3 focus:outline-none focus:border-brand-orange transition-colors font-sans appearance-none"
+          className="field appearance-none"
         >
           <option value="" disabled>
             Select a topic
           </option>
-          <option value="ai-infrastructure">AI Infrastructure Consulting</option>
-          <option value="agent-development">Autonomous Agent Development</option>
-          <option value="llm-integration">LLM System Integration</option>
-          <option value="advisory">Technical Advisory</option>
-          <option value="partnership">Partnership / Collaboration</option>
+          <option value="fabrication-consulting">
+            Autodesk Fabrication Consulting
+          </option>
+          <option value="ai-onboarding">AI Onboarding</option>
+          <option value="database-maintenance">
+            Fabrication Database Maintenance
+          </option>
+          <option value="estimating-workflow">
+            Estimating Workflow Optimization
+          </option>
+          <option value="on-site-training">On-Site Training</option>
           <option value="other">Other</option>
         </select>
       </div>
 
       <div>
-        <label
-          htmlFor="message"
-          className="font-mono text-xs text-slate-500 uppercase tracking-wider block mb-2"
-        >
+        <label htmlFor="message" className="field-label">
           Message *
         </label>
         <textarea
@@ -169,27 +160,21 @@ export default function ContactForm() {
           rows={5}
           value={form.message}
           onChange={handleChange}
-          placeholder="Tell us about your project, what you're building, and what kind of help you're looking for..."
-          className="w-full bg-dark-surface border border-dark-border text-white text-sm px-4 py-3 placeholder:text-slate-600 focus:outline-none focus:border-brand-orange transition-colors font-sans resize-none"
+          placeholder="Tell us about your shop, your fabrication setup, and where you want AI or workflow help..."
+          className="field resize-none"
         />
       </div>
 
       <div className="flex items-center justify-between pt-2">
-        <p className="font-mono text-xs text-slate-600">
-          * Required fields
-        </p>
+        <p className="font-mono text-xs text-steel">* Required fields</p>
         <button
           type="submit"
           disabled={formState === "submitting"}
-          className="btn-primary text-xs disabled:opacity-50 disabled:cursor-not-allowed"
+          className="btn-primary disabled:cursor-not-allowed disabled:opacity-50"
         >
           {formState === "submitting" ? (
             <>
-              <svg
-                className="w-4 h-4 animate-spin"
-                fill="none"
-                viewBox="0 0 24 24"
-              >
+              <svg className="h-4 w-4 animate-spin" fill="none" viewBox="0 0 24 24">
                 <circle
                   className="opacity-25"
                   cx="12"
@@ -210,7 +195,7 @@ export default function ContactForm() {
             <>
               Send Message
               <svg
-                className="w-4 h-4"
+                className="h-4 w-4"
                 fill="none"
                 viewBox="0 0 24 24"
                 stroke="currentColor"
