@@ -109,7 +109,7 @@ export default function ServicesPage() {
                 <ul className="space-y-3">
                   {[
                     "Assessment: where AI actually helps in your workflow",
-                    "Setup: Claude.ai or ChatGPT for Business, configured for your shop",
+                    "Setup: a business-grade AI assistant, configured for your shop",
                     "Templates: estimating, RFIs, submittals, change orders, safety docs",
                     "On-site training session with your team",
                     "Monthly retainer for ongoing support and prompt updates",

@@ -39,7 +39,7 @@ const features = [
     tag: "02",
     title: "AI Onboarding for MEP & Sheet Metal Contractors",
     description:
-      "Assessment of where AI fits your workflow. Claude or ChatGPT configured for your shop. Prompt templates for estimating, RFIs, submittals, and change orders. On-site training. Monthly retainer so it sticks.",
+      "Assessment of where AI fits your workflow. A business-grade AI assistant configured for your shop. Prompt templates for estimating, RFIs, submittals, and change orders. On-site training. Monthly retainer so it sticks.",
     icon: (
       <svg
         className="w-6 h-6"
