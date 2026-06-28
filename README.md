@@ -8,7 +8,7 @@ CAMduct) and AI onboarding for sheet metal and MEP contractors.
 - [Next.js 15](https://nextjs.org/) (App Router) + [React 19](https://react.dev/)
 - [TypeScript 5](https://www.typescriptlang.org/) (strict mode)
 - [Tailwind CSS 3](https://tailwindcss.com/)
-- Fonts via `next/font/google` (Inter, JetBrains Mono)
+- Self-hosted variable fonts via `next/font/local` (Space Grotesk, Inter, JetBrains Mono) — see `src/app/fonts/`. No build-time network fetch.
 
 ## Prerequisites
 
@@ -32,9 +32,8 @@ npm run dev       # start the dev server at http://localhost:3000
 | `npm run lint`    | Lint with ESLint (`next lint`)                     |
 | `npx tsc --noEmit`| Type-check without emitting output                |
 
-> The build downloads the Inter and JetBrains Mono fonts from Google Fonts at
-> build time. A network-restricted/air-gapped environment that blocks
-> `fonts.googleapis.com` will fail `next build` at the font-fetch step.
+> Fonts are self-hosted (`src/app/fonts/*.woff2`, loaded via `next/font/local`),
+> so `next build` makes no network calls for fonts and works offline / air-gapped.
 
 ## Project structure
 
