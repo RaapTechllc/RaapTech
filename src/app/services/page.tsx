@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { ArrowRight } from "@/components/icons";
 
 export const metadata: Metadata = {
   title: "Services",
@@ -29,14 +30,7 @@ export default function ServicesPage() {
     <>
       {/* Hero — inverted */}
       <section className="relative overflow-hidden bg-ink pt-32 pb-20 text-paper">
-        <div
-          className="absolute inset-0 opacity-100"
-          style={{
-            backgroundImage:
-              "linear-gradient(rgba(237,233,224,0.06) 1px, transparent 1px), linear-gradient(90deg, rgba(237,233,224,0.06) 1px, transparent 1px)",
-            backgroundSize: "72px 72px",
-          }}
-        />
+        <div className="absolute inset-0 grid-backdrop" />
 
         <div className="relative mx-auto max-w-7xl px-6">
           <div className="eyebrow eyebrow-ink mb-8">
@@ -78,9 +72,7 @@ export default function ServicesPage() {
               </p>
               <Link href="/contact" className="btn-primary">
                 Start a Conversation
-                <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="square" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                </svg>
+                <ArrowRight />
               </Link>
             </div>
 
@@ -144,9 +136,7 @@ export default function ServicesPage() {
               </p>
               <Link href="/contact" className="btn-primary">
                 Start a Conversation
-                <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="square" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                </svg>
+                <ArrowRight />
               </Link>
             </div>
 

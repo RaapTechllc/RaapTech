@@ -1,12 +1,5 @@
 import Link from "next/link";
-
-const navLinks = [
-  { href: "/", label: "Home" },
-  { href: "/about", label: "About" },
-  { href: "/services", label: "Services" },
-  { href: "/projects", label: "Projects" },
-  { href: "/contact", label: "Contact" },
-];
+import { NAV_LINKS } from "@/lib/nav";
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
@@ -37,7 +30,7 @@ export default function Footer() {
               Navigation
             </h3>
             <ul className="flex flex-col gap-2">
-              {navLinks.map((link) => (
+              {NAV_LINKS.map((link) => (
                 <li key={link.href}>
                   <Link
                     href={link.href}
@@ -65,7 +58,7 @@ export default function Footer() {
                 </a>
               </li>
               <li className="flex items-center gap-2 pt-2">
-                <span className="h-2 w-2 animate-pulse rounded-full bg-volt" />
+                <span className="status-dot" />
                 <span className="font-mono text-xs uppercase tracking-label text-paper-dim">
                   On-site daily
                 </span>

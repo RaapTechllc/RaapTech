@@ -3,14 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
-
-const navLinks = [
-  { href: "/", label: "Home" },
-  { href: "/about", label: "About" },
-  { href: "/services", label: "Services" },
-  { href: "/projects", label: "Projects" },
-  { href: "/contact", label: "Contact" },
-];
+import { NAV_LINKS } from "@/lib/nav";
 
 export default function Navbar() {
   const pathname = usePathname();
@@ -36,7 +29,7 @@ export default function Navbar() {
 
         {/* Desktop nav */}
         <ul className="hidden items-center gap-8 md:flex">
-          {navLinks.map((link) => (
+          {NAV_LINKS.map((link) => (
             <li key={link.href}>
               <Link
                 href={link.href}
@@ -85,7 +78,7 @@ export default function Navbar() {
       {mobileOpen && (
         <div className="border-t-2 border-ink bg-paper md:hidden">
           <ul className="flex flex-col px-6 py-4">
-            {navLinks.map((link) => (
+            {NAV_LINKS.map((link) => (
               <li key={link.href} className="border-b border-ink/15 last:border-b-0">
                 <Link
                   href={link.href}

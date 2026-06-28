@@ -1,18 +1,21 @@
 "use client";
 
 import { useState } from "react";
+import { ArrowRight } from "./icons";
 
 type FormState = "idle" | "submitting" | "success" | "error";
 
+const INITIAL_FORM = {
+  name: "",
+  email: "",
+  company: "",
+  subject: "",
+  message: "",
+};
+
 export default function ContactForm() {
   const [formState, setFormState] = useState<FormState>("idle");
-  const [form, setForm] = useState({
-    name: "",
-    email: "",
-    company: "",
-    subject: "",
-    message: "",
-  });
+  const [form, setForm] = useState(INITIAL_FORM);
 
   const handleChange = (
     e: React.ChangeEvent<
@@ -53,13 +56,7 @@ export default function ContactForm() {
         <button
           onClick={() => {
             setFormState("idle");
-            setForm({
-              name: "",
-              email: "",
-              company: "",
-              subject: "",
-              message: "",
-            });
+            setForm(INITIAL_FORM);
           }}
           className="btn-secondary"
         >
@@ -194,18 +191,7 @@ export default function ContactForm() {
           ) : (
             <>
               Send Message
-              <svg
-                className="h-4 w-4"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path
-                  strokeLinecap="square"
-                  strokeWidth={2}
-                  d="M17 8l4 4m0 0l-4 4m4-4H3"
-                />
-              </svg>
+              <ArrowRight />
             </>
           )}
         </button>
