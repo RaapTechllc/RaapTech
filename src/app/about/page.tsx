@@ -40,7 +40,7 @@ const values = [
     tag: "04",
     title: "On-Site Accountability",
     description:
-      "Remote advice is cheap. Showing up at the shop, training the team in person, and being there when the workflow breaks — that is what makes it stick.",
+      "Remote advice is cheap. Showing up at the shop, training the team in person, and being there when the workflow breaks. That is what makes it stick.",
   },
 ];
 
@@ -143,7 +143,7 @@ export default function AboutPage() {
                   that your estimator will actually use.
                 </p>
                 <p>
-                  Today Kyle is on-site daily at sheet metal and MEP shops — not
+                  Today Kyle is on-site daily at sheet metal and MEP shops, not
                   just consulting from an office. He uses AI tools in his own work
                   every day, and he brings that same practical approach to every
                   client engagement.
