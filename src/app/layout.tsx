@@ -56,21 +56,13 @@ export const metadata: Metadata = {
     title: "RaapTech LLC — Autodesk Fabrication Consulting & AI for the Trades",
     description:
       "20 years of Autodesk Fabrication. CADmep, ESTmep, CAMduct consulting and AI onboarding for sheet metal and MEP contractors.",
-    images: [
-      {
-        url: "/og-image.png",
-        width: 1200,
-        height: 630,
-        alt: "RaapTech LLC",
-      },
-    ],
+    // og:image is supplied by the generated app/opengraph-image.tsx route.
   },
   twitter: {
     card: "summary_large_image",
     title: "RaapTech LLC — Autodesk Fabrication Consulting & AI for the Trades",
     description:
       "20 years of Autodesk Fabrication. CADmep, ESTmep, CAMduct consulting and AI onboarding for sheet metal and MEP contractors.",
-    images: ["/og-image.png"],
     creator: "@raaptech",
   },
   robots: {
