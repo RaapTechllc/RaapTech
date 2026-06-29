@@ -29,7 +29,8 @@ npm run dev       # start the dev server at http://localhost:3000
 | `npm run dev`     | Start the Next.js dev server (http://localhost:3000) |
 | `npm run build`   | Production build (`next build`)                    |
 | `npm run start`   | Serve the production build                         |
-| `npm run lint`    | Lint with ESLint (`next lint`)                     |
+| `npm run lint`    | Lint with the ESLint CLI (`eslint .`)             |
+| `npm test`        | Run the Vitest unit tests (`vitest run`)          |
 | `npx tsc --noEmit`| Type-check without emitting output                |
 
 > Fonts are self-hosted (`src/app/fonts/*.woff2`, loaded via `next/font/local`),
@@ -44,11 +45,14 @@ src/
     contact/        # /contact
     projects/       # /projects
     services/       # /services
+    fonts/          # self-hosted variable fonts (.woff2)
     layout.tsx      # root layout (fonts, metadata, chrome)
     page.tsx        # home page (/)
     globals.css     # global styles + Tailwind layers
-  components/        # shared UI (Navbar, Footer, ContactForm, ThemeProvider)
+  components/        # shared UI (Navbar, Footer, ContactForm) + icons.tsx
+  lib/               # shared helpers (nav.ts — NAV_LINKS)
 public/             # static assets
+DESIGN.md           # brand design system — source of truth
 ```
 
 ## Deployment

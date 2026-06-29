@@ -2,6 +2,32 @@
 
 _Last updated: 2026-06-28_
 
+## Run 3 (2026-06-28, after PRs #2–#6 merged) — current
+
+**Baseline (HEAD synced with master):** ALL GREEN before any change.
+- typecheck `tsc --noEmit`: ✅ 0 errors
+- lint `eslint .`: ✅ 0 errors
+- test `vitest run`: ✅ 10/10
+- build `next build`: ✅ all 8 routes (self-hosted fonts; fully offline)
+
+Rungs 1–5 empty at baseline. Worked the safe rung-7/8 wins:
+- **It.1 (rung 8 docs):** fix README drift — lint cmd `next lint`→`eslint .`, add `npm test`
+  row, drop deleted ThemeProvider from structure + add icons.tsx/lib/nav/fonts/DESIGN.md.
+  commit **4763a8b**.
+- **It.2 (rung 7 coverage):** add smoke tests for all 5 pages + ArrowRight icon + NAV_LINKS.
+  Tests **10 → 19**. commit **54ee3ee**.
+
+Final checkpoint: tsc ✅ / eslint ✅ / 19 tests ✅ / build ✅.
+
+**Needs sign-off / not done (judgment or feature work, out of loop scope):**
+- Rung 6: no tooling-confirmed dead code (eslint clean). Did NOT remove the unused-but-
+  intentional design-kit CSS utilities (`.card`, `.marquee-pause`) — they're documented API.
+- Coverage *measurement* tooling (`@vitest/coverage-v8`) not added (dependency/scope).
+- Feature requests (real /projects case studies, OG image, contact-form endpoint) are
+  product decisions, not autonomous-loop-safe.
+
+---
+
 ## Project map (Phase 0)
 
 - **Project**: `raaptech-site` — RaapTech LLC company website (marketing site).
