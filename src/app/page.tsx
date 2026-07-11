@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import WorkflowScrollStory from "@/components/WorkflowScrollStory";
 import { SITE } from "@/lib/site";
 
 export const metadata: Metadata = {
@@ -151,6 +152,8 @@ export default function HomePage() {
           </div>
         </div>
       </section>
+
+      <WorkflowScrollStory />
 
       {/* Stats bar */}
       <section className="border-y border-dark-border bg-dark-surface">
