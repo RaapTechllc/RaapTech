@@ -50,9 +50,10 @@ export default function ContactPage() {
           </div>
 
           <h1 className="font-display text-display-2xl font-bold tracking-tight text-paper">
-            Let&apos;s talk
-            <br />
-            <span className="highlight">shop.</span>
+            <span className="block">Let&apos;s talk</span>
+            <span className="mt-[0.12em] block">
+              <span className="highlight">shop.</span>
+            </span>
           </h1>
 
           <p className="mt-10 max-w-2xl font-sans text-body-lg text-paper-dim">

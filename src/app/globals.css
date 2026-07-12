@@ -55,9 +55,13 @@ body {
     background-size: 72px 72px;
   }
 
-  /* Hazard keyword highlight inside display headings */
+  /* Hazard keyword highlight inside display headings.
+     inline-block + tight display leading used to collide with the line above —
+     keep the stamp as its own box so adjacent lines stay readable. */
   .highlight {
-    @apply bg-hazard px-2 text-ink;
+    @apply inline-block bg-hazard px-[0.15em] text-ink;
+    line-height: 1.1;
+    vertical-align: baseline;
   }
 
   /* Pulsing "live/active" status dot */

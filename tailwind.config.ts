@@ -25,8 +25,10 @@ const config: Config = {
         mono: ["var(--font-jetbrains-mono)", "ui-monospace", "monospace"],
       },
       fontSize: {
-        "display-2xl": ["clamp(3rem, 9vw, 8rem)", { lineHeight: "0.92", letterSpacing: "-0.03em" }],
-        "display-xl": ["clamp(2.5rem, 6vw, 5rem)", { lineHeight: "0.95", letterSpacing: "-0.02em" }],
+        // 1.05 (was 0.92/0.95): still tight, but leaves room for .highlight stamps
+        // so the hazard block doesn't paint over the line above.
+        "display-2xl": ["clamp(3rem, 9vw, 8rem)", { lineHeight: "1.05", letterSpacing: "-0.03em" }],
+        "display-xl": ["clamp(2.5rem, 6vw, 5rem)", { lineHeight: "1.05", letterSpacing: "-0.02em" }],
         "display-lg": ["clamp(1.75rem, 3.5vw, 3rem)", { lineHeight: "1.0", letterSpacing: "-0.02em" }],
         "body-lg": ["clamp(1.05rem, 1.5vw, 1.35rem)", { lineHeight: "1.55" }],
       },

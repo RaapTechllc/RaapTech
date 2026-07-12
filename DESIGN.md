@@ -33,13 +33,13 @@ typography:
     fontFamily: "{typography.display.fontFamily}"
     fontSize: "clamp(3rem, 9vw, 8rem)"
     fontWeight: 700
-    lineHeight: 0.92
+    lineHeight: 1.05
     letterSpacing: "-0.03em"
   display-xl:
     fontFamily: "{typography.display.fontFamily}"
     fontSize: "clamp(2.5rem, 6vw, 5rem)"
     fontWeight: 700
-    lineHeight: 0.95
+    lineHeight: 1.05
     letterSpacing: "-0.02em"
   h2:
     fontFamily: "{typography.display.fontFamily}"
@@ -153,9 +153,10 @@ Three families, each with one job. Contrast between huge geometric display and
 quiet monospace labels is the core of the type system.
 
 - **Display — Space Grotesk (700):** All headlines and big numbers. Set tight
-  (`line-height` ~0.95, negative tracking). Go large — `display-2xl` is meant
-  to feel oversized and structural. Sentence case for headlines; UPPERCASE is
-  reserved for labels.
+  (`line-height` ~1.05, negative tracking) — tight enough to feel structural,
+  loose enough that `.highlight` hazard stamps don't collide with the line
+  above. Go large — `display-2xl` is meant to feel oversized and structural.
+  Sentence case for headlines; UPPERCASE is reserved for labels.
 - **Body — Inter (400):** All running prose. `body-lg` for hero/intro
   paragraphs, `body` for everything else. Max measure ~`max-w-2xl`.
 - **Mono — JetBrains Mono (500):** Labels, eyebrows, stats captions, data

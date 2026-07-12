@@ -75,13 +75,12 @@ export default function HomePage() {
             </div>
 
             <h1 className="font-display text-display-2xl font-bold tracking-tight text-paper">
-              20 Years in
-              <br />
-              <span className="text-hazard">the Trade.</span>
-              <br />
-              AI-Native by
-              <br />
-              <span className="highlight">Default.</span>
+              <span className="block">20 Years in</span>
+              <span className="block text-hazard">the Trade.</span>
+              <span className="block">AI-Native by</span>
+              <span className="mt-[0.12em] block">
+                <span className="highlight">Default.</span>
+              </span>
             </h1>
 
             <p className="mt-10 max-w-2xl font-sans text-body-lg text-paper-dim">

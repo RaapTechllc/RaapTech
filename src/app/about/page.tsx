@@ -91,11 +91,11 @@ export default function AboutPage() {
             </div>
 
             <h1 className="font-display text-display-2xl font-bold tracking-tight text-paper">
-              Built by someone who has
-              <br />
-              <span className="highlight">actually</span> been on
-              <br />
-              the job site.
+              <span className="block">Built by someone who has</span>
+              <span className="mt-[0.08em] block">
+                <span className="highlight">actually</span> been on
+              </span>
+              <span className="block">the job site.</span>
             </h1>
 
             <p className="mt-10 max-w-2xl font-sans text-body-lg text-paper-dim">
