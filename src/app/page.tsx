@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight } from "@/components/icons";
+import { OdometerStat, RuleDraw, StampReveal } from "@/components/motion";
 
 export const metadata: Metadata = {
   title: "RaapTech LLC — Autodesk Fabrication Consulting & AI for the Trades",
@@ -13,6 +15,13 @@ const stats = [
   { value: "4", label: "Active Clients" },
   { value: "Daily", label: "On-Site" },
   { value: "2023", label: "Founded" },
+];
+
+const credentials = [
+  "AUTODESK FABRICATION · 20 YRS",
+  "MEP / SHEET METAL",
+  "ON-SITE DAILY",
+  "CADmep · ESTmep · CAMduct",
 ];
 
 const ticker = [
@@ -64,83 +73,102 @@ const features = [
 export default function HomePage() {
   return (
     <>
-      {/* Hero — inverted */}
-      <section className="relative flex min-h-screen items-center overflow-hidden bg-ink pt-16 text-paper">
-        <div className="absolute inset-0 grid-backdrop" />
+      {/* Full-bleed shop-floor hero */}
+      <section className="relative flex min-h-[100svh] items-end overflow-hidden pt-16 text-paper">
+        <Image
+          src="/images/hero-shop-floor.png"
+          alt="Sheet metal fabrication shop floor with stacked HVAC ductwork"
+          fill
+          priority
+          sizes="100vw"
+          className="object-cover object-center"
+        />
+        {/* Flat ink scrim — readable type without soft gradient depth */}
+        <div className="absolute inset-0 bg-ink/72" aria-hidden />
+        <div className="absolute inset-0 grid-backdrop opacity-40" aria-hidden />
 
-        <div className="relative mx-auto grid w-full max-w-7xl grid-cols-1 gap-12 px-6 py-24 lg:grid-cols-12">
-          <div className="lg:col-span-8">
-            <div className="eyebrow eyebrow-ink mb-8">
-              <span className="text-hazard">Fabrication Consulting + AI</span>
-            </div>
-
-            <h1 className="font-display text-display-2xl font-bold tracking-tight text-paper">
-              <span className="block">20 Years in</span>
-              <span className="block text-hazard">the Trade.</span>
-              <span className="block">AI-Native by</span>
-              <span className="mt-[0.12em] block">
-                <span className="highlight">Default.</span>
-              </span>
-            </h1>
-
-            <p className="mt-10 max-w-2xl font-sans text-body-lg text-paper-dim">
-              Kyle Raap has spent two decades inside Autodesk Fabrication
-              &mdash; CADmep, ESTmep, CAMduct &mdash; on the shop floor, not
-              behind a sales deck. Now he brings AI tools to the contractors who
-              actually build things.
+        <div className="relative z-10 mx-auto w-full max-w-7xl px-6 pb-16 pt-24 lg:pb-24">
+          <StampReveal>
+            <p className="font-display text-4xl font-bold tracking-tight text-paper sm:text-5xl md:text-6xl">
+              RAAPTECH
             </p>
+          </StampReveal>
 
-            <div className="mt-12 flex flex-col gap-4 sm:flex-row">
+          <div className="eyebrow eyebrow-ink mt-8 mb-6">
+            <span className="text-hazard">Fabrication Consulting + AI</span>
+          </div>
+
+          <h1 className="max-w-4xl font-display text-display-2xl font-bold tracking-tight text-paper">
+            <StampReveal delayMs={60}>
+              <span className="block">20 Years in</span>
+            </StampReveal>
+            <StampReveal delayMs={120}>
+              <span className="block text-hazard">the Trade.</span>
+            </StampReveal>
+            <StampReveal delayMs={180}>
+              <span className="block">AI-Native by</span>
+            </StampReveal>
+            <StampReveal delayMs={240} className="mt-[0.12em]">
+              <span className="highlight">Default.</span>
+            </StampReveal>
+          </h1>
+
+          <StampReveal delayMs={300}>
+            <p className="mt-8 max-w-xl font-sans text-body-lg text-paper">
+              Kyle Raap brings two decades of Autodesk Fabrication — CADmep,
+              ESTmep, CAMduct — and AI tooling to the shops that actually build.
+            </p>
+          </StampReveal>
+
+          <StampReveal delayMs={360}>
+            <div className="mt-10 flex flex-col gap-4 sm:flex-row">
               <Link href="/services" className="btn-primary">
                 View Services
                 <ArrowRight />
               </Link>
-              <Link href="/about" className="btn-on-ink">
-                About Kyle
+              <Link href="/contact" className="btn-on-ink">
+                Get in Touch
               </Link>
             </div>
-          </div>
+          </StampReveal>
 
-          {/* Spec panel */}
-          <div className="lg:col-span-4 lg:self-center">
-            <div className="border-2 border-paper bg-ink shadow-hard-paper">
-              <div className="flex items-center gap-2 border-b-2 border-paper px-4 py-3">
-                <span className="h-2.5 w-2.5 bg-hazard" />
-                <span className="font-mono text-xs uppercase tracking-label text-paper-dim">
-                  raaptech.status
-                </span>
-              </div>
-              <div className="space-y-3 p-4 font-mono text-xs">
-                {[
-                  ["specialty", "FABRICATION", "text-signal"],
-                  ["experience", "20+ YRS", "text-paper"],
-                  ["active_clients", "4", "text-paper"],
-                  ["on_site", "DAILY", "text-hazard"],
-                ].map(([k, v, c]) => (
-                  <div key={k} className="flex justify-between">
-                    <span className="text-paper-dim">{k}</span>
-                    <span className={c}>{v}</span>
-                  </div>
-                ))}
-                <div className="mt-3 flex items-center gap-2 border-t-2 border-paper/30 pt-3">
-                  <span className="status-dot" />
-                  <span className="text-volt">Available for new clients</span>
-                </div>
-              </div>
+          {/* Live status strip — not a floating card */}
+          <StampReveal delayMs={420}>
+            <div className="mt-14 flex flex-wrap items-center gap-x-6 gap-y-2 border-t-2 border-paper/30 pt-5 font-mono text-xs uppercase tracking-label">
+              <span className="flex items-center gap-2 text-volt">
+                <span className="status-dot" />
+                Available for new clients
+              </span>
+              <span className="text-paper-dim">specialty: fabrication</span>
+              <span className="text-paper-dim">on_site: daily</span>
             </div>
-          </div>
+          </StampReveal>
         </div>
       </section>
 
+      {/* Credential band */}
+      <div className="border-b-2 border-ink bg-paper">
+        <div className="mx-auto flex max-w-7xl flex-wrap items-stretch divide-x-2 divide-ink border-x-2 border-ink">
+          {credentials.map((c) => (
+            <div
+              key={c}
+              className="flex flex-1 items-center justify-center px-4 py-3 font-mono text-[0.65rem] font-medium uppercase tracking-label text-ink sm:text-xs"
+            >
+              {c}
+            </div>
+          ))}
+        </div>
+      </div>
+
       {/* Marquee ticker */}
-      <div className="overflow-hidden border-y-2 border-ink bg-hazard">
+      <div className="marquee-pause overflow-hidden border-b-2 border-ink bg-hazard">
         <div className="marquee py-3">
           {[0, 1].map((dup) => (
             <div key={dup} className="flex shrink-0" aria-hidden={dup === 1}>
               {ticker.map((t) => (
                 <span
-                  key={t}
-                  className="flex items-center gap-4 whitespace-nowrap px-4 font-mono text-xs font-medium uppercase tracking-label text-ink"
+                  key={`${dup}-${t}`}
+                  className="marquee-term flex items-center gap-4 whitespace-nowrap px-4 font-mono text-xs font-medium uppercase tracking-label text-ink"
                 >
                   {t}
                   <span className="text-ink/40">/</span>
@@ -154,6 +182,7 @@ export default function HomePage() {
       {/* Stats */}
       <section className="bg-paper">
         <div className="mx-auto max-w-7xl px-6">
+          <RuleDraw className="border-ink" />
           <div className="grid grid-cols-2 border-x-2 border-ink md:grid-cols-4">
             {stats.map((stat, i) => (
               <div
@@ -162,9 +191,10 @@ export default function HomePage() {
                   i < stats.length - 1 ? "border-r-2 border-ink" : ""
                 } ${i < 2 ? "border-b-2 border-ink md:border-b-0" : ""}`}
               >
-                <div className="font-display text-5xl font-bold text-hazard">
-                  {stat.value}
-                </div>
+                <OdometerStat
+                  value={stat.value}
+                  className="font-display text-5xl font-bold text-hazard"
+                />
                 <div className="mt-2 font-mono text-xs uppercase tracking-label text-steel">
                   {stat.label}
                 </div>
@@ -178,26 +208,29 @@ export default function HomePage() {
       <section className="bg-paper py-24">
         <div className="mx-auto max-w-7xl px-6">
           <div className="eyebrow mb-4">What We Do</div>
-          <h2 className="mb-16 max-w-2xl font-display text-display-lg font-bold text-ink">
+          <h2 className="mb-4 max-w-2xl font-display text-display-lg font-bold text-ink">
             Trade knowledge meets modern tooling
           </h2>
+          <RuleDraw className="mb-16 max-w-xs border-ink" />
 
           <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
-            {features.map((feature) => (
-              <div key={feature.tag} className="card-pop group relative bg-concrete">
-                <span className="section-number absolute right-6 top-4 text-6xl text-ink/10">
-                  {feature.tag}
-                </span>
-                <div className="mb-6 inline-flex border-2 border-ink bg-hazard p-3 text-ink">
-                  {feature.icon}
+            {features.map((feature, i) => (
+              <StampReveal key={feature.tag} delayMs={i * 80}>
+                <div className="card-pop group relative bg-concrete">
+                  <span className="section-number absolute right-6 top-4 text-6xl text-ink/10">
+                    {feature.tag}
+                  </span>
+                  <div className="mb-6 inline-flex border-2 border-ink bg-hazard p-3 text-ink">
+                    {feature.icon}
+                  </div>
+                  <h3 className="mb-3 font-display text-xl font-bold text-ink">
+                    {feature.title}
+                  </h3>
+                  <p className="text-sm leading-relaxed text-steel">
+                    {feature.description}
+                  </p>
                 </div>
-                <h3 className="mb-3 font-display text-xl font-bold text-ink">
-                  {feature.title}
-                </h3>
-                <p className="text-sm leading-relaxed text-steel">
-                  {feature.description}
-                </p>
-              </div>
+              </StampReveal>
             ))}
           </div>
         </div>
@@ -206,24 +239,26 @@ export default function HomePage() {
       {/* CTA — inverted */}
       <section className="bg-ink py-24 text-paper">
         <div className="mx-auto max-w-7xl px-6">
-          <div className="flex flex-col items-start justify-between gap-8 border-2 border-hazard bg-ink p-10 shadow-hard-hazard md:flex-row md:items-center md:p-12">
-            <div>
-              <div className="eyebrow eyebrow-ink mb-3">
-                <span className="text-hazard">Ready to Talk</span>
+          <StampReveal>
+            <div className="flex flex-col items-start justify-between gap-8 border-2 border-hazard bg-ink p-10 shadow-hard-hazard md:flex-row md:items-center md:p-12">
+              <div>
+                <div className="eyebrow eyebrow-ink mb-3">
+                  <span className="text-hazard">Ready to Talk</span>
+                </div>
+                <h2 className="font-display text-display-lg font-bold text-paper">
+                  Your shop deserves someone who gets it.
+                </h2>
               </div>
-              <h2 className="font-display text-display-lg font-bold text-paper">
-                Your shop deserves someone who gets it.
-              </h2>
+              <div className="flex flex-col gap-4 sm:flex-row">
+                <Link href="/contact" className="btn-primary whitespace-nowrap">
+                  Start a Conversation
+                </Link>
+                <Link href="/services" className="btn-on-ink whitespace-nowrap">
+                  See Services
+                </Link>
+              </div>
             </div>
-            <div className="flex flex-col gap-4 sm:flex-row">
-              <Link href="/contact" className="btn-primary whitespace-nowrap">
-                Start a Conversation
-              </Link>
-              <Link href="/services" className="btn-on-ink whitespace-nowrap">
-                See Services
-              </Link>
-            </div>
-          </div>
+          </StampReveal>
         </div>
       </section>
     </>

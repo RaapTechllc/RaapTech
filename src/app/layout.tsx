@@ -56,7 +56,6 @@ export const metadata: Metadata = {
     title: "RaapTech LLC — Autodesk Fabrication Consulting & AI for the Trades",
     description:
       "20 years of Autodesk Fabrication. CADmep, ESTmep, CAMduct consulting and AI onboarding for sheet metal and MEP contractors.",
-    // og:image is supplied by the generated app/opengraph-image.tsx route.
   },
   twitter: {
     card: "summary_large_image",
@@ -78,6 +77,31 @@ export const metadata: Metadata = {
   },
 };
 
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "ProfessionalService",
+      "@id": "https://raaptech.com/#organization",
+      name: "RaapTech LLC",
+      url: "https://raaptech.com",
+      description:
+        "Autodesk Fabrication consulting and AI onboarding for sheet metal and MEP contractors.",
+      areaServed: "United States",
+      founder: { "@id": "https://raaptech.com/#kyle" },
+      email: "kyle@raaptech.com",
+    },
+    {
+      "@type": "Person",
+      "@id": "https://raaptech.com/#kyle",
+      name: "Kyle Raap",
+      jobTitle: "Founder",
+      worksFor: { "@id": "https://raaptech.com/#organization" },
+      url: "https://raaptech.com/about",
+    },
+  ],
+};
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -90,6 +114,10 @@ export default function RootLayout({
       suppressHydrationWarning
     >
       <body className="bg-paper font-sans text-ink antialiased">
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
         <Navbar />
         <main>{children}</main>
         <Footer />

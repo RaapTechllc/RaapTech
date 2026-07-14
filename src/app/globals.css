@@ -127,6 +127,39 @@ body {
   .marquee-pause:hover .marquee {
     animation-play-state: paused;
   }
+  .marquee-term {
+    @apply transition-colors duration-150;
+  }
+  .marquee-pause .marquee-term:hover {
+    @apply bg-ink text-hazard;
+  }
+
+  /* Motion — stepped machinery, not soft SaaS fades. See DESIGN.md. */
+  .stamp-reveal {
+    opacity: 0;
+    transform: translate(6px, 6px);
+    transition:
+      opacity 150ms steps(2, end),
+      transform 150ms steps(2, end);
+    will-change: transform, opacity;
+  }
+  .stamp-reveal.is-in {
+    opacity: 1;
+    transform: translate(0, 0);
+  }
+
+  .rule-draw {
+    height: 2px;
+    width: 100%;
+    background-color: currentColor;
+    color: var(--ink);
+    transform: scaleX(0);
+    transform-origin: left center;
+    transition: transform 300ms steps(4, end);
+  }
+  .rule-draw.is-in {
+    transform: scaleX(1);
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -142,5 +175,14 @@ body {
   .btn-on-ink:hover,
   .card-pop:hover {
     transform: none;
+  }
+  .stamp-reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+  .rule-draw {
+    transform: none;
+    transition: none;
   }
 }

@@ -9,8 +9,9 @@ import ContactPage from "./contact/page";
 // Characterization smoke tests: each route renders without throwing and shows
 // its hero headline + a stable, route-specific anchor.
 describe("page smoke tests", () => {
-  it("home renders its hero headline and primary CTA", () => {
+  it("home renders brand, hero headline, and primary CTA", () => {
     render(<HomePage />);
+    expect(screen.getByText("RAAPTECH")).toBeInTheDocument();
     expect(screen.getByRole("heading", { level: 1 })).toHaveTextContent(
       /20 Years in/,
     );

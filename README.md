@@ -65,3 +65,15 @@ DESIGN.md           # brand design system — source of truth
   ```
 
   Uses Next.js `output: "standalone"` (see `next.config.ts`).
+
+## Higgsfield MCP (imagery)
+
+Project MCP config lives in `.cursor/mcp.json` and points at the hosted
+Higgsfield server (`https://mcp.higgsfield.ai/mcp`). Auth is OAuth — no API key.
+
+1. Open **Cursor Settings → MCP / Connectors**
+2. Confirm **higgsfield** is listed (from `.cursor/mcp.json`)
+3. Click **Connect** and sign in with your Higgsfield account
+4. Ask the agent to generate or refresh site imagery (hero, case studies, OG)
+
+Brand prompt constraints for visuals are in `.cursor/rules/higgsfield-imagery.mdc`.

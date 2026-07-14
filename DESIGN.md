@@ -124,6 +124,13 @@ drawings, safety signage, and steel — made confident and a little loud.
 - **Signature move:** Warm concrete "paper" canvas + black structural ink +
   one electric **hazard-orange** accent, with hard offset shadows and heavy
   2px borders. Sections alternate light (paper) and inverted (ink) for rhythm.
+- **Hero photography:** The home first viewport is a full-bleed shop-floor
+  photograph with a flat ink scrim (no soft gradient depth). Brand wordmark
+  sits at hero scale; one headline, one sentence, one CTA group. Spec chrome
+  is a thin status strip — not a floating card over the image.
+- **Motion:** Machinery language — stamp reveals, rule-draw dividers, stepped
+  odometer counters. CSS/`IntersectionObserver` only; `prefers-reduced-motion`
+  gets the fully assembled page.
 
 ## Colors
 
