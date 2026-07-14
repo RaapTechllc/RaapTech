@@ -9,6 +9,13 @@ type UseInViewOptions = {
   once?: boolean;
 };
 
+function prefersReducedMotion(): boolean {
+  if (typeof window === "undefined" || typeof window.matchMedia !== "function") {
+    return false;
+  }
+  return window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+}
+
 /**
  * Observe when an element enters the viewport. Reduced-motion users get
  * `true` immediately so pages render fully assembled.
@@ -25,11 +32,12 @@ export function useInView<T extends Element = HTMLElement>(
     const node = ref.current;
     if (!node) return;
 
-    const prefersReduced =
-      typeof window !== "undefined" &&
-      window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (prefersReducedMotion()) {
+      setInView(true);
+      return;
+    }
 
-    if (prefersReduced) {
+    if (typeof IntersectionObserver === "undefined") {
       setInView(true);
       return;
     }

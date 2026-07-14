@@ -59,9 +59,9 @@ export function OdometerStat({ value, className = "" }: OdometerProps) {
   useEffect(() => {
     if (!inView || target === null) return;
 
-    const prefersReduced = window.matchMedia(
-      "(prefers-reduced-motion: reduce)",
-    ).matches;
+    const prefersReduced =
+      typeof window.matchMedia === "function" &&
+      window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     if (prefersReduced) {
       setN(target);
       return;

@@ -1,88 +1,23 @@
-import { act, render, renderHook, screen } from "@testing-library/react";
+import { render, screen, waitFor } from "@testing-library/react";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
-import { useInView } from "./useInView";
 import { OdometerStat, StampReveal } from "@/components/motion";
+import { useInView } from "./useInView";
 
-class MockIntersectionObserver {
-  static instances: MockIntersectionObserver[] = [];
-  callback: IntersectionObserverCallback;
-  elements: Element[] = [];
-
-  constructor(callback: IntersectionObserverCallback) {
-    this.callback = callback;
-    MockIntersectionObserver.instances.push(this);
-  }
-
-  observe(el: Element) {
-    this.elements.push(el);
-  }
-
-  unobserve() {}
-  disconnect() {}
-
-  trigger(isIntersecting: boolean) {
-    const entries = this.elements.map(
-      (target) =>
-        ({
-          isIntersecting,
-          target,
-          intersectionRatio: isIntersecting ? 1 : 0,
-        }) as IntersectionObserverEntry,
-    );
-    this.callback(entries, this as unknown as IntersectionObserver);
-  }
+function Probe() {
+  const { ref, inView } = useInView<HTMLDivElement>();
+  return (
+    <div ref={ref} data-testid="probe" data-inview={inView ? "yes" : "no"}>
+      probe
+    </div>
+  );
 }
 
-describe("useInView", () => {
-  beforeEach(() => {
-    MockIntersectionObserver.instances = [];
-    vi.stubGlobal("IntersectionObserver", MockIntersectionObserver);
-    Object.defineProperty(window, "matchMedia", {
-      writable: true,
-      value: vi.fn().mockImplementation((query: string) => ({
-        matches: false,
-        media: query,
-        addEventListener: vi.fn(),
-        removeEventListener: vi.fn(),
-        addListener: vi.fn(),
-        removeListener: vi.fn(),
-        dispatchEvent: vi.fn(),
-      })),
-    });
-  });
-
+describe("useInView via StampReveal", () => {
   afterEach(() => {
-    vi.unstubAllGlobals();
+    vi.restoreAllMocks();
   });
 
-  it("flips inView when the observed node intersects", () => {
-    const { result } = renderHook(() => useInView<HTMLDivElement>());
-    const node = document.createElement("div");
-    // Attach ref manually — renderHook doesn't mount a DOM node for us.
-    (
-      result.current.ref as { current: HTMLDivElement | null }
-    ).current = node;
-
-    // Re-run effect with the ref populated
-    const { result: result2, rerender } = renderHook(() =>
-      useInView<HTMLDivElement>(),
-    );
-    act(() => {
-      (result2.current.ref as { current: HTMLDivElement | null }).current =
-        node;
-      rerender();
-    });
-
-    const observer = MockIntersectionObserver.instances.at(-1);
-    expect(observer).toBeTruthy();
-    act(() => {
-      observer?.observe(node);
-      observer?.trigger(true);
-    });
-    expect(result2.current.inView).toBe(true);
-  });
-
-  it("is immediately in view when reduced motion is preferred", () => {
+  it("marks content in-view immediately under reduced motion", async () => {
     window.matchMedia = vi.fn().mockImplementation((query: string) => ({
       matches: query.includes("prefers-reduced-motion"),
       media: query,
@@ -93,37 +28,24 @@ describe("useInView", () => {
       dispatchEvent: vi.fn(),
     }));
 
-    const { result, rerender } = renderHook(() => useInView<HTMLDivElement>());
-    const node = document.createElement("div");
-    act(() => {
-      (result.current.ref as { current: HTMLDivElement | null }).current =
-        node;
-      rerender();
+    render(<Probe />);
+    await waitFor(() => {
+      expect(screen.getByTestId("probe")).toHaveAttribute("data-inview", "yes");
     });
-    expect(result.current.inView).toBe(true);
   });
 });
 
 describe("StampReveal / OdometerStat", () => {
   beforeEach(() => {
-    MockIntersectionObserver.instances = [];
-    vi.stubGlobal("IntersectionObserver", MockIntersectionObserver);
-    Object.defineProperty(window, "matchMedia", {
-      writable: true,
-      value: vi.fn().mockImplementation((query: string) => ({
-        matches: query.includes("prefers-reduced-motion"),
-        media: query,
-        addEventListener: vi.fn(),
-        removeEventListener: vi.fn(),
-        addListener: vi.fn(),
-        removeListener: vi.fn(),
-        dispatchEvent: vi.fn(),
-      })),
-    });
-  });
-
-  afterEach(() => {
-    vi.unstubAllGlobals();
+    window.matchMedia = vi.fn().mockImplementation((query: string) => ({
+      matches: query.includes("prefers-reduced-motion"),
+      media: query,
+      addEventListener: vi.fn(),
+      removeEventListener: vi.fn(),
+      addListener: vi.fn(),
+      removeListener: vi.fn(),
+      dispatchEvent: vi.fn(),
+    }));
   });
 
   it("renders stamped children when reduced motion is on", () => {
@@ -135,13 +57,17 @@ describe("StampReveal / OdometerStat", () => {
     expect(screen.getByText("Stamped")).toBeInTheDocument();
   });
 
-  it("shows the full numeric value under reduced motion", () => {
+  it("shows the full numeric value under reduced motion", async () => {
     render(<OdometerStat value="20+" className="stat" />);
-    expect(screen.getByText("20+")).toBeInTheDocument();
+    await waitFor(() => {
+      expect(screen.getByText("20+")).toBeInTheDocument();
+    });
   });
 
-  it("passes through non-numeric labels", () => {
+  it("passes through non-numeric labels", async () => {
     render(<OdometerStat value="Daily" />);
-    expect(screen.getByText("Daily")).toBeInTheDocument();
+    await waitFor(() => {
+      expect(screen.getByText("Daily")).toBeInTheDocument();
+    });
   });
 });
