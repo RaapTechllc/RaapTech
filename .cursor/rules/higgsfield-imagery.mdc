@@ -1,14 +1,19 @@
 ---
-description: Use Higgsfield MCP for RaapTech site imagery and motion assets
+description: Prefer Higgsfield CLI for RaapTech site imagery and motion assets
 alwaysApply: true
 ---
 
 # Higgsfield for RaapTech visuals
 
-When creating, regenerating, or refining marketing imagery for this site
-(hero photos, case-study visuals, OG art, short motion clips), prefer the
-**Higgsfield MCP** (`higgsfield` server at `https://mcp.higgsfield.ai/mcp`)
-over generic image tools.
+Prefer the **Higgsfield CLI** (`@higgsfield/cli`) for creating or regenerating
+marketing imagery — same pattern as
+[coleam00/ai-content-factory](https://github.com/coleam00/ai-content-factory):
+explore cheap stills → human approve → spend video credits only on winners.
+
+Read `.claude/skills/higgsfield/SKILL.md` before generating.
+
+Optional MCP mirror: `.cursor/mcp.json` → `https://mcp.higgsfield.ai/mcp`
+(OAuth). If MCP tools are unavailable, use the CLI.
 
 ## Brand constraints for prompts
 
@@ -17,10 +22,11 @@ over generic image tools.
 - Palette cues: warm concrete / paper (`#EDE9E0`), black ink (`#0B0B0C`),
   hazard orange (`#FF4D00`). Avoid purple gradients and soft glassmorphism.
 - No AI-vendor logos or named AI product branding in the frame.
-- Prefer full-bleed, edge-to-edge scenes suitable for hero backgrounds.
+- Prefer full-bleed, edge-to-edge scenes suitable for hero backgrounds (16:9).
 
 ## Auth
 
-Higgsfield uses OAuth (no API key). If tools are unavailable or return an
-auth error, ask the user to Connect Higgsfield under Cursor Settings → MCP /
-Connectors, then retry.
+```bash
+higgsfield auth login
+higgsfield account
+```

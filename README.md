@@ -66,14 +66,25 @@ DESIGN.md           # brand design system — source of truth
 
   Uses Next.js `output: "standalone"` (see `next.config.ts`).
 
-## Higgsfield MCP (imagery)
+## Higgsfield (imagery + video)
 
-Project MCP config lives in `.cursor/mcp.json` and points at the hosted
-Higgsfield server (`https://mcp.higgsfield.ai/mcp`). Auth is OAuth — no API key.
+RaapTech follows the same media pattern as
+[AI Content Factory](https://github.com/coleam00/ai-content-factory):
+**explore cheap stills → human approve → render winners only.**
 
-1. Open **Cursor Settings → MCP / Connectors**
-2. Confirm **higgsfield** is listed (from `.cursor/mcp.json`)
-3. Click **Connect** and sign in with your Higgsfield account
-4. Ask the agent to generate or refresh site imagery (hero, case studies, OG)
+### CLI (preferred)
 
-Brand prompt constraints for visuals are in `.cursor/rules/higgsfield-imagery.mdc`.
+```bash
+npm install -g @higgsfield/cli
+higgsfield auth login
+higgsfield account
+```
+
+Agent skill (recipes + RaapTech brand constraints):
+`.claude/skills/higgsfield/SKILL.md`
+
+### MCP (optional)
+
+Project MCP config: `.cursor/mcp.json` → `https://mcp.higgsfield.ai/mcp`.
+Connect under **Cursor Settings → MCP / Connectors** (OAuth). Brand prompt
+rules: `.cursor/rules/higgsfield-imagery.mdc`.
