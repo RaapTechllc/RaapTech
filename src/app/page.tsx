@@ -84,7 +84,7 @@ export default function HomePage() {
           className="object-cover object-center"
         />
         {/* Flat ink scrim — readable type without soft gradient depth */}
-        <div className="absolute inset-0 bg-ink/72" aria-hidden />
+        <div className="absolute inset-0 bg-ink/80" aria-hidden />
         <div className="absolute inset-0 grid-backdrop opacity-40" aria-hidden />
 
         <div className="relative z-10 mx-auto w-full max-w-7xl px-6 pb-16 pt-24 lg:pb-24">

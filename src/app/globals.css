@@ -134,18 +134,19 @@ body {
     @apply bg-ink text-hazard;
   }
 
-  /* Motion — stepped machinery, not soft SaaS fades. See DESIGN.md. */
-  .stamp-reveal {
+  /* Motion — stepped machinery, not soft SaaS fades. See DESIGN.md.
+     Content stays visible by default (SSR / no-JS safe). When JS arms a
+     pending stamp, it hides until .is-in, then snaps in. */
+  .stamp-reveal.stamp-pending:not(.is-in) {
     opacity: 0;
     transform: translate(6px, 6px);
-    transition:
-      opacity 150ms steps(2, end),
-      transform 150ms steps(2, end);
-    will-change: transform, opacity;
   }
   .stamp-reveal.is-in {
     opacity: 1;
     transform: translate(0, 0);
+    transition:
+      opacity 150ms steps(2, end),
+      transform 150ms steps(2, end);
   }
 
   .rule-draw {
@@ -153,12 +154,14 @@ body {
     width: 100%;
     background-color: currentColor;
     color: var(--ink);
-    transform: scaleX(0);
     transform-origin: left center;
-    transition: transform 300ms steps(4, end);
+  }
+  .rule-draw.rule-pending:not(.is-in) {
+    transform: scaleX(0);
   }
   .rule-draw.is-in {
     transform: scaleX(1);
+    transition: transform 300ms steps(4, end);
   }
 }
 
