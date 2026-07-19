@@ -5,9 +5,9 @@ describe("NAV_LINKS", () => {
   it("lists the five primary routes in order", () => {
     expect(NAV_LINKS.map((l) => l.href)).toEqual([
       "/",
-      "/about",
       "/services",
-      "/projects",
+      "/about",
+      "/results",
       "/contact",
     ]);
   });

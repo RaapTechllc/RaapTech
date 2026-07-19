@@ -3,7 +3,7 @@ import type { MetadataRoute } from "next";
 const BASE = "https://raaptech.com";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const routes = ["", "/about", "/services", "/projects", "/contact"] as const;
+  const routes = ["", "/about", "/services", "/results", "/contact"] as const;
   const lastModified = new Date();
 
   return routes.map((path) => ({

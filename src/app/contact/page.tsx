@@ -1,156 +1,108 @@
 import type { Metadata } from "next";
 import ContactForm from "@/components/ContactForm";
+import { RuleDraw } from "@/components/motion";
+import { SITE, bookingHref, bookingIsExternal } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "Contact",
   description:
-    "Get in touch with RaapTech LLC. Autodesk Fabrication consulting and AI onboarding for sheet metal and MEP contractors.",
+    "Book a Database Health Audit or send a message. RaapTech LLC — Autodesk Fabrication database consultancy, Elmwood Park / Chicago, IL.",
 };
 
-const contactInfo = [
-  {
-    label: "Email",
-    value: "kyle@raaptech.com",
-    href: "mailto:kyle@raaptech.com",
-    mono: true,
-  },
-  {
-    label: "Company",
-    value: "RaapTech LLC",
-    href: null,
-    mono: false,
-  },
-  {
-    label: "Location",
-    value: "United States",
-    href: null,
-    mono: false,
-  },
-];
-
-const workTypes = [
-  "Autodesk Fabrication Consulting",
-  "AI Onboarding",
-  "Fabrication Database Maintenance",
-  "Estimating Workflow Optimization",
-  "On-Site Training",
-  "Technical Advisory",
-];
-
 export default function ContactPage() {
+  const ctaHref = bookingHref();
+  const ctaExternal = bookingIsExternal();
+  const ctaProps = ctaExternal
+    ? { target: "_blank", rel: "noopener noreferrer" }
+    : {};
+
   return (
     <>
-      {/* Hero — inverted */}
-      <section className="relative overflow-hidden bg-ink pt-16 text-paper">
-        <div className="absolute inset-0 grid-backdrop" />
-
-        <div className="relative mx-auto max-w-7xl px-6 py-24">
-          <div className="eyebrow eyebrow-ink mb-8">
-            <span className="text-hazard">Contact</span>
-          </div>
-
-          <h1 className="font-display text-display-2xl font-bold tracking-tight text-paper">
-            <span className="block">Let&apos;s talk</span>
-            <span className="mt-[0.12em] block">
-              <span className="highlight">shop.</span>
-            </span>
-          </h1>
-
-          <p className="mt-10 max-w-2xl font-sans text-body-lg text-paper-dim">
-            Sheet metal and MEP shops run on tight schedules and tighter
-            margins. Tell us about your fabrication setup, your estimating
-            workflow, and where you want AI or Autodesk Fabrication help &mdash;
-            we&apos;ll get back to you fast.
-          </p>
-        </div>
-      </section>
-
-      {/* Contact Content — paper */}
-      <section className="bg-paper py-24">
+      <section className="bg-paper pb-24 pt-32">
         <div className="mx-auto max-w-7xl px-6">
-          <div className="eyebrow mb-4">Get in Touch</div>
-          <h2 className="mb-16 max-w-2xl font-display text-display-lg font-bold text-ink">
-            Two ways in: the details, or the form.
-          </h2>
+          <div className="eyebrow mb-4">Contact</div>
+          <h1 className="max-w-3xl font-display text-display-xl font-bold text-ink">
+            Talk to someone who has run the floor.
+          </h1>
+          <RuleDraw className="mt-8 max-w-xs border-ink" />
 
-          <div className="grid grid-cols-1 gap-[2px] border-2 border-ink bg-ink lg:grid-cols-5">
-            {/* Info Panel */}
-            <div className="relative bg-paper p-8 lg:col-span-2 lg:p-10">
-              <span className="section-number absolute right-6 top-4 text-6xl text-ink/10">
-                01
-              </span>
-
-              <div className="eyebrow mb-6">Direct</div>
-
-              <div className="space-y-6">
-                {contactInfo.map((info) => (
-                  <div key={info.label}>
-                    <div className="mb-1 font-mono text-xs uppercase tracking-label text-steel">
-                      {info.label}
-                    </div>
-                    {info.href ? (
-                      <a
-                        href={info.href}
-                        className={`text-signal underline-offset-4 hover:underline ${
-                          info.mono ? "font-mono text-sm" : "text-sm"
-                        }`}
-                      >
-                        {info.value}
-                      </a>
-                    ) : (
-                      <span
-                        className={`text-ink ${
-                          info.mono ? "font-mono text-sm" : "text-sm"
-                        }`}
-                      >
-                        {info.value}
-                      </span>
-                    )}
-                  </div>
-                ))}
-              </div>
-
-              <div className="mt-8 border-t-2 border-ink pt-8">
-                <h3 className="mb-4 font-display text-xl font-bold text-ink">
-                  We work on
-                </h3>
-                <ul className="space-y-3">
-                  {workTypes.map((type) => (
-                    <li key={type} className="flex items-center gap-3">
-                      <span className="h-2 w-2 shrink-0 bg-hazard" />
-                      <span className="text-sm text-steel">{type}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-
-              <div className="mt-8 border-2 border-ink bg-concrete p-4 shadow-hard-sm">
-                <div className="mb-2 font-mono text-xs uppercase tracking-label text-steel">
-                  {"// response_time"}
-                </div>
-                <div className="flex items-center gap-2">
-                  <span className="h-2 w-2 animate-pulse rounded-full bg-signal" />
-                  <span className="font-mono text-sm text-signal">
-                    &lt; 24 hours
-                  </span>
-                </div>
-                <div className="mt-1 text-xs text-steel">
-                  Average first response
-                </div>
-              </div>
+          <div className="mt-16 grid grid-cols-1 gap-16 lg:grid-cols-5">
+            {/* Form */}
+            <div className="lg:col-span-3">
+              <h2 className="mb-6 font-display text-2xl font-bold text-ink">
+                Send a message
+              </h2>
+              <ContactForm />
             </div>
 
-            {/* Form Panel */}
-            <div className="relative bg-paper p-8 lg:col-span-3 lg:p-10">
-              <span className="section-number absolute right-6 top-4 text-6xl text-ink/10">
-                02
-              </span>
+            {/* Direct + booking */}
+            <div className="space-y-10 lg:col-span-2">
+              <div>
+                <h2 className="mb-6 font-display text-2xl font-bold text-ink">
+                  Book directly
+                </h2>
+                <p className="mb-6 text-base leading-relaxed text-gray-1">
+                  The fastest path: book a Database Health Audit call.
+                  Twenty minutes, no pitch deck — we&apos;ll talk about
+                  what&apos;s broken and whether we can fix it.
+                </p>
+                <a href={ctaHref} {...ctaProps} className="btn-primary">
+                  {SITE.cta}
+                </a>
+                {/* Cal.com/Calendly embed slot: once SITE.bookingUrl is live,
+                    embed the scheduler inline here instead of the link. */}
+              </div>
 
-              <div className="eyebrow mb-6">Send a Message</div>
-              <h3 className="mb-8 font-display text-2xl font-bold text-ink">
-                Tell us about your shop.
-              </h3>
-              <ContactForm />
+              <div className="border-t-2 border-ink pt-10">
+                <h2 className="mb-6 font-display text-2xl font-bold text-ink">
+                  Direct
+                </h2>
+                <ul className="space-y-3">
+                  <li>
+                    <div className="font-mono text-xs uppercase tracking-label text-gray-2">
+                      Email
+                    </div>
+                    <a
+                      href={`mailto:${SITE.email}`}
+                      className="font-mono text-base text-ink underline underline-offset-4"
+                    >
+                      {SITE.email}
+                    </a>
+                  </li>
+                  <li>
+                    <div className="font-mono text-xs uppercase tracking-label text-gray-2">
+                      Phone
+                    </div>
+                    <a
+                      href={SITE.phoneHref}
+                      className="font-mono text-base text-ink underline underline-offset-4"
+                    >
+                      {SITE.phone}
+                    </a>
+                  </li>
+                  <li>
+                    <div className="font-mono text-xs uppercase tracking-label text-gray-2">
+                      Location
+                    </div>
+                    <span className="font-mono text-base text-ink">
+                      {SITE.location}
+                    </span>
+                  </li>
+                  <li>
+                    <div className="font-mono text-xs uppercase tracking-label text-gray-2">
+                      LinkedIn
+                    </div>
+                    <a
+                      href={SITE.linkedIn}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="font-mono text-base text-ink underline underline-offset-4"
+                    >
+                      RaapTech LLC
+                    </a>
+                  </li>
+                </ul>
+              </div>
             </div>
           </div>
         </div>

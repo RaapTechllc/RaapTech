@@ -10,7 +10,7 @@ describe("SEO metadata routes", () => {
       "https://raaptech.com",
       "https://raaptech.com/about",
       "https://raaptech.com/services",
-      "https://raaptech.com/projects",
+      "https://raaptech.com/results",
       "https://raaptech.com/contact",
     ]);
     expect(entries[0]?.priority).toBe(1);

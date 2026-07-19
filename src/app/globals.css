@@ -2,15 +2,14 @@
 @tailwind components;
 @tailwind utilities;
 
-/* RaapTech — Industrial Neo-Brutalism. See DESIGN.md for the full spec. */
+/* RaapTech — industrial-editorial, strict black/white/gray. See DESIGN.md. */
 
 :root {
-  /* Only the colors referenced by raw CSS below live here; the full palette
-     is defined in tailwind.config.ts (the source of truth). */
-  --ink: #0b0b0c;
-  --paper: #ede9e0;
-  --hazard: #ff4d00;
-  --signal: #1453ff;
+  --ink: #000000;
+  --paper: #ffffff;
+  --gray-1: #333333;
+  --gray-2: #666666;
+  --gray-3: #cccccc;
 }
 
 html {
@@ -25,7 +24,7 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* Square by default — brutalist hard edges. Circles opt back in. */
+/* Square by default — sharp editorial edges. Circles opt back in. */
 *,
 *::before,
 *::after {
@@ -36,13 +35,13 @@ body {
 }
 
 ::selection {
-  background-color: var(--hazard);
-  color: var(--ink);
+  background-color: var(--ink);
+  color: var(--paper);
 }
 
-/* Visible, structural focus — no soft glow. */
+/* Visible focus — WCAG AA keyboard navigation. */
 :focus-visible {
-  outline: 3px solid var(--signal);
+  outline: 3px solid var(--ink);
   outline-offset: 2px;
 }
 
@@ -50,74 +49,73 @@ body {
   /* Hairline grid backdrop for hero sections (paper lines on ink) */
   .grid-backdrop {
     background-image:
-      linear-gradient(rgba(237, 233, 224, 0.06) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(237, 233, 224, 0.06) 1px, transparent 1px);
+      linear-gradient(rgba(255, 255, 255, 0.07) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255, 255, 255, 0.07) 1px, transparent 1px);
     background-size: 72px 72px;
   }
 
-  /* Hazard keyword highlight inside display headings.
-     inline-block + tight display leading used to collide with the line above —
-     keep the stamp as its own box so adjacent lines stay readable. */
+  /* Ink keyword highlight inside display headings on light sections */
   .highlight {
-    @apply inline-block bg-hazard px-[0.15em] text-ink;
+    @apply inline-block bg-ink px-[0.15em] text-paper;
+    line-height: 1.1;
+    vertical-align: baseline;
+  }
+  /* Paper keyword highlight on inverted (ink) sections */
+  .highlight-paper {
+    @apply inline-block bg-paper px-[0.15em] text-ink;
     line-height: 1.1;
     vertical-align: baseline;
   }
 
-  /* Pulsing "live/active" status dot */
-  .status-dot {
-    @apply h-2 w-2 animate-pulse rounded-full bg-volt;
-  }
-
   /* Eyebrow / section label */
   .eyebrow {
-    @apply inline-flex items-center gap-3 font-mono text-xs font-medium uppercase tracking-label text-hazard;
+    @apply inline-flex items-center gap-3 font-mono text-xs font-medium uppercase tracking-label text-ink;
   }
   .eyebrow::before {
     content: "";
-    @apply inline-block h-[2px] w-8 bg-hazard;
+    @apply inline-block h-[2px] w-8 bg-ink;
   }
   .eyebrow-ink {
     @apply text-paper;
   }
   .eyebrow-ink::before {
-    @apply bg-hazard;
+    @apply bg-paper;
   }
 
-  /* Buttons — hard offset shadow that "presses" on hover */
+  /* Buttons — solid ink, invert on hover. No decorative shadows. */
   .btn {
-    @apply inline-flex items-center justify-center gap-2 border-2 border-ink px-7 py-4 font-mono text-xs font-medium uppercase tracking-label transition-transform duration-150 will-change-transform;
+    @apply inline-flex items-center justify-center gap-2 border-2 border-ink px-7 py-4 font-mono text-xs font-medium uppercase tracking-label transition-colors duration-150;
   }
   .btn-primary {
-    @apply btn bg-hazard text-ink shadow-hard hover:translate-x-[6px] hover:translate-y-[6px] hover:shadow-none active:translate-x-[6px] active:translate-y-[6px] active:shadow-none;
+    @apply btn bg-ink text-paper hover:bg-paper hover:text-ink;
   }
   .btn-secondary {
-    @apply btn bg-paper text-ink shadow-hard hover:translate-x-[6px] hover:translate-y-[6px] hover:shadow-none hover:bg-ink hover:text-paper;
+    @apply btn bg-paper text-ink hover:bg-ink hover:text-paper;
   }
   /* On inverted (ink) sections */
   .btn-on-ink {
-    @apply btn border-paper bg-transparent text-paper shadow-hard-paper hover:translate-x-[6px] hover:translate-y-[6px] hover:shadow-none hover:bg-paper hover:text-ink;
+    @apply btn border-paper bg-paper text-ink hover:bg-ink hover:text-paper;
+  }
+  .btn-on-ink-outline {
+    @apply btn border-paper bg-transparent text-paper hover:bg-paper hover:text-ink;
   }
 
-  /* Cards */
+  /* Cards — structural borders only */
   .card {
     @apply border-2 border-ink bg-paper p-8;
-  }
-  .card-pop {
-    @apply card shadow-hard transition-transform duration-150 hover:translate-x-[6px] hover:translate-y-[6px] hover:shadow-none;
   }
 
   /* Form fields */
   .field-label {
-    @apply mb-2 block font-mono text-xs font-medium uppercase tracking-label text-steel;
+    @apply mb-2 block font-mono text-xs font-medium uppercase tracking-label text-gray-1;
   }
   .field {
-    @apply w-full border-2 border-ink bg-paper px-4 py-3 font-sans text-sm text-ink placeholder:text-steel/60 focus:border-hazard focus:outline-none;
+    @apply w-full border-2 border-ink bg-paper px-4 py-3 font-sans text-base text-ink placeholder:text-gray-2 focus:outline-none focus-visible:outline focus-visible:outline-2 focus-visible:outline-ink;
   }
 
   /* Giant structural section number */
   .section-number {
-    @apply font-display font-bold leading-none text-concrete;
+    @apply font-display font-bold leading-none text-gray-3;
   }
 
   /* Marquee ticker */
@@ -131,22 +129,22 @@ body {
     @apply transition-colors duration-150;
   }
   .marquee-pause .marquee-term:hover {
-    @apply bg-ink text-hazard;
+    @apply bg-paper text-ink;
   }
 
-  /* Motion — stepped machinery, not soft SaaS fades. See DESIGN.md.
-     Content stays visible by default (SSR / no-JS safe). When JS arms a
-     pending stamp, it hides until .is-in, then snaps in. */
+  /* Motion — subtle fade/slide on scroll only. Content stays visible by
+     default (SSR / no-JS safe). When JS arms a pending stamp, it hides
+     until .is-in, then eases in. */
   .stamp-reveal.stamp-pending:not(.is-in) {
     opacity: 0;
-    transform: translate(6px, 6px);
+    transform: translateY(8px);
   }
   .stamp-reveal.is-in {
     opacity: 1;
     transform: translate(0, 0);
     transition:
-      opacity 150ms steps(2, end),
-      transform 150ms steps(2, end);
+      opacity 200ms ease-out,
+      transform 200ms ease-out;
   }
 
   .rule-draw {
@@ -161,7 +159,7 @@ body {
   }
   .rule-draw.is-in {
     transform: scaleX(1);
-    transition: transform 300ms steps(4, end);
+    transition: transform 300ms ease-out;
   }
 }
 
@@ -169,15 +167,8 @@ body {
   html {
     scroll-behavior: auto;
   }
-  .animate-marquee,
-  .animate-blink {
+  .animate-marquee {
     animation: none;
-  }
-  .btn-primary:hover,
-  .btn-secondary:hover,
-  .btn-on-ink:hover,
-  .card-pop:hover {
-    transform: none;
   }
   .stamp-reveal {
     opacity: 1;

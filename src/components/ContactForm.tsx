@@ -29,17 +29,24 @@ export default function ContactForm() {
     e.preventDefault();
     setFormState("submitting");
 
-    // Simulate form submission
-    await new Promise((resolve) => setTimeout(resolve, 1200));
-    setFormState("success");
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(form),
+      });
+      setFormState(res.ok ? "success" : "error");
+    } catch {
+      setFormState("error");
+    }
   };
 
   if (formState === "success") {
     return (
-      <div className="flex h-full flex-col items-start justify-center border-2 border-ink bg-volt p-10 shadow-hard">
-        <div className="mb-6 flex h-12 w-12 items-center justify-center border-2 border-ink bg-paper">
+      <div className="flex h-full flex-col items-start justify-center border-2 border-ink bg-paper p-10">
+        <div className="mb-6 flex h-12 w-12 items-center justify-center border-2 border-ink bg-ink">
           <svg
-            className="h-6 w-6 text-ink"
+            className="h-6 w-6 text-paper"
             fill="none"
             viewBox="0 0 24 24"
             stroke="currentColor"
@@ -50,8 +57,8 @@ export default function ContactForm() {
         <h3 className="mb-2 font-display text-2xl font-bold text-ink">
           Message received.
         </h3>
-        <p className="mb-6 text-sm text-ink/80">
-          We&apos;ll be in touch within 24 hours.
+        <p className="mb-6 text-sm text-gray-1">
+          We&apos;ll be in touch within one business day.
         </p>
         <button
           onClick={() => {
@@ -80,7 +87,7 @@ export default function ContactForm() {
             required
             value={form.name}
             onChange={handleChange}
-            placeholder="Kyle Raap"
+            placeholder="Your name"
             className="field"
           />
         </div>
@@ -95,7 +102,7 @@ export default function ContactForm() {
             required
             value={form.email}
             onChange={handleChange}
-            placeholder="kyle@company.com"
+            placeholder="you@company.com"
             className="field"
           />
         </div>
@@ -111,7 +118,7 @@ export default function ContactForm() {
           type="text"
           value={form.company}
           onChange={handleChange}
-          placeholder="Your company name"
+          placeholder="Your shop or company"
           className="field"
         />
       </div>
@@ -131,17 +138,10 @@ export default function ContactForm() {
           <option value="" disabled>
             Select a topic
           </option>
-          <option value="fabrication-consulting">
-            Autodesk Fabrication Consulting
-          </option>
-          <option value="ai-onboarding">AI Onboarding</option>
-          <option value="database-maintenance">
-            Fabrication Database Maintenance
-          </option>
-          <option value="estimating-workflow">
-            Estimating Workflow Optimization
-          </option>
-          <option value="on-site-training">On-Site Training</option>
+          <option value="database-health-audit">Database Health Audit</option>
+          <option value="remediation-sprint">Remediation Sprint</option>
+          <option value="monthly-retainer">Monthly Retainer</option>
+          <option value="free-diagnostic">Free Database Diagnostic</option>
           <option value="other">Other</option>
         </select>
       </div>
@@ -157,37 +157,27 @@ export default function ContactForm() {
           rows={5}
           value={form.message}
           onChange={handleChange}
-          placeholder="Tell us about your shop, your fabrication setup, and where you want AI or workflow help..."
+          placeholder="Tell us about your shop, your database setup (CADmep, CAMduct, ESTmep), and what's not working..."
           className="field resize-none"
         />
       </div>
 
+      {formState === "error" && (
+        <p role="alert" className="border-2 border-ink bg-paper px-4 py-3 text-sm font-medium text-ink">
+          Something went wrong sending that. Email us directly at
+          TRaap@RaapTech.com or call 224-202-6962.
+        </p>
+      )}
+
       <div className="flex items-center justify-between pt-2">
-        <p className="font-mono text-xs text-steel">* Required fields</p>
+        <p className="font-mono text-xs text-gray-2">* Required fields</p>
         <button
           type="submit"
           disabled={formState === "submitting"}
           className="btn-primary disabled:cursor-not-allowed disabled:opacity-50"
         >
           {formState === "submitting" ? (
-            <>
-              <svg className="h-4 w-4 animate-spin" fill="none" viewBox="0 0 24 24">
-                <circle
-                  className="opacity-25"
-                  cx="12"
-                  cy="12"
-                  r="10"
-                  stroke="currentColor"
-                  strokeWidth="4"
-                />
-                <path
-                  className="opacity-75"
-                  fill="currentColor"
-                  d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"
-                />
-              </svg>
-              Sending...
-            </>
+            "Sending..."
           ) : (
             <>
               Send Message

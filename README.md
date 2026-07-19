@@ -1,7 +1,9 @@
 # RaapTech LLC — Company Website
 
-Marketing site for RaapTech LLC: Autodesk Fabrication consulting (CADmep, ESTmep,
-CAMduct) and AI onboarding for sheet metal and MEP contractors.
+Marketing site for RaapTech LLC: Autodesk Fabrication database consultancy
+(CADmep®, CAMduct®, ESTmep®) for MEP contractors and sheet metal fabrication
+shops. Chicago-based. Strict black/white/gray industrial-editorial brand —
+see `DESIGN.md`.
 
 ## Stack
 
@@ -41,19 +43,38 @@ npm run dev       # start the dev server at http://localhost:3000
 ```
 src/
   app/              # App Router routes
-    about/          # /about
-    contact/        # /contact
-    projects/       # /projects
-    services/       # /services
+    about/          # /about — founder credibility
+    contact/        # /contact — form + booking
+    results/        # /results — case studies
+    services/       # /services — offer ladder with pricing
+    api/contact/    # POST /api/contact — contact form endpoint
+    api/diagnostic/ # POST /api/diagnostic — lead-magnet email capture
     fonts/          # self-hosted variable fonts (.woff2)
-    layout.tsx      # root layout (fonts, metadata, chrome)
+    layout.tsx      # root layout (fonts, metadata, JSON-LD, chrome)
     page.tsx        # home page (/)
     globals.css     # global styles + Tailwind layers
-  components/        # shared UI (Navbar, Footer, ContactForm) + icons.tsx
-  lib/               # shared helpers (nav.ts — NAV_LINKS)
+  components/        # shared UI (Navbar, Footer, ContactForm, motion, icons)
+  lib/               # shared helpers (site.ts — SITE/booking, nav.ts — NAV_LINKS)
 public/             # static assets
 DESIGN.md           # brand design system — source of truth
 ```
+
+## Configuration
+
+Site identity, contact info, CTA copy, and booking live in `src/lib/site.ts`:
+
+- **Booking** — paste the live Cal.com/Calendly event URL into `SITE.bookingUrl`
+  and set `bookingEnabled: true`. Until then, CTAs fall back to a pre-filled
+  email. A scheduler embed slot is marked on `/contact`.
+- **Forms** are decoupled from any CRM/email vendor via env vars:
+  - `CONTACT_FORM_ENDPOINT` — webhook/Formspree/Resend URL receiving contact
+    form submissions as JSON.
+  - `DIAGNOSTIC_CAPTURE_ENDPOINT` — endpoint receiving diagnostic signups.
+  - Unset: submissions are accepted and logged server-side, so the site works
+    before a vendor is picked.
+- **Logo** — a text wordmark placeholder is in use. Drop the provided logo
+  file into `public/images/` and swap it into `src/components/Navbar.tsx`
+  (~150px wide, clearspace = height of the "R"; never recolor or modify).
 
 ## Deployment
 

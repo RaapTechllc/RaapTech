@@ -4,25 +4,26 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
 import { NAV_LINKS } from "@/lib/nav";
+import { SITE, bookingHref, bookingIsExternal } from "@/lib/site";
 
 export default function Navbar() {
   const pathname = usePathname();
   const [mobileOpen, setMobileOpen] = useState(false);
+  const ctaHref = bookingHref();
+  const ctaExternal = bookingIsExternal();
 
   return (
     <header className="fixed left-0 right-0 top-0 z-50 border-b-2 border-ink bg-paper">
       <nav className="mx-auto flex h-16 max-w-7xl items-center justify-between px-6">
-        {/* Logo */}
+        {/* Logo — text wordmark placeholder. Replace with the provided logo
+            file (~150px wide, clearspace = height of the "R") when available. */}
         <Link
           href="/"
-          className="group flex items-center gap-3"
+          className="flex items-center"
           aria-label="RaapTech Home"
           onClick={() => setMobileOpen(false)}
         >
-          <div className="flex h-9 w-9 items-center justify-center border-2 border-ink bg-hazard transition-transform duration-150 group-hover:translate-x-[2px] group-hover:translate-y-[2px]">
-            <span className="font-mono text-sm font-bold text-ink">RT</span>
-          </div>
-          <span className="font-display text-lg font-bold tracking-tight text-ink">
+          <span className="w-[150px] font-display text-xl font-bold tracking-tight text-ink">
             RAAPTECH
           </span>
         </Link>
@@ -35,8 +36,8 @@ export default function Navbar() {
                 href={link.href}
                 className={`font-mono text-xs font-medium uppercase tracking-label transition-colors ${
                   pathname === link.href
-                    ? "text-hazard"
-                    : "text-ink hover:text-hazard"
+                    ? "text-ink underline underline-offset-4"
+                    : "text-gray-1 hover:text-ink"
                 }`}
               >
                 {link.label}
@@ -47,9 +48,15 @@ export default function Navbar() {
 
         {/* Right controls */}
         <div className="flex items-center gap-4">
-          <Link href="/contact" className="hidden md:inline-flex btn-primary">
-            Get in Touch
-          </Link>
+          <a
+            href={ctaHref}
+            {...(ctaExternal
+              ? { target: "_blank", rel: "noopener noreferrer" }
+              : {})}
+            className="hidden md:inline-flex btn-primary"
+          >
+            {SITE.ctaShort}
+          </a>
 
           {/* Mobile menu button */}
           <button
@@ -79,14 +86,14 @@ export default function Navbar() {
         <div className="border-t-2 border-ink bg-paper md:hidden">
           <ul className="flex flex-col px-6 py-4">
             {NAV_LINKS.map((link) => (
-              <li key={link.href} className="border-b border-ink/15 last:border-b-0">
+              <li key={link.href} className="border-b border-gray-3 last:border-b-0">
                 <Link
                   href={link.href}
                   onClick={() => setMobileOpen(false)}
                   className={`block py-3 font-mono text-xs font-medium uppercase tracking-label transition-colors ${
                     pathname === link.href
-                      ? "text-hazard"
-                      : "text-ink hover:text-hazard"
+                      ? "text-ink underline underline-offset-4"
+                      : "text-gray-1 hover:text-ink"
                   }`}
                 >
                   {link.label}
@@ -94,13 +101,16 @@ export default function Navbar() {
               </li>
             ))}
             <li className="pt-4">
-              <Link
-                href="/contact"
+              <a
+                href={ctaHref}
+                {...(ctaExternal
+                  ? { target: "_blank", rel: "noopener noreferrer" }
+                  : {})}
                 onClick={() => setMobileOpen(false)}
                 className="btn-primary w-full"
               >
-                Get in Touch
-              </Link>
+                {SITE.ctaShort}
+              </a>
             </li>
           </ul>
         </div>

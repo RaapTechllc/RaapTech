@@ -3,16 +3,16 @@ import { join } from "node:path";
 import { ImageResponse } from "next/og";
 
 // Branded Open Graph image, generated at build time (no network). See DESIGN.md.
+// Strict black/white/gray per brand spec.
 export const runtime = "nodejs";
 export const alt =
-  "RaapTech LLC — Autodesk Fabrication Consulting & AI for the Trades";
+  "RaapTech LLC — Autodesk Fabrication Database Consultancy, Chicago";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
-const INK = "#0B0B0C";
-const PAPER = "#EDE9E0";
-const PAPER_DIM = "#9B978C";
-const HAZARD = "#FF4D00";
+const INK = "#000000";
+const PAPER = "#FFFFFF";
+const GRAY_3 = "#CCCCCC";
 
 export default async function OpengraphImage() {
   const grotesk = await readFile(
@@ -31,57 +31,45 @@ export default async function OpengraphImage() {
           backgroundColor: INK,
           color: PAPER,
           padding: 72,
-          border: `16px solid ${HAZARD}`,
+          border: `16px solid ${PAPER}`,
         }}
       >
         {/* Brand row */}
         <div style={{ display: "flex", alignItems: "center", gap: 20 }}>
-          <div
-            style={{
-              width: 64,
-              height: 64,
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              backgroundColor: HAZARD,
-              color: INK,
-              fontSize: 34,
-              fontWeight: 700,
-            }}
-          >
-            RT
-          </div>
-          <span style={{ fontSize: 28, letterSpacing: "0.12em", color: PAPER_DIM }}>
-            RAAPTECH LLC
+          <span style={{ fontSize: 32, fontWeight: 700, letterSpacing: "0.12em" }}>
+            RAAPTECH
+          </span>
+          <span style={{ fontSize: 24, letterSpacing: "0.12em", color: GRAY_3 }}>
+            CHICAGO
           </span>
         </div>
 
         {/* Headline */}
         <div style={{ display: "flex", flexDirection: "column", lineHeight: 1 }}>
-          <span style={{ fontSize: 96, fontWeight: 700 }}>
-            Autodesk Fabrication
+          <span style={{ fontSize: 80, fontWeight: 700 }}>
+            Your Database Is
           </span>
-          <div style={{ display: "flex", alignItems: "center", marginTop: 8 }}>
+          <span style={{ fontSize: 80, fontWeight: 700, marginTop: 8 }}>
+            Costing You Bids.
+          </span>
+          <div style={{ display: "flex", alignItems: "center", marginTop: 16 }}>
             <span
               style={{
-                backgroundColor: HAZARD,
+                backgroundColor: PAPER,
                 color: INK,
                 padding: "0 16px",
-                fontSize: 96,
+                fontSize: 80,
                 fontWeight: 700,
               }}
             >
-              + AI
-            </span>
-            <span style={{ fontSize: 96, fontWeight: 700, marginLeft: 24 }}>
-              for the Trades
+              We Fix It.
             </span>
           </div>
         </div>
 
         {/* Tagline */}
-        <span style={{ fontSize: 30, color: PAPER_DIM }}>
-          CADmep · ESTmep · CAMduct · AI onboarding for sheet metal &amp; MEP shops
+        <span style={{ fontSize: 28, color: GRAY_3 }}>
+          Autodesk Fabrication database consultancy for MEP contractors &amp; sheet metal shops
         </span>
       </div>
     ),

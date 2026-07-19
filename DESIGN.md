@@ -1,26 +1,22 @@
 ---
-version: alpha
+version: 1.0
 name: RaapTech
 description: >-
-  Industrial neo-brutalist identity for RaapTech LLC — Autodesk Fabrication
-  consulting and AI onboarding for sheet metal & MEP contractors. Warm concrete
-  canvas, black structural ink, electric hazard-orange signature. Built, not bought.
+  Industrial-editorial identity for RaapTech LLC — Autodesk Fabrication
+  database consultancy for MEP contractors and sheet metal fabrication shops.
+  Strict black/white/gray. Big type, sharp rules, proof over polish.
 colors:
-  ink: "#0B0B0C"
-  paper: "#EDE9E0"
-  concrete: "#DBD6CA"
-  steel: "#57544C"
-  hazard: "#FF4D00"
-  signal: "#1453FF"
-  volt: "#C8FF00"
-  paper-dim: "#9B978C"
-  white: "#FFFFFF"
+  ink: "#000000"
+  paper: "#FFFFFF"
+  gray-1: "#333333"
+  gray-2: "#666666"
+  gray-3: "#CCCCCC"
 typography:
   display:
     fontFamily: "Space Grotesk, system-ui, sans-serif"
     fontWeight: 700
     letterSpacing: "-0.02em"
-    lineHeight: 0.95
+    lineHeight: 1.05
   body:
     fontFamily: "Inter, system-ui, sans-serif"
     fontWeight: 400
@@ -67,18 +63,16 @@ rounded:
 spacing:
   gutter: "1.5rem"
   section: "6rem"
-  section-lg: "8rem"
   border: "2px"
-  border-bold: "3px"
 components:
   button-primary:
-    backgroundColor: "{colors.hazard}"
-    textColor: "{colors.ink}"
+    backgroundColor: "{colors.ink}"
+    textColor: "{colors.paper}"
     typography: "{typography.label}"
     rounded: "{rounded.none}"
     padding: "1rem 1.75rem"
   button-primary-hover:
-    backgroundColor: "{colors.hazard}"
+    backgroundColor: "{colors.paper}"
     textColor: "{colors.ink}"
   button-secondary:
     backgroundColor: "{colors.paper}"
@@ -109,144 +103,126 @@ components:
 
 ## Overview
 
-RaapTech sits at an unusual intersection: 20 years of hands-on Autodesk
-Fabrication trade work **and** modern AI tooling, sold to sheet-metal and MEP
-contractors who build real things. The brand has to read as **credible on a
-shop floor and fluent in software** at the same time.
+RaapTech is a Chicago-based Autodesk Fabrication database consultancy for MEP
+contractors and sheet metal fabrication shops. The visitor is a shop owner or
+operations manager who rose through the trades — 45–60, union background,
+tech-skeptical. They distrust slick marketing and trust proof, numbers, and
+someone who has clearly run a shop floor.
 
-The identity is **industrial neo-brutalism**: the visual language of shop
-drawings, safety signage, and steel — made confident and a little loud.
+The identity is **industrial-editorial**: sharp rules and dividers, big type,
+grayscale photography, monospace touches for numbers and data. **Strictly
+black, white, and gray.** Strong whitespace is the brand — never cram.
 
-- **Personality:** Built-not-bought. Direct. Engineered. No fluff, no fog of
-  buzzwords. Speaks plainly, shows the structure, owns the hard edges.
-- **Emotional intent:** Trust through competence. The site should feel like a
-  precise field manual, not a glossy SaaS landing page.
-- **Signature move:** Warm concrete "paper" canvas + black structural ink +
-  one electric **hazard-orange** accent, with hard offset shadows and heavy
-  2px borders. Sections alternate light (paper) and inverted (ink) for rhythm.
-- **Hero photography:** The home first viewport is a full-bleed shop-floor
-  photograph with a flat ink scrim (no soft gradient depth). Brand wordmark
-  sits at hero scale; one headline, one sentence, one CTA group. Spec chrome
-  is a thin status strip — not a floating card over the image.
-- **Motion:** Machinery language — stamp reveals, rule-draw dividers, stepped
-  odometer counters. CSS/`IntersectionObserver` only; `prefers-reduced-motion`
-  gets the fully assembled page.
+- **Personality:** Tradesman-credible. Direct. Proof over polish. Short,
+  punchy sentences; big claims with numbers.
+- **Emotional intent:** Trust through competence — a precise field manual,
+  not a glossy SaaS landing page.
+- **Hero photography:** Full-bleed shop-floor photograph, **grayscale-treated
+  (mandatory on all photos)**, with a flat ink scrim for readable type. One
+  headline, one sentence, one CTA. No carousel, no video autoplay.
+- **Motion:** Subtle fade/slide on scroll only (stamp reveals, rule-draw
+  dividers, odometer stats). CSS/`IntersectionObserver` only;
+  `prefers-reduced-motion` gets the fully assembled page. No parallax.
 
 ## Colors
 
-The palette is deliberately small and high-contrast. Color is structural, not
-decorative — use it to direct attention, never to fill space.
+The palette is fixed by brand rule. **No color outside this table without
+explicit approval** — including CTA hover states (hover = black↔white invert).
 
 | Token | Hex | Role |
 |-------|-----|------|
-| `ink` | `#0B0B0C` | Primary text on light; background of inverted sections; all borders. |
-| `paper` | `#EDE9E0` | Primary background — warm concrete. The default canvas. |
-| `concrete` | `#DBD6CA` | Secondary surface / cards on paper; subtle fills. |
-| `steel` | `#57544C` | Secondary / muted text on paper. |
-| `hazard` | `#FF4D00` | **Signature accent.** Primary CTAs, emphasis, key numbers. Use boldly but sparingly. |
-| `signal` | `#1453FF` | Electric blue. Technical accents, links, data highlights. The "software" counterpoint to hazard's "trade". |
-| `volt` | `#C8FF00` | Acid lime. **Live/active status only** (pulse dots, "available" tags). Never body color. |
-| `paper-dim` | `#9B978C` | Muted text **on ink** (inverted) sections. |
-| `white` | `#FFFFFF` | Reserved; rare. Most "white" is `paper`. |
+| `ink` | `#000000` | Primary text, headers, CTAs, borders, inverted-section backgrounds. |
+| `paper` | `#FFFFFF` | Backgrounds. |
+| `gray-1` | `#333333` | Secondary text; muted text/borders on inverted sections. |
+| `gray-2` | `#666666` | Captions, metadata, footer fine print. |
+| `gray-3` | `#CCCCCC` | Borders, dividers, muted text on ink, watermark section numbers. |
 
 **Semantic roles**
-- On `paper`: text = `ink`, muted = `steel`, borders = `ink`.
-- On `ink` (inverted sections): text = `paper`, muted = `paper-dim`, accents stay `hazard`/`signal`/`volt`.
-- Accent budget per viewport: ~1 `hazard` focal point, `signal` for technical labels/links, `volt` only for a live indicator.
+- On `paper`: text = `ink`, secondary = `gray-1`, captions = `gray-2`, hairline borders = `gray-3`, structural borders = `ink`.
+- On `ink` (inverted sections): text = `paper`, muted = `gray-3`, borders = `gray-1`.
+- Contrast: text combinations must meet WCAG AA. `gray-2` is caption-size only on white; never body text on ink.
 
 ## Typography
 
-Three families, each with one job. Contrast between huge geometric display and
-quiet monospace labels is the core of the type system.
+Three self-hosted variable fonts (`src/app/fonts/`, `next/font/local`,
+`font-display: swap` — no Google Fonts CDN), each with one job.
 
-- **Display — Space Grotesk (700):** All headlines and big numbers. Set tight
-  (`line-height` ~1.05, negative tracking) — tight enough to feel structural,
-  loose enough that `.highlight` hazard stamps don't collide with the line
-  above. Go large — `display-2xl` is meant to feel oversized and structural.
-  Sentence case for headlines; UPPERCASE is reserved for labels.
-- **Body — Inter (400):** All running prose. `body-lg` for hero/intro
-  paragraphs, `body` for everything else. Max measure ~`max-w-2xl`.
-- **Mono — JetBrains Mono (500):** Labels, eyebrows, stats captions, data
-  rows, "terminal" UI, section numbers. UPPERCASE, wide tracking (`0.18em`).
-  This is the texture that signals "technical".
+- **Display — Space Grotesk (700):** All headlines and big numbers. Tight
+  leading (~1.05), negative tracking. All caps or title case for H1s. Go
+  large — `display-2xl` is meant to feel oversized and structural.
+- **Body — Inter (400):** All running prose. Minimum 16px mobile / 18px
+  desktop. `body-lg` for hero/intro paragraphs. Max measure ~`max-w-2xl`.
+- **Mono — JetBrains Mono (500):** Labels, eyebrows, stat captions, data
+  rows, section numbers. UPPERCASE, wide tracking (`0.18em`). Numbers and
+  data get visual weight — large stat callouts are a brand signature.
 
-Type scale tokens: `display-2xl`, `display-xl`, `h2`, `h3`, `label`, `body-lg`.
-Use the fluid `clamp()` sizes — do not hand-pick arbitrary font sizes.
+Type scale tokens: `display-2xl`, `display-xl`, `h2`, `h3`, `label`,
+`body-lg`. Use the fluid `clamp()` sizes — do not hand-pick font sizes.
 
 ## Layout
 
-- **Container:** `max-w-7xl` centered, `px-6` gutters. Content rarely exceeds
-  this; full-bleed color blocks may, but their content stays in the container.
-- **Grid & structure:** Show the structure. Use visible 2px `ink` dividers
-  between sections and between grid cells (e.g. `gap-[2px] bg-ink` grids where
-  cells are `paper`). Oversized mono section numbers (`01 / 02 / 03`) anchor
-  sections.
-- **Rhythm:** Alternate `paper` and inverted `ink` sections down the page so
-  scrolling has a beat. The hero is typically inverted (`ink`) for drama; the
-  next section flips to `paper`.
-- **Spacing:** Section padding `section` (6rem) / `section-lg` (8rem). Be
-  generous vertically, tight and structural horizontally.
+- **Container:** `max-w-7xl` centered, `px-6` gutters. Full-bleed color
+  blocks may exceed it; their content stays in the container.
+- **Grid & structure:** Show the structure — visible 2px `ink` dividers
+  between sections and grid cells, oversized mono section numbers
+  (`01 / 02 / 03`) as watermarks in `gray-3`.
+- **Rhythm:** Alternate `paper` and inverted `ink` sections down the page.
+- **Spacing:** Section padding `section` (6rem). Be generous vertically —
+  whitespace is the brand.
+- **Mobile-first is non-negotiable.** Half of visits are phones in fab shops.
+  Large touch targets, high-contrast text, no small gray-on-gray.
 
-## Elevation & Depth
+## Depth, Shapes, Iconography
 
-Depth is **flat + hard**. No soft blurred shadows, no gradients-as-depth.
-
-- **Hard offset shadow** is the only elevation primitive: a solid, un-blurred
-  shadow offset down-right. `shadow-hard` = `6px 6px 0 0 {colors.ink}`;
-  `shadow-hard-sm` = `4px 4px 0 0 {colors.ink}`. On ink sections, shadow color
-  flips to `paper` (`shadow-hard-paper`) or `hazard` for emphasis.
-- **Interaction:** elements with a hard shadow "press" on hover — translate by
-  the shadow offset and drop the shadow (`hover:translate-x-[6px]
-  hover:translate-y-[6px] hover:shadow-none`). This is the primary hover motif.
-- Borders carry hierarchy more than shadow. 2px `ink` is the default;
-  `border-bold` (3px) for hero/feature emphasis.
-
-## Shapes
-
-- **Corners are square. Always.** `rounded.none` (0px) everywhere. The only
-  exception is `rounded.full` for true circles (status dots, the logo mark if
-  circular, avatars). No `rounded-md`, no `rounded-lg`, ever.
-- Shape language is rectangles, hairline/2px rules, and right-angle "bracket"
-  motifs. Think drawing sheets and steel plate, not pills and bubbles.
-- Iconography: thin (1.5px) line icons with **square** linecaps/linejoins
-  (`strokeLinecap="square"`), matching the hard-edged system. No rounded icons.
+- **No shadows as decoration.** Depth comes from borders and inversion, not
+  elevation. No gradients, no glassmorphism, no blur effects.
+- **Corners are square. Always.** `rounded.none` everywhere; `rounded.full`
+  only for true circles.
+- Shape language: rectangles, hairline/2px rules, right angles. Drawing
+  sheets and steel plate, not pills and bubbles.
+- Icons: thin (2px) line icons with square linecaps. No rounded icons.
 
 ## Components
 
-- **button-primary:** `hazard` fill, `ink` text, 2px `ink` border, `shadow-hard`,
-  `label` typography (mono, uppercase, wide tracking). Hover = press
-  (translate + shadow none). The one loud CTA per view.
-- **button-secondary:** `paper` fill, `ink` text + 2px `ink` border,
-  `shadow-hard`; hover inverts to `ink`/`paper`. On ink sections, use the
-  inverted variant (`paper` border/text, transparent fill).
-- **card:** `paper`/`concrete` fill, 2px `ink` border, optional `shadow-hard`.
-  Cards in a grid sit on a 2px `ink` gap so the grid lines read as structure.
-- **tag / eyebrow:** mono `label`, UPPERCASE; either `hazard` text with a
-  leading 2px rule, or a boxed `border` chip. Anchors every section.
-- **stat:** oversized Space Grotesk number in `hazard` or `ink`, mono caption
-  beneath.
-- **input / select / textarea:** `paper` fill, 2px `ink` border, square; focus
-  → 2px `hazard` border (no glow). `label` is mono uppercase above the field.
-- **nav:** fixed top bar, `paper` with a 2px `ink` bottom border; active link
-  marked with `hazard`. Square logo tile in `hazard`/`ink`.
-- **section number:** giant mono `01`–`0n` in `concrete`/`paper-dim` as a
-  structural watermark.
+- **button-primary:** `ink` fill, `paper` text, 2px `ink` border, `label`
+  typography. Hover inverts to `paper`/`ink`. One primary CTA per view.
+- **button-on-ink:** inverted variant for dark sections — `paper` fill,
+  `ink` text (or `paper` border/transparent for the outline variant).
+- **card:** `paper` fill, 2px `ink` border, no shadow. Cards in a grid sit
+  on structural 2px gaps.
+- **tag / eyebrow:** mono `label`, UPPERCASE, with a leading 2px rule.
+  Anchors every section.
+- **stat:** oversized Space Grotesk number, mono caption beneath. Numbers
+  carry the proof — give them room.
+- **input / select / textarea:** `paper` fill, 2px `ink` border, square;
+  visible 2px outline on focus (no glow). Label is mono uppercase above.
+- **nav:** fixed top bar, `paper` with 2px `ink` bottom border; active link
+  underlined. Logo left-aligned, ~150px wide, clearspace = height of the
+  "R". Never recreate, recolor, stretch, or add effects to the logo.
+
+## Voice & Compliance
+
+- Short punchy sentences. Big claims get numbers ("Job entry: 15 minutes →
+  3 minutes"). Section structure: Hook → Problem → Mechanism → Proof → CTA.
+- **Trademark:** Autodesk product names get ® on first mention per page
+  (CADmep®, CAMduct®, ESTmep®). The footer carries the required attribution
+  and independence disclaimer: "RaapTech is an independent consultancy and
+  is not affiliated with or endorsed by Autodesk, Inc."
+- Pricing is shown transparently. This audience respects it.
 
 ## Do's and Don'ts
 
 **Do**
-- Keep the canvas calm so one `hazard` element can shout.
+- Keep it black/white/gray — let type scale and structure do the work.
 - Show structure: borders, grid lines, section numbers, alternating ink/paper.
-- Use mono labels liberally for technical texture; keep prose in Inter.
-- Make interactions physical — the hard-shadow "press" on hover/active.
-- Go big on display type. Oversized is on-brand.
+- Use mono for numbers, stats, and technical labels.
+- Design for a phone in a fab shop first.
 
 **Don't**
-- No rounded corners (except true circles), no soft/blurred shadows, no
-  gradients used as depth, no glassmorphism.
-- Don't introduce new accent colors. Three accents (`hazard`/`signal`/`volt`)
-  is the whole budget; `volt` is status-only.
-- Don't set display type in Inter or body prose in Space Grotesk — keep each
-  family in its lane.
-- Don't center long-form paragraphs or let measure exceed ~`max-w-2xl`.
-- Don't name AI vendors in copy; say "AI assistant / AI tools" generically.
+- **No color outside the five brand tokens.** No gradients, no startup
+  clichés, no 3D blobs, no AI-slop illustrations, no glassmorphism.
+- No shadows-as-decoration, no script fonts, no rounded corners.
+- No stock photos of people in hardhats pointing at tablets. All photography
+  grayscale-treated.
+- No lorem ipsum, ever. No modified logo.
+- Don't set display type in Inter or body prose in Space Grotesk.

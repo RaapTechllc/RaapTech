@@ -26,43 +26,42 @@ const spaceGrotesk = localFont({
   variable: "--font-space-grotesk",
 });
 
+const DESCRIPTION =
+  "Chicago-based Autodesk Fabrication database consultancy for MEP contractors and sheet metal shops. We fix broken CADmep, CAMduct, and ESTmep databases so estimators stop hunting for pricing and start winning bids.";
+
 export const metadata: Metadata = {
   metadataBase: new URL("https://raaptech.com"),
   title: {
-    default: "RaapTech LLC — Autodesk Fabrication Consulting & AI for the Trades",
+    default: "RaapTech LLC — Autodesk Fabrication Database Consultancy, Chicago",
     template: "%s | RaapTech LLC",
   },
-  description:
-    "20 years of Autodesk Fabrication experience. CADmep, ESTmep, CAMduct consulting and AI onboarding for sheet metal and MEP contractors. Founded by Kyle Raap.",
+  description: DESCRIPTION,
   keywords: [
-    "Autodesk Fabrication",
-    "CADmep",
-    "ESTmep",
-    "CAMduct",
-    "sheet metal consulting",
-    "MEP contractor",
-    "AI onboarding",
-    "fabrication database",
-    "Kyle Raap",
+    "Autodesk Fabrication consultant",
+    "CAMduct database",
+    "ESTmep database cleanup",
+    "CADmep database",
+    "fabrication database audit Chicago",
+    "Autodesk Fabrication database",
+    "MEP fabrication",
+    "sheet metal fabrication",
+    "Tim Raap",
     "RaapTech",
   ],
-  authors: [{ name: "Kyle Raap", url: "https://raaptech.com" }],
+  authors: [{ name: "Tim Raap", url: "https://raaptech.com" }],
   creator: "RaapTech LLC",
   openGraph: {
     type: "website",
     locale: "en_US",
     url: "https://raaptech.com",
     siteName: "RaapTech LLC",
-    title: "RaapTech LLC — Autodesk Fabrication Consulting & AI for the Trades",
-    description:
-      "20 years of Autodesk Fabrication. CADmep, ESTmep, CAMduct consulting and AI onboarding for sheet metal and MEP contractors.",
+    title: "RaapTech LLC — Autodesk Fabrication Database Consultancy, Chicago",
+    description: DESCRIPTION,
   },
   twitter: {
     card: "summary_large_image",
-    title: "RaapTech LLC — Autodesk Fabrication Consulting & AI for the Trades",
-    description:
-      "20 years of Autodesk Fabrication. CADmep, ESTmep, CAMduct consulting and AI onboarding for sheet metal and MEP contractors.",
-    creator: "@raaptech",
+    title: "RaapTech LLC — Autodesk Fabrication Database Consultancy, Chicago",
+    description: DESCRIPTION,
   },
   robots: {
     index: true,
@@ -81,23 +80,43 @@ const jsonLd = {
   "@context": "https://schema.org",
   "@graph": [
     {
-      "@type": "ProfessionalService",
+      "@type": "LocalBusiness",
       "@id": "https://raaptech.com/#organization",
       name: "RaapTech LLC",
       url: "https://raaptech.com",
       description:
-        "Autodesk Fabrication consulting and AI onboarding for sheet metal and MEP contractors.",
-      areaServed: "United States",
-      founder: { "@id": "https://raaptech.com/#kyle" },
-      email: "kyle@raaptech.com",
+        "Autodesk Fabrication database consultancy for MEP contractors and sheet metal fabrication shops.",
+      address: {
+        "@type": "PostalAddress",
+        addressLocality: "Elmwood Park",
+        addressRegion: "IL",
+        addressCountry: "US",
+      },
+      areaServed: ["Chicago", "Midwest", "United States"],
+      founder: { "@id": "https://raaptech.com/#tim" },
+      email: "TRaap@RaapTech.com",
+      telephone: "+1-224-202-6962",
     },
     {
       "@type": "Person",
-      "@id": "https://raaptech.com/#kyle",
-      name: "Kyle Raap",
+      "@id": "https://raaptech.com/#tim",
+      name: "Tim Raap",
       jobTitle: "Founder",
       worksFor: { "@id": "https://raaptech.com/#organization" },
       url: "https://raaptech.com/about",
+    },
+    {
+      "@type": "Service",
+      "@id": "https://raaptech.com/#database-health-audit",
+      name: "Database Health Audit",
+      provider: { "@id": "https://raaptech.com/#organization" },
+      serviceType: "Autodesk Fabrication database audit",
+      areaServed: "United States",
+      offers: {
+        "@type": "Offer",
+        price: "2500",
+        priceCurrency: "USD",
+      },
     },
   ],
 };

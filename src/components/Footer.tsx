@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { NAV_LINKS } from "@/lib/nav";
+import { SITE } from "@/lib/site";
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
@@ -10,23 +11,26 @@ export default function Footer() {
         <div className="mb-12 grid grid-cols-1 gap-10 md:grid-cols-4">
           {/* Brand */}
           <div className="md:col-span-2">
-            <div className="mb-4 flex items-center gap-3">
-              <div className="flex h-9 w-9 items-center justify-center border-2 border-paper bg-hazard">
-                <span className="font-mono text-sm font-bold text-ink">RT</span>
-              </div>
-              <span className="font-display text-lg font-bold tracking-tight text-paper">
-                RAAPTECH LLC
-              </span>
-            </div>
-            <p className="max-w-sm text-sm leading-relaxed text-paper-dim">
-              Autodesk Fabrication consulting and AI onboarding for sheet metal
-              and MEP contractors. 20 years of trade experience.
+            <span className="font-display text-xl font-bold tracking-tight text-paper">
+              RAAPTECH
+            </span>
+            <p className="mt-4 max-w-sm text-sm leading-relaxed text-gray-3">
+              Autodesk Fabrication database consultancy for MEP contractors and
+              sheet metal fabrication shops. Chicago-based, trade-built.
             </p>
+            <a
+              href={SITE.linkedIn}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="mt-4 inline-block font-mono text-xs uppercase tracking-label text-gray-3 transition-colors hover:text-paper"
+            >
+              LinkedIn &rarr;
+            </a>
           </div>
 
           {/* Navigation */}
           <div>
-            <h3 className="mb-4 font-mono text-xs uppercase tracking-label text-hazard">
+            <h3 className="mb-4 font-mono text-xs uppercase tracking-label text-gray-3">
               Navigation
             </h3>
             <ul className="flex flex-col gap-2">
@@ -34,7 +38,7 @@ export default function Footer() {
                 <li key={link.href}>
                   <Link
                     href={link.href}
-                    className="text-sm text-paper-dim transition-colors hover:text-hazard"
+                    className="text-sm text-gray-3 transition-colors hover:text-paper"
                   >
                     {link.label}
                   </Link>
@@ -45,34 +49,50 @@ export default function Footer() {
 
           {/* Contact */}
           <div>
-            <h3 className="mb-4 font-mono text-xs uppercase tracking-label text-hazard">
+            <h3 className="mb-4 font-mono text-xs uppercase tracking-label text-gray-3">
               Contact
             </h3>
             <ul className="flex flex-col gap-2">
               <li>
                 <a
-                  href="mailto:kyle@raaptech.com"
-                  className="font-mono text-sm text-paper-dim transition-colors hover:text-hazard"
+                  href={`mailto:${SITE.email}`}
+                  className="font-mono text-sm text-gray-3 transition-colors hover:text-paper"
                 >
-                  kyle@raaptech.com
+                  {SITE.email}
                 </a>
               </li>
-              <li className="flex items-center gap-2 pt-2">
-                <span className="status-dot" />
-                <span className="font-mono text-xs uppercase tracking-label text-paper-dim">
-                  On-site daily
-                </span>
+              <li>
+                <a
+                  href={SITE.phoneHref}
+                  className="font-mono text-sm text-gray-3 transition-colors hover:text-paper"
+                >
+                  {SITE.phone}
+                </a>
+              </li>
+              <li className="font-mono text-xs uppercase tracking-label text-gray-3">
+                {SITE.location}
               </li>
             </ul>
           </div>
         </div>
 
-        <div className="flex flex-col items-start justify-between gap-4 border-t-2 border-paper/20 pt-6 md:flex-row md:items-center">
-          <p className="font-mono text-xs text-paper-dim">
+        {/* Trademark attribution + independence disclaimer (required) */}
+        <div className="mb-6 border-t border-gray-1 pt-6">
+          <p className="max-w-3xl text-xs leading-relaxed text-gray-2">
+            Autodesk, CADmep, CAMduct, and ESTmep are registered trademarks or
+            trademarks of Autodesk, Inc., and/or its subsidiaries and/or
+            affiliates in the USA and/or other countries. RaapTech is an
+            independent consultancy and is not affiliated with or endorsed by
+            Autodesk, Inc.
+          </p>
+        </div>
+
+        <div className="flex flex-col items-start justify-between gap-4 border-t border-gray-1 pt-6 md:flex-row md:items-center">
+          <p className="font-mono text-xs text-gray-2">
             &copy; {currentYear} RaapTech LLC. All rights reserved.
           </p>
-          <p className="font-mono text-xs uppercase tracking-label text-paper-dim">
-            Autodesk Fabrication Consulting &amp; AI for the Trades
+          <p className="font-mono text-xs uppercase tracking-label text-gray-2">
+            Fabrication Database Consultancy — Chicago
           </p>
         </div>
       </div>

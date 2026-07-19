@@ -12,17 +12,17 @@ describe("Navbar", () => {
   it("renders the brand link and the primary navigation", () => {
     render(<Navbar />);
     expect(screen.getByLabelText("RaapTech Home")).toBeInTheDocument();
-    for (const label of ["Home", "About", "Services", "Projects", "Contact"]) {
+    for (const label of ["Home", "About", "Services", "Results", "Contact"]) {
       expect(
         screen.getAllByRole("link", { name: label }).length,
       ).toBeGreaterThan(0);
     }
   });
 
-  it("exposes a Get in Touch call to action", () => {
+  it("exposes a Book an Audit call to action", () => {
     render(<Navbar />);
     expect(
-      screen.getAllByRole("link", { name: /Get in Touch/i }).length,
+      screen.getAllByRole("link", { name: /Book an Audit/i }).length,
     ).toBeGreaterThan(0);
   });
 

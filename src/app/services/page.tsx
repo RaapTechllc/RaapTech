@@ -1,192 +1,161 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowRight } from "@/components/icons";
+import { RuleDraw, StampReveal } from "@/components/motion";
+import { SITE, bookingHref, bookingIsExternal } from "@/lib/site";
 
 export const metadata: Metadata = {
-  title: "Services",
+  title: "Services & Pricing",
   description:
-    "Autodesk Fabrication consulting and AI onboarding for sheet metal and MEP contractors. CADmep, ESTmep, CAMduct, database maintenance, and AI workflow setup.",
+    "Database Health Audit, Remediation Sprint, and monthly retainer for Autodesk Fabrication databases. Transparent pricing for MEP contractors and sheet metal shops.",
 };
 
-const fabricationCoverage = [
-  "CADmep, ESTmep, CAMduct setup and configuration",
-  "Fabrication database maintenance and custom libraries",
-  "Pricing table updates and estimating workflow optimization",
-  "On-site training your team actually retains",
-  "Knowledge transfer — documenting what your senior people know",
-  "Process audits and workflow fixes",
-];
-
-const aiCoverage = [
-  "Assessment: where AI actually helps in your workflow",
-  "Setup: a business-grade AI assistant, configured for your shop",
-  "Templates: estimating, RFIs, submittals, change orders, safety docs",
-  "On-site training session with your team",
-  "Monthly retainer for ongoing support and prompt updates",
+const offers = [
+  {
+    name: "Free Database Diagnostic",
+    price: "Free",
+    note: "Start here — email sign-up",
+    description:
+      "A self-guided diagnostic that scores your fabrication database across pricing accuracy, item structure, connector health, and documentation. Ten minutes, and you know where you stand.",
+    includes: [
+      "Scored across the four areas that cost shops the most bids",
+      "Plain-language results — no consultant-speak",
+      "A baseline you can bring to any conversation about your database",
+    ],
+    cta: { label: "Get the Diagnostic", href: "/contact" },
+  },
+  {
+    name: "Database Health Audit",
+    price: "$2,500",
+    note: "Credits in full toward a Sprint started within 30 days",
+    description:
+      "A full hands-on audit of your Autodesk Fabrication database — CADmep®, CAMduct®, or ESTmep®. We go through it item by item and tell you exactly what's broken and what it costs you.",
+    includes: [
+      "Item-by-item review: pricing, connectors, seams, pressure classes, labor tables",
+      "Written findings report with a prioritized fix list",
+      "Straight answer on what the mess is costing you in hours and lost bids",
+      "Fix plan you can hand to us — or to anyone",
+    ],
+    cta: null,
+  },
+  {
+    name: "Remediation Sprint",
+    price: "$12,000",
+    note: "Founding rate $8,000 — first 3 clients, in exchange for a case study",
+    description:
+      "A fixed-scope rebuild of everything the audit flags. Not a recommendation report — a working database your estimators feel the first week.",
+    includes: [
+      "Clean, deduplicated item structure",
+      "Corrected pricing and labor tables",
+      "Working connectors and pressure classes",
+      "Documentation of how the database is built, so it stays maintainable",
+    ],
+    cta: null,
+  },
+  {
+    name: "Monthly Retainer",
+    price: "From $1,500/mo",
+    note: "Ongoing ownership of database health",
+    description:
+      "Databases drift. Prices change, people improvise, vendors update. A retainer keeps your database clean, documented, and current — and gives your team someone to call when something looks wrong.",
+    includes: [
+      "Scheduled database maintenance and price updates",
+      "Documentation kept current as the database evolves",
+      "Priority support for your estimators and shop staff",
+      "New-item and service setup as your work changes",
+    ],
+    cta: null,
+  },
 ];
 
 export default function ServicesPage() {
+  const ctaHref = bookingHref();
+  const ctaExternal = bookingIsExternal();
+  const ctaProps = ctaExternal
+    ? { target: "_blank", rel: "noopener noreferrer" }
+    : {};
+
   return (
     <>
-      {/* Hero — inverted */}
-      <section className="relative overflow-hidden bg-ink pt-32 pb-20 text-paper">
-        <div className="absolute inset-0 grid-backdrop" />
-
-        <div className="relative mx-auto max-w-7xl px-6">
-          <div className="eyebrow eyebrow-ink mb-8">
-            <span className="text-hazard">Services</span>
-          </div>
-          <h1 className="max-w-4xl font-display text-display-xl font-bold tracking-tight text-paper">
-            Two things we do. Both grounded in 20 years of trade work.
+      <section className="bg-paper pb-16 pt-32">
+        <div className="mx-auto max-w-7xl px-6">
+          <div className="eyebrow mb-4">Services</div>
+          <h1 className="max-w-3xl font-display text-display-xl font-bold text-ink">
+            The offer ladder. Every rung priced.
           </h1>
-          <p className="mt-10 max-w-2xl font-sans text-body-lg text-paper-dim">
-            Every engagement starts with the same question: what is actually
-            slowing your shop down? Then we fix that. No extra layers, no
-            upsells.
+          <RuleDraw className="mt-8 max-w-xs border-ink" />
+          <p className="mt-8 max-w-2xl font-sans text-body-lg text-gray-1">
+            Start free, or start with the audit. Every engagement ends with
+            something working — and the audit fee credits toward a Sprint, so
+            you never pay twice to find out what&apos;s wrong.
           </p>
         </div>
       </section>
 
-      {/* Service 01 — paper */}
-      <section className="relative overflow-hidden bg-paper py-24">
-        <span className="section-number pointer-events-none absolute -top-8 right-4 select-none text-[12rem] text-ink/[0.06] sm:text-[18rem]">
-          01
-        </span>
-        <div className="relative mx-auto max-w-7xl px-6">
-          <div className="grid grid-cols-1 gap-16 lg:grid-cols-2">
-            <div>
-              <div className="eyebrow mb-6">Autodesk Fabrication</div>
-              <h2 className="mb-6 font-display text-display-lg font-bold text-ink">
-                Autodesk Fabrication Consulting
-              </h2>
-              <p className="mb-6 max-w-2xl font-sans leading-relaxed text-steel">
-                Your fabrication database is the backbone of your shop. When it
-                is wrong, estimates are wrong, BOMs are wrong, and someone eats
-                the difference. Kyle has spent 20 years keeping these systems
-                running.
-              </p>
-              <p className="mb-8 max-w-2xl font-sans leading-relaxed text-steel">
-                The real cost is not the software license. It is the tribal
-                knowledge that walks out the door when your senior guy retires.
-                Knowledge transfer is built into every engagement.
-              </p>
-              <Link href="/contact" className="btn-primary">
-                Start a Conversation
-                <ArrowRight />
-              </Link>
-            </div>
-
-            <div className="space-y-6">
-              <div className="card-pop bg-concrete">
-                <div className="eyebrow mb-6">What This Covers</div>
-                <ul className="space-y-4">
-                  {fabricationCoverage.map((item, i) => (
-                    <li
-                      key={i}
-                      className="flex items-start gap-3 font-sans text-sm leading-relaxed text-ink"
-                    >
-                      <span className="mt-1.5 h-2 w-2 shrink-0 bg-hazard" />
-                      {item}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-
-              <div className="border-2 border-ink bg-paper p-4">
-                <div className="font-mono text-xs uppercase tracking-label text-steel">
-                  Pricing: project-based or hourly.{" "}
-                  <Link
-                    href="/contact"
-                    className="text-signal underline-offset-4 hover:underline"
-                  >
-                    Contact for details.
-                  </Link>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Service 02 — inverted */}
-      <section className="relative overflow-hidden bg-ink py-24 text-paper">
-        <span className="section-number pointer-events-none absolute -top-8 right-4 select-none text-[12rem] text-paper/[0.06] sm:text-[18rem]">
-          02
-        </span>
-        <div className="relative mx-auto max-w-7xl px-6">
-          <div className="grid grid-cols-1 gap-16 lg:grid-cols-2">
-            <div>
-              <div className="eyebrow eyebrow-ink mb-6">
-                <span className="text-hazard">AI Onboarding</span>
-              </div>
-              <h2 className="mb-6 font-display text-display-lg font-bold text-paper">
-                AI Onboarding for MEP &amp; Sheet Metal Contractors
-              </h2>
-              <p className="mb-6 max-w-2xl font-sans leading-relaxed text-paper-dim">
-                Your competitor is turning around quotes faster because they
-                stopped doing everything by hand. AI is not going to replace
-                your estimator. But an estimator with AI is going to outwork one
-                without it.
-              </p>
-              <p className="mb-8 max-w-2xl font-sans leading-relaxed text-paper-dim">
-                This is not a generic AI workshop. Kyle sets up the tools for
-                your actual workflows — the RFIs your team writes, the
-                submittals you send, the change orders you process. Then he
-                trains your people on-site until it sticks.
-              </p>
-              <Link href="/contact" className="btn-primary">
-                Start a Conversation
-                <ArrowRight />
-              </Link>
-            </div>
-
-            <div className="space-y-6">
-              <div className="group relative border-2 border-paper bg-ink p-8 text-paper shadow-hard-paper transition-transform duration-150 hover:translate-x-[6px] hover:translate-y-[6px] hover:shadow-none">
-                <div className="eyebrow eyebrow-ink mb-6">
-                  <span className="text-hazard">How It Works</span>
-                </div>
-                <ul className="space-y-4">
-                  {aiCoverage.map((item, i) => (
-                    <li
-                      key={i}
-                      className="flex items-start gap-3 font-sans text-sm leading-relaxed text-paper"
-                    >
-                      <span className="mt-1.5 h-2 w-2 shrink-0 bg-hazard" />
-                      {item}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-
-              <div className="border-2 border-paper bg-ink p-4">
-                <div className="font-mono text-xs uppercase tracking-label text-paper-dim">
-                  Monthly retainer available.{" "}
-                  <Link
-                    href="/contact"
-                    className="text-signal underline-offset-4 hover:underline"
-                  >
-                    Contact for details.
-                  </Link>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* CTA — paper */}
-      <section className="bg-paper py-24">
+      <section className="bg-paper pb-24">
         <div className="mx-auto max-w-7xl px-6">
-          <div className="flex flex-col items-start justify-between gap-8 border-2 border-ink bg-concrete p-10 shadow-hard md:flex-row md:items-center md:p-12">
+          <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
+            {offers.map((offer, i) => (
+              <StampReveal key={offer.name} delayMs={i * 80}>
+                <div className="card flex h-full flex-col">
+                  <div className="mb-1 font-mono text-xs uppercase tracking-label text-gray-2">
+                    {offer.note}
+                  </div>
+                  <h2 className="font-display text-2xl font-bold text-ink">
+                    {offer.name}
+                  </h2>
+                  <div className="mt-2 font-display text-4xl font-bold text-ink">
+                    {offer.price}
+                  </div>
+                  <p className="mt-4 text-base leading-relaxed text-gray-1">
+                    {offer.description}
+                  </p>
+                  <ul className="mt-6 flex-1 space-y-2 border-t-2 border-ink pt-6">
+                    {offer.includes.map((item) => (
+                      <li
+                        key={item}
+                        className="flex gap-3 text-sm leading-relaxed text-gray-1"
+                      >
+                        <span className="mt-[0.4em] h-2 w-2 shrink-0 bg-ink" aria-hidden />
+                        {item}
+                      </li>
+                    ))}
+                  </ul>
+                  <div className="mt-8">
+                    {offer.cta ? (
+                      <Link href={offer.cta.href} className="btn-secondary w-full">
+                        {offer.cta.label}
+                        <ArrowRight />
+                      </Link>
+                    ) : (
+                      <a href={ctaHref} {...ctaProps} className="btn-primary w-full">
+                        {SITE.cta}
+                        <ArrowRight />
+                      </a>
+                    )}
+                  </div>
+                </div>
+              </StampReveal>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Bottom CTA */}
+      <section className="bg-ink py-24 text-paper">
+        <div className="mx-auto max-w-7xl px-6">
+          <div className="flex flex-col items-start justify-between gap-8 md:flex-row md:items-center">
             <div>
-              <div className="eyebrow mb-3">Next Step</div>
-              <h2 className="font-display text-display-lg font-bold text-ink">
-                Not sure which service fits? Let&apos;s talk about your shop.
+              <div className="eyebrow eyebrow-ink mb-3">Not Sure Where to Start</div>
+              <h2 className="max-w-xl font-display text-display-lg font-bold text-paper">
+                Start with the audit. If there&apos;s nothing worth fixing,
+                we&apos;ll tell you.
               </h2>
             </div>
-            <Link href="/contact" className="btn-primary whitespace-nowrap">
-              Start a Conversation
-            </Link>
+            <a href={ctaHref} {...ctaProps} className="btn-on-ink whitespace-nowrap">
+              {SITE.cta}
+              <ArrowRight />
+            </a>
           </div>
         </div>
       </section>
