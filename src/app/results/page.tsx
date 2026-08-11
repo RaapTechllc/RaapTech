@@ -7,6 +7,8 @@ export const metadata: Metadata = {
   title: "Results & Case Studies",
   description:
     "What a clean Autodesk Fabrication database does for a shop: faster job entry, pricing estimators trust, bids out the door on time. Case studies from RaapTech engagements.",
+  alternates: { canonical: "/results" },
+  openGraph: { url: "/results" },
 };
 
 const caseStudies = [

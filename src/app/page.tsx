@@ -9,6 +9,8 @@ export const metadata: Metadata = {
   title: "RaapTech LLC — Autodesk Fabrication Database Consultancy, Chicago",
   description:
     "We fix broken Autodesk Fabrication databases for MEP contractors and sheet metal shops. CADmep, CAMduct, ESTmep — cleaned up, priced right, built to win bids. Book a Database Health Audit.",
+  alternates: { canonical: "/" },
+  openGraph: { url: "/" },
 };
 
 const stats = [
@@ -119,12 +121,7 @@ const proof = [
   },
 ];
 
-export default async function HomePage({
-  searchParams,
-}: {
-  searchParams?: Promise<{ diagnostic?: string }>;
-}) {
-  const diagnosticSent = (await searchParams)?.diagnostic === "sent";
+export default function HomePage() {
   const ctaHref = bookingHref();
   const ctaExternal = bookingIsExternal();
   const ctaProps = ctaExternal
@@ -388,33 +385,18 @@ export default async function HomePage({
                 health, and documentation — and tells you where you&apos;re
                 losing time and bids.
               </p>
-              <form
-                action="/api/diagnostic"
-                method="post"
-                className="mt-8 flex flex-col gap-4 sm:flex-row"
+              <a
+                href={`mailto:${SITE.email}?subject=${encodeURIComponent(
+                  "Free Database Diagnostic request",
+                )}&body=${encodeURIComponent(
+                  "Company:\n\nFabrication platform:\n\nWhat should the diagnostic help uncover:",
+                )}`}
+                className="btn-on-ink mt-8"
               >
-                <label htmlFor="diagnostic-email" className="sr-only">
-                  Work email
-                </label>
-                <input
-                  id="diagnostic-email"
-                  name="email"
-                  type="email"
-                  required
-                  placeholder="Work email"
-                  className="w-full border-2 border-paper bg-ink px-4 py-4 font-sans text-base text-paper placeholder:text-gray-2 focus:outline-none focus-visible:outline focus-visible:outline-2 focus-visible:outline-paper"
-                />
-                <button type="submit" className="btn-on-ink whitespace-nowrap">
-                  Send Me the Diagnostic
-                </button>
-              </form>
-              {diagnosticSent && (
-                <p role="status" className="mt-4 border-2 border-paper px-4 py-3 font-mono text-xs uppercase tracking-label text-paper">
-                  You&apos;re in. The diagnostic is on its way to your inbox.
-                </p>
-              )}
-              <p className="mt-3 font-mono text-xs uppercase tracking-label text-gray-2">
-                No spam. One email with the diagnostic, that&apos;s it.
+                Request the diagnostic by email
+              </a>
+              <p className="mt-4 font-mono text-xs uppercase leading-relaxed tracking-label text-gray-2">
+                Your email app opens with a short outline. Nothing is captured on this page.
               </p>
             </div>
           </div>

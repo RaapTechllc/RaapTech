@@ -8,6 +8,8 @@ export const metadata: Metadata = {
   title: "Services & Pricing",
   description:
     "Database Health Audit, Remediation Sprint, and monthly retainer for Autodesk Fabrication databases. Transparent pricing for MEP contractors and sheet metal shops.",
+  alternates: { canonical: "/services" },
+  openGraph: { url: "/services" },
 };
 
 const offers = [

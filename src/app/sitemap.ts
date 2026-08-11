@@ -1,15 +1,22 @@
 import type { MetadataRoute } from "next";
 
-const BASE = "https://raaptech.com";
+const routes = [
+  "",
+  "/about",
+  "/services",
+  "/results",
+  "/contact",
+  "/tools",
+  "/tools/ductulator",
+  "/tools/offset-calculator",
+] as const;
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const routes = ["", "/about", "/services", "/results", "/contact"] as const;
   const lastModified = new Date();
-
-  return routes.map((path) => ({
-    url: `${BASE}${path}`,
+  return routes.map((route, index) => ({
+    url: `https://raaptech.com${route}`,
     lastModified,
-    changeFrequency: path === "" ? "weekly" : "monthly",
-    priority: path === "" ? 1 : 0.7,
+    changeFrequency: index === 0 ? "weekly" : "monthly",
+    priority: index === 0 ? 1 : route.startsWith("/tools/") ? 0.8 : 0.7,
   }));
 }

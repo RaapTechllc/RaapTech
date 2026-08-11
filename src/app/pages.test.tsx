@@ -5,18 +5,13 @@ import AboutPage from "./about/page";
 import ServicesPage from "./services/page";
 import ResultsPage from "./results/page";
 import ContactPage from "./contact/page";
+import ToolsPage from "./tools/page";
+import DuctulatorPage from "./tools/ductulator/page";
+import OffsetCalculatorPage from "./tools/offset-calculator/page";
 
-// HomePage is an async server component (Next 15 async searchParams), so we
-// await it like a function and render the returned JSX.
-async function renderHome(searchParams?: Promise<{ diagnostic?: string }>) {
-  render(await HomePage({ searchParams }));
-}
-
-// Characterization smoke tests: each route renders without throwing and shows
-// its hero headline + a stable, route-specific anchor.
 describe("page smoke tests", () => {
-  it("home renders consultancy eyebrow, hero headline, and primary CTA", async () => {
-    await renderHome();
+  it("home renders consultancy eyebrow, hero headline, and primary CTA", () => {
+    render(<HomePage />);
     expect(
       screen.getByText(/Autodesk Fabrication Database Consultancy — Chicago/),
     ).toBeInTheDocument();
@@ -28,29 +23,22 @@ describe("page smoke tests", () => {
     ).toBeInTheDocument();
   });
 
-  it("home renders the offer ladder with pricing", async () => {
-    await renderHome();
+  it("home preserves the offer ladder pricing", () => {
+    render(<HomePage />);
     expect(screen.getByText("$2,500")).toBeInTheDocument();
     expect(screen.getByText("$12,000")).toBeInTheDocument();
     expect(screen.getByText("From $1,500/mo")).toBeInTheDocument();
     expect(screen.getByText("Free Database Diagnostic")).toBeInTheDocument();
   });
 
-  it("home renders the diagnostic lead-magnet form", async () => {
-    await renderHome();
-    const email = screen.getByLabelText(/Work email/i);
-    expect(email).toBeRequired();
-    expect(email.closest("form")).toHaveAttribute("action", "/api/diagnostic");
-    expect(
-      screen.getByRole("button", { name: /Send Me the Diagnostic/i }),
-    ).toBeInTheDocument();
-  });
-
-  it("home shows a confirmation when diagnostic=sent", async () => {
-    await renderHome(Promise.resolve({ diagnostic: "sent" }));
-    expect(screen.getByRole("status")).toHaveTextContent(
-      /diagnostic is on its way/i,
-    );
+  it("home uses an honest email path for the diagnostic", () => {
+    render(<HomePage />);
+    expect(screen.queryByLabelText(/Work email/i)).not.toBeInTheDocument();
+    const diagnostic = screen.getByRole("link", {
+      name: /Request the diagnostic by email/i,
+    });
+    expect(diagnostic.getAttribute("href")).toMatch(/^mailto:/);
+    expect(screen.getByText(/nothing is captured on this page/i)).toBeInTheDocument();
   });
 
   it("about renders its hero headline", () => {
@@ -62,26 +50,44 @@ describe("page smoke tests", () => {
 
   it("services renders its headline and a service title", () => {
     render(<ServicesPage />);
-    expect(screen.getByRole("heading", { level: 1 })).toHaveTextContent(
-      /The offer ladder\./,
-    );
+    expect(screen.getByRole("heading", { level: 1 })).toHaveTextContent(/The offer ladder\./);
     expect(screen.getAllByText("Database Health Audit")[0]).toBeInTheDocument();
   });
 
   it("results renders the case-studies headline", () => {
     render(<ResultsPage />);
-    expect(screen.getByRole("heading", { level: 1 })).toHaveTextContent(
-      /Proof, not promises\./,
-    );
+    expect(screen.getByRole("heading", { level: 1 })).toHaveTextContent(/Proof, not promises\./);
   });
 
-  it("contact renders its headline and the contact form", () => {
+  it("contact renders honest direct actions", () => {
     render(<ContactPage />);
     expect(screen.getByRole("heading", { level: 1 })).toHaveTextContent(
       /Talk to someone who has run the floor\./,
     );
-    expect(
-      screen.getByRole("button", { name: /Send Message/i }),
-    ).toBeInTheDocument();
+    expect(screen.getByRole("link", { name: /Write an email/i })).toBeInTheDocument();
+  });
+
+  it("tools index links to both field calculators", () => {
+    render(<ToolsPage />);
+    expect(screen.getByRole("heading", { level: 1 })).toHaveTextContent(/Field tools/);
+    expect(screen.getByRole("link", { name: /Open duct calculator/i })).toHaveAttribute(
+      "href",
+      "/tools/ductulator",
+    );
+    expect(screen.getByRole("link", { name: /Open offset calculator/i })).toHaveAttribute(
+      "href",
+      "/tools/offset-calculator",
+    );
+  });
+
+  it("calculator routes render their native tools", () => {
+    const { unmount } = render(<DuctulatorPage />);
+    expect(screen.getByRole("heading", { level: 1 })).toHaveTextContent(/Duct sizing calculator/);
+    expect(screen.getByLabelText(/Airflow \(CFM\)/i)).toBeInTheDocument();
+    unmount();
+
+    render(<OffsetCalculatorPage />);
+    expect(screen.getByRole("heading", { level: 1 })).toHaveTextContent(/Field offset calculator/);
+    expect(screen.getByLabelText(/Duct diameter/i)).toBeInTheDocument();
   });
 });

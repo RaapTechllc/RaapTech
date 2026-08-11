@@ -6,7 +6,9 @@ import { SITE, bookingHref, bookingIsExternal } from "@/lib/site";
 export const metadata: Metadata = {
   title: "Contact",
   description:
-    "Book a Database Health Audit or send a message. RaapTech LLC — Autodesk Fabrication database consultancy, Elmwood Park / Chicago, IL.",
+    "Book a Database Health Audit or contact RaapTech directly. RaapTech LLC — Autodesk Fabrication database consultancy, Elmwood Park / Chicago, IL.",
+  alternates: { canonical: "/contact" },
+  openGraph: { url: "/contact" },
 };
 
 export default function ContactPage() {
@@ -27,10 +29,10 @@ export default function ContactPage() {
           <RuleDraw className="mt-8 max-w-xs border-ink" />
 
           <div className="mt-16 grid grid-cols-1 gap-16 lg:grid-cols-5">
-            {/* Form */}
+            {/* Direct contact actions */}
             <div className="lg:col-span-3">
               <h2 className="mb-6 font-display text-2xl font-bold text-ink">
-                Send a message
+                Contact directly
               </h2>
               <ContactForm />
             </div>
