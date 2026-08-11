@@ -7,6 +7,8 @@ export const metadata: Metadata = {
   title: "About Tim Raap",
   description:
     "Tim Raap spent 20+ years in the sheet metal trade — Local Union 73 apprenticeship to Operations Manager at a major Chicago shop. RaapTech is that experience, turned into a consultancy.",
+  alternates: { canonical: "/about" },
+  openGraph: { url: "/about" },
 };
 
 const timeline = [

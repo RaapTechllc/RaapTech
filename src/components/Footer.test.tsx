@@ -6,9 +6,7 @@ describe("Footer", () => {
   it("renders the company name and tagline", () => {
     render(<Footer />);
     expect(screen.getByText("RAAPTECH")).toBeInTheDocument();
-    expect(
-      screen.getByText(/Autodesk Fabrication database consultancy/i),
-    ).toBeInTheDocument();
+    expect(screen.getByText(/Autodesk Fabrication database consultancy/i)).toBeInTheDocument();
   });
 
   it("renders the contact email as a mailto link", () => {
@@ -28,9 +26,9 @@ describe("Footer", () => {
     expect(linkedIn).toHaveAttribute("rel", expect.stringContaining("noopener"));
   });
 
-  it("renders every primary navigation link", () => {
+  it("renders every primary navigation link, including Tools", () => {
     render(<Footer />);
-    for (const label of ["Home", "About", "Services", "Results", "Contact"]) {
+    for (const label of ["Home", "Services", "Tools", "About", "Results", "Contact"]) {
       expect(screen.getByRole("link", { name: label })).toBeInTheDocument();
     }
   });
@@ -50,8 +48,6 @@ describe("Footer", () => {
   it("shows the current year in the copyright line", () => {
     render(<Footer />);
     const year = new Date().getFullYear().toString();
-    expect(
-      screen.getByText(new RegExp(`${year} RaapTech LLC`)),
-    ).toBeInTheDocument();
+    expect(screen.getByText(new RegExp(`${year} RaapTech LLC`))).toBeInTheDocument();
   });
 });

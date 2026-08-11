@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
-import { NAV_LINKS } from "@/lib/nav";
+import { isNavLinkActive, NAV_LINKS } from "@/lib/nav";
 import { SITE, bookingHref, bookingIsExternal } from "@/lib/site";
 
 export default function Navbar() {
@@ -35,7 +35,7 @@ export default function Navbar() {
               <Link
                 href={link.href}
                 className={`font-mono text-xs font-medium uppercase tracking-label transition-colors ${
-                  pathname === link.href
+                  isNavLinkActive(pathname, link.href)
                     ? "text-ink underline underline-offset-4"
                     : "text-gray-1 hover:text-ink"
                 }`}
@@ -91,7 +91,7 @@ export default function Navbar() {
                   href={link.href}
                   onClick={() => setMobileOpen(false)}
                   className={`block py-3 font-mono text-xs font-medium uppercase tracking-label transition-colors ${
-                    pathname === link.href
+                    isNavLinkActive(pathname, link.href)
                       ? "text-ink underline underline-offset-4"
                       : "text-gray-1 hover:text-ink"
                   }`}

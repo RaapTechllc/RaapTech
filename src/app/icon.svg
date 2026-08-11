@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-labelledby="title">
+  <title id="title">RaapTech</title>
+  <rect width="64" height="64" fill="#050505"/>
+  <path fill="#f7f7f5" d="M13 12h22c11 0 17 5.7 17 14.6 0 6.3-3.2 10.8-9.2 13l11.7 12.4H40.3L30.1 40.7H25V52H13V12zm12 9.8v9.6h9.1c3.7 0 5.7-1.7 5.7-4.8s-2-4.8-5.7-4.8H25z"/>
+</svg>
