@@ -329,8 +329,8 @@ function lineForDimension(dimension: DimensionId, answers: Answers): string {
 }
 
 export function bandForLeak(leak: number, maxLeak: number): Band {
+  if (leak === 0) return "tight";
   const ratio = maxLeak === 0 ? 0 : leak / maxLeak;
-  if (ratio <= 0.25) return "tight";
   if (ratio <= 0.5) return "hours";
   if (ratio <= 0.75) return "bids";
   return "walking";
@@ -346,7 +346,9 @@ function overallCopy(dimensions: DimensionScore[], leak: number, maxLeak: number
   const ranked = [...dimensions].sort((a, b) => b.leak - a.leak);
   const loudest = ranked[0];
 
-  if (band === "tight") {
+  // Tight copy is only for a zero-leak self-score. A single dimension at 4+
+  // (for example 6/24 on pricing) must still name the leak.
+  if (band === "tight" && leaking.length === 0 && leak === 0) {
     return {
       band,
       headline: "The database isn't the leak.",

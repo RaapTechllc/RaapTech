@@ -62,6 +62,19 @@ describe("DatabaseDiagnostic", () => {
     expect(screen.queryByLabelText(/work email/i)).not.toBeInTheDocument();
   });
 
+  it("clears the scored result when a radio changes so the live leak updates", async () => {
+    const user = userEvent.setup();
+    render(<DatabaseDiagnostic />);
+    await answerEveryQuestion(user, "c");
+    await user.click(screen.getByRole("button", { name: /Score the database/i }));
+    expect(screen.getByText(/leak 24 \/ 24/i)).toBeInTheDocument();
+
+    await user.click(screen.getByRole("radio", { name: /This quarter/i }));
+
+    expect(screen.queryByText(/leak 24 \/ 24/i)).not.toBeInTheDocument();
+    expect(screen.getByText(/leak 22 \/ 24/i)).toBeInTheDocument();
+  });
+
   it("asks for the remaining questions instead of posting", async () => {
     const user = userEvent.setup();
     render(<DatabaseDiagnostic />);

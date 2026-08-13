@@ -4,6 +4,7 @@ import {
   QUESTIONS,
   allLeakingAnswers,
   allTightAnswers,
+  bandForLeak,
   diagnosticMailtoHref,
   scoreDiagnostic,
   unansweredQuestionIds,
@@ -40,6 +41,23 @@ describe("database diagnostic scoring", () => {
     expect(result.headline).toMatch(/rumor/i);
     const pricing = result.dimensions.find((dimension) => dimension.id === "pricing");
     expect(pricing?.line).toMatch(/dual entry/i);
+  });
+
+  it("does not treat 6/24 (worst pricing, rest tight) as a tight shop", () => {
+    const answers = allTightAnswers();
+    answers["pricing-catalog"] = "c";
+    answers["pricing-trust"] = "c";
+    answers["pricing-dual-entry"] = "c";
+    const result = scoreDiagnostic(answers);
+    expect(result.leak).toBe(6);
+    expect(result.maxLeak).toBe(24);
+    expect(bandForLeak(6, 24)).not.toBe("tight");
+    expect(result.band).not.toBe("tight");
+    expect(result.headline).not.toMatch(/isn't the leak/i);
+    const pricing = result.dimensions.find((dimension) => dimension.id === "pricing");
+    expect(pricing?.leak).toBe(6);
+    expect(pricing?.line).toMatch(/dual entry/i);
+    expect(result.summary).toMatch(/Pricing accuracy/i);
   });
 
   it("calls out dual entry even when the rest of pricing is mixed", () => {

@@ -36,6 +36,7 @@ export default function DatabaseDiagnostic() {
 
   function choose(questionId: string, value: string) {
     setAnswers((current) => ({ ...current, [questionId]: value }));
+    setResult(null);
     setError(null);
   }
 
