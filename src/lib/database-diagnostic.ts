@@ -299,6 +299,13 @@ function leakFor(question: Question, answers: Answers): Leak {
   return choice.leak;
 }
 
+const LINE_PRIORITY: Record<DimensionId, readonly string[]> = {
+  pricing: ["pricing-dual-entry", "pricing-trust", "pricing-catalog"],
+  structure: ["structure-labor", "structure-duplicates", "structure-specialty"],
+  connectors: ["connectors-match", "connectors-tickets", "connectors-posts"],
+  documentation: ["docs-written", "docs-owner", "docs-reports"],
+};
+
 function lineForDimension(dimension: DimensionId, answers: Answers): string {
   const questions = questionsFor(dimension);
   const scored = questions.map((question) => ({
@@ -306,9 +313,12 @@ function lineForDimension(dimension: DimensionId, answers: Answers): string {
     leak: leakFor(question, answers),
   }));
 
-  const worst = scored.find((item) => item.leak === 2);
-  if (worst) {
-    return DIMENSION_LINE_MAP[dimension][worst.question.id] ?? MIXED_LINES[dimension];
+  const leakingIds = new Set(
+    scored.filter((item) => item.leak === 2).map((item) => item.question.id),
+  );
+  const preferred = LINE_PRIORITY[dimension].find((id) => leakingIds.has(id));
+  if (preferred) {
+    return DIMENSION_LINE_MAP[dimension][preferred] ?? MIXED_LINES[dimension];
   }
 
   if (scored.some((item) => item.leak === 1)) {
