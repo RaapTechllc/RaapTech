@@ -2,7 +2,10 @@ import { describe, expect, it } from "vitest";
 import {
   calculateOffsetLayout,
   formatLengthInches,
+  formatLengthInput,
+  isStockElbowAngle,
   parseLengthInches,
+  roundToSixteenth,
   solveOffsetAngle,
   solveOffsetRadius,
 } from "./offset-calculator";
@@ -27,6 +30,25 @@ describe("offset calculator geometry engine", () => {
     expect(formatLengthInches(-0.125)).toBe("−1/8 in");
     expect(formatLengthInches(0)).toBe("0 in");
     expect(formatLengthInches(Number.NaN)).toBe("—");
+  });
+
+  it("rounds field dimensions to the nearest sixteenth for prefills", () => {
+    expect(roundToSixteenth(13.372583002030478)).toBe(13.375);
+    expect(roundToSixteenth(28.284271247461906)).toBe(28.3125);
+    expect(Number.isNaN(roundToSixteenth(Number.NaN))).toBe(true);
+    expect(formatLengthInput(13.372583002030478)).toBe("13 3/8");
+    expect(formatLengthInput(28.284271247461906)).toBe("28 5/16");
+    expect(formatLengthInput(4)).toBe("4");
+    expect(formatLengthInput(-0.125)).toBe("-1/8");
+    expect(formatLengthInput(Number.NaN)).toBe("");
+  });
+
+  it("treats catalog elbows as stock and flags odd solved angles", () => {
+    expect(isStockElbowAngle(45)).toBe(true);
+    expect(isStockElbowAngle(22.5)).toBe(true);
+    expect(isStockElbowAngle(45.2)).toBe(true);
+    expect(isStockElbowAngle(37)).toBe(false);
+    expect(isStockElbowAngle(Number.NaN)).toBe(false);
   });
 
   it("matches the preserved 18-inch radius, 45-degree, 4-inch fixture", () => {

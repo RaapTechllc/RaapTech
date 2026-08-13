@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { ToolPageHeader } from "@/components/tools/ToolChrome";
 import OffsetCalculator from "@/components/tools/OffsetCalculator";
 
 export const metadata: Metadata = {
@@ -12,20 +13,11 @@ export const metadata: Metadata = {
 export default function OffsetCalculatorPage() {
   return (
     <>
-      <section className="bg-paper pb-12 pt-32">
-        <div className="mx-auto max-w-7xl px-6">
-          <div className="eyebrow mb-4">Field Tool · Layout</div>
-          <h1 className="max-w-4xl font-display text-display-xl font-bold text-ink">
-            Field offset calculator
-          </h1>
-          <div className="mt-8 max-w-xs border-t-2 border-ink" />
-          <p className="mt-8 max-w-3xl font-sans text-body-lg text-gray-1">
-            Calculate centerline offset and run for two equal elbows, or solve
-            the geometry required to fit a known space. Fractional-inch input
-            and nearest-sixteenth output are built in.
-          </p>
-        </div>
-      </section>
+      <ToolPageHeader slug="offset-calculator" eyebrow="Field Tool · Layout">
+        Calculate centerline offset and run for two equal elbows, or solve the
+        geometry required to fit a known space. Fractional-inch input and
+        nearest-sixteenth output are built in.
+      </ToolPageHeader>
 
       <section className="bg-paper pb-16">
         <div className="mx-auto max-w-7xl px-6">

@@ -1,6 +1,6 @@
-import { render, screen } from "@testing-library/react";
+import { render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import { describe, expect, it } from "vitest";
+import { describe, expect, it, vi } from "vitest";
 import Ductulator from "./Ductulator";
 
 describe("Ductulator", () => {
@@ -50,5 +50,18 @@ describe("Ductulator", () => {
     await user.type(screen.getByLabelText(/Airflow \(CFM\)/i), "0");
     await user.click(screen.getByRole("button", { name: /Size duct/i }));
     expect(screen.getByRole("alert")).toHaveTextContent(/Airflow/i);
+  });
+
+  it("scrolls the results panel into view after Size duct", async () => {
+    const user = userEvent.setup();
+    const scrollIntoView = vi.spyOn(HTMLElement.prototype, "scrollIntoView");
+    render(<Ductulator />);
+
+    await user.click(screen.getByRole("button", { name: /Size duct/i }));
+    const results = screen.getByRole("region", { name: /results/i });
+    await waitFor(() => {
+      expect(scrollIntoView).toHaveBeenCalled();
+    });
+    expect(results).toHaveFocus();
   });
 });

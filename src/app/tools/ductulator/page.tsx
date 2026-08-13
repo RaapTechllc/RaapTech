@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { ToolPageHeader } from "@/components/tools/ToolChrome";
 import Ductulator from "@/components/tools/Ductulator";
 
 export const metadata: Metadata = {
@@ -12,20 +13,10 @@ export const metadata: Metadata = {
 export default function DuctulatorPage() {
   return (
     <>
-      <section className="bg-paper pb-12 pt-32">
-        <div className="mx-auto max-w-7xl px-6">
-          <div className="eyebrow mb-4">Field Tool · Airside</div>
-          <h1 className="max-w-4xl font-display text-display-xl font-bold text-ink">
-            Duct sizing calculator
-          </h1>
-          <div className="mt-8 max-w-xs border-t-2 border-ink" />
-          <p className="mt-8 max-w-3xl font-sans text-body-lg text-gray-1">
-            Size round duct by airflow and friction rate or check an existing
-            round or rectangular section. Calculations run entirely in this
-            browser.
-          </p>
-        </div>
-      </section>
+      <ToolPageHeader slug="ductulator" eyebrow="Field Tool · Airside">
+        Size round duct by airflow and friction rate or check an existing round
+        or rectangular section. Calculations run entirely in this browser.
+      </ToolPageHeader>
 
       <section className="bg-paper pb-16">
         <div className="mx-auto max-w-7xl px-6">

@@ -8,6 +8,7 @@ import ContactPage from "./contact/page";
 import ToolsPage from "./tools/page";
 import DuctulatorPage from "./tools/ductulator/page";
 import OffsetCalculatorPage from "./tools/offset-calculator/page";
+import HangerSpacingPage from "./tools/hanger-spacing/page";
 
 describe("page smoke tests", () => {
   it("home renders consultancy eyebrow, hero headline, and primary CTA", () => {
@@ -67,7 +68,7 @@ describe("page smoke tests", () => {
     expect(screen.getByRole("link", { name: /Write an email/i })).toBeInTheDocument();
   });
 
-  it("tools index links to both field calculators", () => {
+  it("tools index links to each field calculator", () => {
     render(<ToolsPage />);
     expect(screen.getByRole("heading", { level: 1 })).toHaveTextContent(/Field tools/);
     expect(screen.getByRole("link", { name: /Open duct calculator/i })).toHaveAttribute(
@@ -78,16 +79,67 @@ describe("page smoke tests", () => {
       "href",
       "/tools/offset-calculator",
     );
+    expect(screen.getByRole("link", { name: /Open hanger calculator/i })).toHaveAttribute(
+      "href",
+      "/tools/hanger-spacing",
+    );
   });
 
   it("calculator routes render their native tools", () => {
-    const { unmount } = render(<DuctulatorPage />);
+    const ductulator = render(<DuctulatorPage />);
     expect(screen.getByRole("heading", { level: 1 })).toHaveTextContent(/Duct sizing calculator/);
     expect(screen.getByLabelText(/Airflow \(CFM\)/i)).toBeInTheDocument();
-    unmount();
+    ductulator.unmount();
 
-    render(<OffsetCalculatorPage />);
+    const offset = render(<OffsetCalculatorPage />);
     expect(screen.getByRole("heading", { level: 1 })).toHaveTextContent(/Field offset calculator/);
     expect(screen.getByLabelText(/Duct diameter/i)).toBeInTheDocument();
+    offset.unmount();
+
+    render(<HangerSpacingPage />);
+    expect(screen.getByRole("heading", { level: 1 })).toHaveTextContent(/Hanger spacing calculator/);
+    expect(screen.getByLabelText(/Horizontal run length/i)).toBeInTheDocument();
+  });
+
+  it("calculator routes keep a tools breadcrumb and compact switcher in the page", () => {
+    const ductulator = render(<DuctulatorPage />);
+    expect(screen.getByRole("navigation", { name: /breadcrumb/i })).toHaveTextContent(
+      /Tools\s*\/\s*Duct sizing calculator/,
+    );
+    expect(screen.getByRole("link", { name: /^Tools$/i })).toHaveAttribute("href", "/tools");
+    expect(screen.getByRole("link", { name: /Field offset calculator/i })).toHaveAttribute(
+      "href",
+      "/tools/offset-calculator",
+    );
+    expect(screen.getByRole("link", { name: /Hanger spacing calculator/i })).toHaveAttribute(
+      "href",
+      "/tools/hanger-spacing",
+    );
+    ductulator.unmount();
+
+    const offset = render(<OffsetCalculatorPage />);
+    expect(screen.getByRole("navigation", { name: /breadcrumb/i })).toHaveTextContent(
+      /Tools\s*\/\s*Field offset calculator/,
+    );
+    expect(screen.getByRole("link", { name: /^Tools$/i })).toHaveAttribute("href", "/tools");
+    expect(screen.getByRole("link", { name: /Duct sizing calculator/i })).toHaveAttribute(
+      "href",
+      "/tools/ductulator",
+    );
+    expect(screen.getByRole("link", { name: /Hanger spacing calculator/i })).toHaveAttribute(
+      "href",
+      "/tools/hanger-spacing",
+    );
+    offset.unmount();
+
+    render(<HangerSpacingPage />);
+    expect(screen.getByRole("navigation", { name: /breadcrumb/i })).toHaveTextContent(
+      /Tools\s*\/\s*Hanger spacing calculator/,
+    );
+    expect(screen.getByRole("link", { name: /^Tools$/i })).toHaveAttribute("href", "/tools");
+    expect(screen.getByRole("link", { name: /Duct sizing calculator/i })).toHaveAttribute(
+      "href",
+      "/tools/ductulator",
+    );
   });
 });
