@@ -10,6 +10,7 @@ import {
   type RectangularDuctPerformance,
   type RoundDuctSolution,
 } from "@/lib/duct-calculator";
+import { useRevealOnSuccess } from "@/lib/useRevealOnSuccess";
 
 const inputClass =
   "mt-2 w-full border-2 border-ink bg-paper px-3 py-3 font-mono text-base text-ink focus:outline-none focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink";
@@ -56,6 +57,7 @@ export default function Ductulator() {
   const [sizeResult, setSizeResult] = useState<SizeResult | null>(null);
   const [checkResult, setCheckResult] = useState<CheckResult | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const { ref: resultsRef, reveal: revealResults } = useRevealOnSuccess<HTMLElement>();
 
   function switchMode(next: "size" | "check") {
     setMode(next);
@@ -80,6 +82,7 @@ export default function Ductulator() {
         ),
       });
       setError(null);
+      revealResults();
     } catch (caught) {
       setSizeResult(null);
       setError(caught instanceof Error ? caught.message : "Unable to size this duct.");
@@ -103,6 +106,7 @@ export default function Ductulator() {
             },
       );
       setError(null);
+      revealResults();
     } catch (caught) {
       setCheckResult(null);
       setError(caught instanceof Error ? caught.message : "Unable to check this duct.");
@@ -234,7 +238,13 @@ export default function Ductulator() {
           )}
         </div>
 
-        <div className="min-h-96 p-6" aria-live="polite">
+        <section
+          ref={resultsRef}
+          tabIndex={-1}
+          aria-live="polite"
+          aria-label="Results"
+          className="min-h-96 scroll-mt-24 p-6 outline-none"
+        >
           {mode === "size" && !sizeResult && (
             <p className="font-mono text-sm text-gray-2">Enter design criteria and size the duct.</p>
           )}
@@ -304,7 +314,7 @@ export default function Ductulator() {
               </dl>
             </div>
           )}
-        </div>
+        </section>
       </div>
     </div>
   );

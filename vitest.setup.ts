@@ -27,6 +27,8 @@ vi.mock("next/image", () => ({
     }),
 }));
 
+HTMLElement.prototype.scrollIntoView = vi.fn();
+
 // jsdom does not implement matchMedia / IntersectionObserver.
 Object.defineProperty(window, "matchMedia", {
   writable: true,

@@ -1,15 +1,16 @@
 import type { MetadataRoute } from "next";
+import { TOOLS } from "@/lib/tools";
 
-const routes = [
+const marketingRoutes = [
   "",
   "/about",
   "/services",
   "/results",
   "/contact",
   "/tools",
-  "/tools/ductulator",
-  "/tools/offset-calculator",
 ] as const;
+
+const routes = [...marketingRoutes, ...TOOLS.map((tool) => tool.href)];
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const lastModified = new Date();

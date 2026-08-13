@@ -73,21 +73,41 @@ function greatestCommonDivisor(left: number, right: number): number {
   return a || 1;
 }
 
-export function formatLengthInches(value: number): string {
-  if (!Number.isFinite(value)) return "—";
-  const roundedSixteenths = Math.round(Math.abs(value) * 16);
-  if (roundedSixteenths === 0) return "0 in";
+export function roundToSixteenth(value: number): number {
+  if (!Number.isFinite(value)) return value;
+  return Math.round(value * 16) / 16;
+}
 
-  const sign = value < 0 ? "−" : "";
-  const whole = Math.floor(roundedSixteenths / 16);
-  const remainder = roundedSixteenths % 16;
-  if (!remainder) return `${sign}${whole} in`;
+export function formatLengthInput(value: number): string {
+  if (!Number.isFinite(value)) return "";
+  const roundedSixteenths = Math.round(value * 16);
+  if (roundedSixteenths === 0) return "0";
+
+  const sign = roundedSixteenths < 0 ? "-" : "";
+  const abs = Math.abs(roundedSixteenths);
+  const whole = Math.floor(abs / 16);
+  const remainder = abs % 16;
+  if (!remainder) return `${sign}${whole}`;
 
   const divisor = greatestCommonDivisor(remainder, 16);
-  const numerator = remainder / divisor;
-  const denominator = 16 / divisor;
-  const fraction = `${numerator}/${denominator}`;
-  return `${sign}${whole ? `${whole} ` : ""}${fraction} in`;
+  const fraction = `${remainder / divisor}/${16 / divisor}`;
+  return whole ? `${sign}${whole} ${fraction}` : `${sign}${fraction}`;
+}
+
+export function formatLengthInches(value: number): string {
+  if (!Number.isFinite(value)) return "—";
+  const formatted = formatLengthInput(value).replace("-", "−");
+  return `${formatted} in`;
+}
+
+export const STOCK_ELBOW_ANGLES_DEG = [15, 22.5, 30, 45, 60, 90] as const;
+const STOCK_ELBOW_ANGLE_TOLERANCE_DEG = 0.25;
+
+export function isStockElbowAngle(angleDeg: number): boolean {
+  if (!Number.isFinite(angleDeg)) return false;
+  return STOCK_ELBOW_ANGLES_DEG.some(
+    (stock) => Math.abs(angleDeg - stock) <= STOCK_ELBOW_ANGLE_TOLERANCE_DEG,
+  );
 }
 
 export function calculateOffsetLayout({

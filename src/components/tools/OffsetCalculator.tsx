@@ -4,13 +4,17 @@ import { useState, type FormEvent, type ReactNode } from "react";
 import {
   calculateOffsetLayout,
   formatLengthInches,
+  formatLengthInput,
+  isStockElbowAngle,
   parseLengthInches,
   solveOffsetAngle,
   solveOffsetRadius,
+  STOCK_ELBOW_ANGLES_DEG,
   type OffsetAngleSolution,
   type OffsetLayout,
   type OffsetRadiusSolution,
 } from "@/lib/offset-calculator";
+import { useRevealOnSuccess } from "@/lib/useRevealOnSuccess";
 
 const inputClass =
   "mt-2 w-full border-2 border-ink bg-paper px-3 py-3 font-mono text-base text-ink focus:outline-none focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink";
@@ -89,16 +93,30 @@ export default function OffsetCalculator() {
   const [multiplier, setMultiplier] = useState("1.5");
   const [angle, setAngle] = useState("45");
   const [straight, setStraight] = useState("4");
-  const [neededOffset, setNeededOffset] = useState("13.372583002030478");
-  const [totalRun, setTotalRun] = useState("28.284271247461906");
+  const [neededOffset, setNeededOffset] = useState(() =>
+    formatLengthInput(13.372583002030478),
+  );
+  const [totalRun, setTotalRun] = useState(() =>
+    formatLengthInput(28.284271247461906),
+  );
   const [solveFor, setSolveFor] = useState<"angle" | "radius">("angle");
   const [layout, setLayout] = useState<OffsetLayout | null>(null);
   const [inverse, setInverse] = useState<InverseResult | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const { ref: resultsRef, reveal: revealResults } = useRevealOnSuccess<HTMLElement>();
+
+  function clearGeometry() {
+    setLayout(null);
+    setInverse(null);
+  }
 
   function switchMode(next: "forward" | "inverse") {
     setMode(next);
     setError(null);
+    if (next === "inverse" && layout) {
+      setNeededOffset(formatLengthInput(layout.offsetIn));
+      setTotalRun(formatLengthInput(layout.runIn));
+    }
   }
 
   function calculate(event: FormEvent<HTMLFormElement>) {
@@ -112,9 +130,11 @@ export default function OffsetCalculator() {
         straightIn: length("straight distance", straight),
       });
       setLayout(result);
+      setInverse(null);
       setError(null);
+      revealResults();
     } catch (caught) {
-      setLayout(null);
+      clearGeometry();
       setError(caught instanceof Error ? caught.message : "Unable to calculate this layout.");
     }
   }
@@ -139,9 +159,11 @@ export default function OffsetCalculator() {
         if (!result) throw new RangeError("No positive centerline radius fits those dimensions.");
         setInverse({ kind: "radius", result, ductDiameterIn: diameterIn });
       }
+      setLayout(null);
       setError(null);
+      revealResults();
     } catch (caught) {
-      setInverse(null);
+      clearGeometry();
       setError(caught instanceof Error ? caught.message : "Unable to solve this layout.");
     }
   }
@@ -185,7 +207,7 @@ export default function OffsetCalculator() {
               </label>
               <label className={labelClass} htmlFor="offset-angle">Elbow angle (degrees)
                 <select className={inputClass} id="offset-angle" value={angle} onChange={(event) => setAngle(event.target.value)}>
-                  {[15, 22.5, 30, 45, 60, 90].map((item) => <option key={item} value={item}>{item}°</option>)}
+                  {[...STOCK_ELBOW_ANGLES_DEG].map((item) => <option key={item} value={item}>{item}°</option>)}
                 </select>
               </label>
               <label className={labelClass} htmlFor="offset-straight">Straight between tangents (in)
@@ -219,7 +241,7 @@ export default function OffsetCalculator() {
               ) : (
                 <label className={labelClass} htmlFor="inverse-angle">Known elbow angle (degrees)
                   <select className={inputClass} id="inverse-angle" value={angle} onChange={(event) => setAngle(event.target.value)}>
-                    {[15, 22.5, 30, 45, 60, 90].map((item) => <option key={item} value={item}>{item}°</option>)}
+                    {[...STOCK_ELBOW_ANGLES_DEG].map((item) => <option key={item} value={item}>{item}°</option>)}
                   </select>
                 </label>
               )}
@@ -229,7 +251,13 @@ export default function OffsetCalculator() {
           {error && <p role="alert" className="mt-5 border-2 border-ink bg-gray-4 p-3 font-mono text-sm text-ink">{error}</p>}
         </div>
 
-        <div className="min-h-96 p-6" aria-live="polite">
+        <section
+          ref={resultsRef}
+          tabIndex={-1}
+          aria-live="polite"
+          aria-label="Results"
+          className="min-h-96 scroll-mt-24 p-6 outline-none"
+        >
           {!layout && !inverse && <p className="font-mono text-sm text-gray-2">Enter the centerline geometry and calculate the layout.</p>}
           {mode === "forward" && layout && (
             <div>
@@ -250,6 +278,12 @@ export default function OffsetCalculator() {
                 <Metric label="Effective straight spool">{formatLengthInches(inverse.result.straightIn)}</Metric>
                 <Metric label="Centerline radius">{formatLengthInches(inverse.radiusIn)}</Metric>
               </dl>
+              {!isStockElbowAngle(inverse.result.angleDeg) && (
+                <p className="mt-5 border-l-2 border-ink pl-3 font-mono text-xs leading-relaxed text-gray-1">
+                  {inverse.result.angleDeg.toFixed(2)}° is not a stock elbow.
+                  Common fittings are 15, 22.5, 30, 45, 60, and 90°.
+                </p>
+              )}
             </div>
           )}
           {mode === "inverse" && inverse?.kind === "radius" && (
@@ -262,8 +296,8 @@ export default function OffsetCalculator() {
               </dl>
             </div>
           )}
-          <GeometryDiagram layout={displayedLayout} />
-        </div>
+          <GeometryDiagram layout={error ? null : displayedLayout} />
+        </section>
       </div>
     </div>
   );

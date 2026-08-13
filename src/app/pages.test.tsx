@@ -90,4 +90,27 @@ describe("page smoke tests", () => {
     expect(screen.getByRole("heading", { level: 1 })).toHaveTextContent(/Field offset calculator/);
     expect(screen.getByLabelText(/Duct diameter/i)).toBeInTheDocument();
   });
+
+  it("calculator routes keep a tools breadcrumb and compact switcher in the page", () => {
+    const { unmount } = render(<DuctulatorPage />);
+    expect(screen.getByRole("navigation", { name: /breadcrumb/i })).toHaveTextContent(
+      /Tools\s*\/\s*Duct sizing calculator/,
+    );
+    expect(screen.getByRole("link", { name: /^Tools$/i })).toHaveAttribute("href", "/tools");
+    expect(screen.getByRole("link", { name: /Field offset calculator/i })).toHaveAttribute(
+      "href",
+      "/tools/offset-calculator",
+    );
+    unmount();
+
+    render(<OffsetCalculatorPage />);
+    expect(screen.getByRole("navigation", { name: /breadcrumb/i })).toHaveTextContent(
+      /Tools\s*\/\s*Field offset calculator/,
+    );
+    expect(screen.getByRole("link", { name: /^Tools$/i })).toHaveAttribute("href", "/tools");
+    expect(screen.getByRole("link", { name: /Duct sizing calculator/i })).toHaveAttribute(
+      "href",
+      "/tools/ductulator",
+    );
+  });
 });
