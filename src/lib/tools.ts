@@ -1,5 +1,14 @@
 export const TOOLS = [
   {
+    slug: "database-diagnostic",
+    name: "Database diagnostic",
+    href: "/tools/database-diagnostic",
+    eyebrow: "Shop",
+    summary:
+      "Score a fabrication database across pricing, item structure, connector health, and documentation. Twelve questions. Answers stay in the browser.",
+    cta: "Open database diagnostic",
+  },
+  {
     slug: "ductulator",
     name: "Duct sizing calculator",
     href: "/tools/ductulator",

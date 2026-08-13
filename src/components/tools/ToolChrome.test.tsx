@@ -28,6 +28,9 @@ describe("ToolPageHeader", () => {
 
     const switcher = screen.getByRole("navigation", { name: /field tools/i });
     expect(
+      screen.getByRole("link", { name: /Database diagnostic/i }),
+    ).toHaveAttribute("href", "/tools/database-diagnostic");
+    expect(
       screen.getByRole("link", { name: /Field offset calculator/i }),
     ).toHaveAttribute("href", "/tools/offset-calculator");
     expect(
