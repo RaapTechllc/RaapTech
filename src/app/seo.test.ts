@@ -10,6 +10,7 @@ import { metadata as toolsMetadata } from "@/app/tools/page";
 import { metadata as ductulatorMetadata } from "@/app/tools/ductulator/page";
 import { metadata as offsetMetadata } from "@/app/tools/offset-calculator/page";
 import { metadata as hangerMetadata } from "@/app/tools/hanger-spacing/page";
+import { metadata as diagnosticMetadata } from "@/app/tools/database-diagnostic/page";
 import { TOOLS } from "@/lib/tools";
 
 describe("SEO metadata routes", () => {
@@ -38,6 +39,7 @@ describe("SEO metadata routes", () => {
     expect(ductulatorMetadata.alternates?.canonical).toBe("/tools/ductulator");
     expect(offsetMetadata.alternates?.canonical).toBe("/tools/offset-calculator");
     expect(hangerMetadata.alternates?.canonical).toBe("/tools/hanger-spacing");
+    expect(diagnosticMetadata.alternates?.canonical).toBe("/tools/database-diagnostic");
   });
 
   it("robots allows crawl and points at the sitemap", () => {

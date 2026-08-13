@@ -9,6 +9,7 @@ import ToolsPage from "./tools/page";
 import DuctulatorPage from "./tools/ductulator/page";
 import OffsetCalculatorPage from "./tools/offset-calculator/page";
 import HangerSpacingPage from "./tools/hanger-spacing/page";
+import DatabaseDiagnosticPage from "./tools/database-diagnostic/page";
 
 describe("page smoke tests", () => {
   it("home renders consultancy eyebrow, hero headline, and primary CTA", () => {
@@ -32,14 +33,18 @@ describe("page smoke tests", () => {
     expect(screen.getByText("Free Database Diagnostic")).toBeInTheDocument();
   });
 
-  it("home uses an honest email path for the diagnostic", () => {
+  it("home points the free diagnostic at the in-browser tool", () => {
     render(<HomePage />);
     expect(screen.queryByLabelText(/Work email/i)).not.toBeInTheDocument();
-    const diagnostic = screen.getByRole("link", {
-      name: /Request the diagnostic by email/i,
-    });
-    expect(diagnostic.getAttribute("href")).toMatch(/^mailto:/);
-    expect(screen.getByText(/nothing is captured on this page/i)).toBeInTheDocument();
+    expect(
+      screen.queryByRole("link", { name: /Request the diagnostic by email/i }),
+    ).not.toBeInTheDocument();
+    expect(screen.queryByText(/nothing is captured on this page/i)).not.toBeInTheDocument();
+    const diagnosticLinks = screen.getAllByRole("link", { name: /Open the diagnostic/i });
+    expect(diagnosticLinks.length).toBeGreaterThanOrEqual(2);
+    for (const link of diagnosticLinks) {
+      expect(link).toHaveAttribute("href", "/tools/database-diagnostic");
+    }
   });
 
   it("about renders its hero headline", () => {
@@ -53,6 +58,11 @@ describe("page smoke tests", () => {
     render(<ServicesPage />);
     expect(screen.getByRole("heading", { level: 1 })).toHaveTextContent(/The offer ladder\./);
     expect(screen.getAllByText("Database Health Audit")[0]).toBeInTheDocument();
+    expect(screen.getByRole("link", { name: /Get the Diagnostic/i })).toHaveAttribute(
+      "href",
+      "/tools/database-diagnostic",
+    );
+    expect(screen.getByText(/Start here — 10 minutes, no account/i)).toBeInTheDocument();
   });
 
   it("results renders the case-studies headline", () => {
@@ -71,6 +81,10 @@ describe("page smoke tests", () => {
   it("tools index links to each field calculator", () => {
     render(<ToolsPage />);
     expect(screen.getByRole("heading", { level: 1 })).toHaveTextContent(/Field tools/);
+    expect(screen.getByRole("link", { name: /Open database diagnostic/i })).toHaveAttribute(
+      "href",
+      "/tools/database-diagnostic",
+    );
     expect(screen.getByRole("link", { name: /Open duct calculator/i })).toHaveAttribute(
       "href",
       "/tools/ductulator",
@@ -96,9 +110,15 @@ describe("page smoke tests", () => {
     expect(screen.getByLabelText(/Duct diameter/i)).toBeInTheDocument();
     offset.unmount();
 
-    render(<HangerSpacingPage />);
+    const hanger = render(<HangerSpacingPage />);
     expect(screen.getByRole("heading", { level: 1 })).toHaveTextContent(/Hanger spacing calculator/);
     expect(screen.getByLabelText(/Horizontal run length/i)).toBeInTheDocument();
+    hanger.unmount();
+
+    render(<DatabaseDiagnosticPage />);
+    expect(screen.getByRole("heading", { level: 1 })).toHaveTextContent(/Database diagnostic/);
+    expect(screen.getByRole("button", { name: /Score the database/i })).toBeInTheDocument();
+    expect(screen.getByRole("heading", { name: /Pricing accuracy/i })).toBeInTheDocument();
   });
 
   it("calculator routes keep a tools breadcrumb and compact switcher in the page", () => {
@@ -114,6 +134,10 @@ describe("page smoke tests", () => {
     expect(screen.getByRole("link", { name: /Hanger spacing calculator/i })).toHaveAttribute(
       "href",
       "/tools/hanger-spacing",
+    );
+    expect(screen.getByRole("link", { name: /Database diagnostic/i })).toHaveAttribute(
+      "href",
+      "/tools/database-diagnostic",
     );
     ductulator.unmount();
 
@@ -132,9 +156,20 @@ describe("page smoke tests", () => {
     );
     offset.unmount();
 
-    render(<HangerSpacingPage />);
+    const hanger = render(<HangerSpacingPage />);
     expect(screen.getByRole("navigation", { name: /breadcrumb/i })).toHaveTextContent(
       /Tools\s*\/\s*Hanger spacing calculator/,
+    );
+    expect(screen.getByRole("link", { name: /^Tools$/i })).toHaveAttribute("href", "/tools");
+    expect(screen.getByRole("link", { name: /Duct sizing calculator/i })).toHaveAttribute(
+      "href",
+      "/tools/ductulator",
+    );
+    hanger.unmount();
+
+    render(<DatabaseDiagnosticPage />);
+    expect(screen.getByRole("navigation", { name: /breadcrumb/i })).toHaveTextContent(
+      /Tools\s*\/\s*Database diagnostic/,
     );
     expect(screen.getByRole("link", { name: /^Tools$/i })).toHaveAttribute("href", "/tools");
     expect(screen.getByRole("link", { name: /Duct sizing calculator/i })).toHaveAttribute(

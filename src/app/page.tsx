@@ -4,6 +4,7 @@ import Link from "next/link";
 import { ArrowRight } from "@/components/icons";
 import { OdometerStat, RuleDraw, StampReveal } from "@/components/motion";
 import { SITE, bookingHref, bookingIsExternal } from "@/lib/site";
+import { getTool } from "@/lib/tools";
 
 export const metadata: Metadata = {
   title: "RaapTech LLC — Autodesk Fabrication Database Consultancy, Chicago",
@@ -75,13 +76,17 @@ const steps = [
   },
 ];
 
+const diagnostic = getTool("database-diagnostic");
+
 const offers = [
   {
     name: "Free Database Diagnostic",
     price: "Free",
-    note: "Email sign-up",
+    note: "10 minutes, no account",
     description:
       "A self-guided diagnostic that scores your database health across the areas that cost shops the most bids. Know where you stand in 10 minutes.",
+    href: diagnostic.href,
+    cta: "Open the diagnostic",
   },
   {
     name: "Database Health Audit",
@@ -290,6 +295,12 @@ export default function HomePage() {
                   <p className="mt-4 flex-1 text-base leading-relaxed text-gray-1">
                     {offer.description}
                   </p>
+                  {"href" in offer && offer.href ? (
+                    <Link href={offer.href} className="btn-secondary mt-6 self-start">
+                      {offer.cta}
+                      <ArrowRight />
+                    </Link>
+                  ) : null}
                 </div>
               </StampReveal>
             ))}
@@ -385,18 +396,12 @@ export default function HomePage() {
                 health, and documentation — and tells you where you&apos;re
                 losing time and bids.
               </p>
-              <a
-                href={`mailto:${SITE.email}?subject=${encodeURIComponent(
-                  "Free Database Diagnostic request",
-                )}&body=${encodeURIComponent(
-                  "Company:\n\nFabrication platform:\n\nWhat should the diagnostic help uncover:",
-                )}`}
-                className="btn-on-ink mt-8"
-              >
-                Request the diagnostic by email
-              </a>
+              <Link href={diagnostic.href} className="btn-on-ink mt-8">
+                Open the diagnostic
+                <ArrowRight />
+              </Link>
               <p className="mt-4 font-mono text-xs uppercase leading-relaxed tracking-label text-gray-2">
-                Your email app opens with a short outline. Nothing is captured on this page.
+                Ten minutes. No account. Answers stay in your browser.
               </p>
             </div>
           </div>

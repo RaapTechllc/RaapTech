@@ -3,6 +3,7 @@ import Link from "next/link";
 import { ArrowRight } from "@/components/icons";
 import { RuleDraw, StampReveal } from "@/components/motion";
 import { SITE, bookingHref, bookingIsExternal } from "@/lib/site";
+import { getTool } from "@/lib/tools";
 
 export const metadata: Metadata = {
   title: "Services & Pricing",
@@ -16,7 +17,7 @@ const offers = [
   {
     name: "Free Database Diagnostic",
     price: "Free",
-    note: "Start here — email sign-up",
+    note: "Start here — 10 minutes, no account",
     description:
       "A self-guided diagnostic that scores your fabrication database across pricing accuracy, item structure, connector health, and documentation. Ten minutes, and you know where you stand.",
     includes: [
@@ -24,7 +25,7 @@ const offers = [
       "Plain-language results — no consultant-speak",
       "A baseline you can bring to any conversation about your database",
     ],
-    cta: { label: "Get the Diagnostic", href: "/contact" },
+    cta: { label: "Get the Diagnostic", href: getTool("database-diagnostic").href },
   },
   {
     name: "Database Health Audit",

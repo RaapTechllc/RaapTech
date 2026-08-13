@@ -5,7 +5,7 @@ import { TOOLS } from "@/lib/tools";
 export const metadata: Metadata = {
   title: "HVAC Field Tools",
   description:
-    "Free browser-based duct sizing, offset, and hanger spacing calculators for HVAC sheet metal professionals.",
+    "Free browser-based database diagnostic, duct sizing, offset, and hanger spacing tools for HVAC sheet metal shops.",
   alternates: { canonical: "/tools" },
   openGraph: { url: "/tools" },
 };
@@ -21,9 +21,10 @@ export default function ToolsPage() {
           </h1>
           <div className="mt-8 max-w-xs border-t-2 border-ink" />
           <p className="mt-8 max-w-3xl font-sans text-body-lg text-gray-1">
-            Fast browser calculators for early sizing and shop or field layout.
-            Inputs stay in your browser. Results still require project-specific
-            criteria and professional verification.
+            A self-score for the fabrication database, plus fast calculators for
+            early sizing and shop or field layout. Inputs stay in your browser.
+            Results still require project-specific criteria and professional
+            verification.
           </p>
         </div>
       </section>
