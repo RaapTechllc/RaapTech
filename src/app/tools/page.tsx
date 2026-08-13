@@ -5,7 +5,7 @@ import { TOOLS } from "@/lib/tools";
 export const metadata: Metadata = {
   title: "HVAC Field Tools",
   description:
-    "Free browser-based duct sizing and field offset calculators for HVAC sheet metal professionals.",
+    "Free browser-based duct sizing, offset, and hanger spacing calculators for HVAC sheet metal professionals.",
   alternates: { canonical: "/tools" },
   openGraph: { url: "/tools" },
 };

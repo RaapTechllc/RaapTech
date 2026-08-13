@@ -3,7 +3,7 @@ import { TOOLS, getTool } from "./tools";
 
 describe("TOOLS registry", () => {
   it("lists every field tool with slug, name, and href", () => {
-    expect(TOOLS.length).toBeGreaterThanOrEqual(2);
+    expect(TOOLS.length).toBeGreaterThanOrEqual(3);
     for (const tool of TOOLS) {
       expect(tool.slug.length).toBeGreaterThan(0);
       expect(tool.name.length).toBeGreaterThan(0);
@@ -15,9 +15,11 @@ describe("TOOLS registry", () => {
     expect(TOOLS.map((tool) => tool.slug)).toEqual([
       "ductulator",
       "offset-calculator",
+      "hanger-spacing",
     ]);
     expect(getTool("ductulator").href).toBe("/tools/ductulator");
     expect(getTool("offset-calculator").name).toBe("Field offset calculator");
+    expect(getTool("hanger-spacing").href).toBe("/tools/hanger-spacing");
     expect(() => getTool("nope" as never)).toThrow(/Unknown tool/);
   });
 });

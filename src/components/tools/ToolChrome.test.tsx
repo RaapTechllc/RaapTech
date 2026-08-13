@@ -30,6 +30,9 @@ describe("ToolPageHeader", () => {
     expect(
       screen.getByRole("link", { name: /Field offset calculator/i }),
     ).toHaveAttribute("href", "/tools/offset-calculator");
+    expect(
+      screen.getByRole("link", { name: /Hanger spacing calculator/i }),
+    ).toHaveAttribute("href", "/tools/hanger-spacing");
     expect(switcher.querySelector("[aria-current='page']")).toHaveTextContent(
       /Duct sizing calculator/i,
     );

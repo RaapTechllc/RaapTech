@@ -9,6 +9,8 @@ import { metadata as contactMetadata } from "@/app/contact/page";
 import { metadata as toolsMetadata } from "@/app/tools/page";
 import { metadata as ductulatorMetadata } from "@/app/tools/ductulator/page";
 import { metadata as offsetMetadata } from "@/app/tools/offset-calculator/page";
+import { metadata as hangerMetadata } from "@/app/tools/hanger-spacing/page";
+import { TOOLS } from "@/lib/tools";
 
 describe("SEO metadata routes", () => {
   it("sitemap lists marketing and field-tool routes", () => {
@@ -21,8 +23,7 @@ describe("SEO metadata routes", () => {
       "https://raaptech.com/results",
       "https://raaptech.com/contact",
       "https://raaptech.com/tools",
-      "https://raaptech.com/tools/ductulator",
-      "https://raaptech.com/tools/offset-calculator",
+      ...TOOLS.map((tool) => `https://raaptech.com${tool.href}`),
     ]);
     expect(entries[0]?.priority).toBe(1);
   });
@@ -36,6 +37,7 @@ describe("SEO metadata routes", () => {
     expect(toolsMetadata.alternates?.canonical).toBe("/tools");
     expect(ductulatorMetadata.alternates?.canonical).toBe("/tools/ductulator");
     expect(offsetMetadata.alternates?.canonical).toBe("/tools/offset-calculator");
+    expect(hangerMetadata.alternates?.canonical).toBe("/tools/hanger-spacing");
   });
 
   it("robots allows crawl and points at the sitemap", () => {

@@ -24,6 +24,7 @@ describe("NAV_LINKS", () => {
     expect(isNavLinkActive("/tools", "/tools")).toBe(true);
     expect(isNavLinkActive("/tools/ductulator", "/tools")).toBe(true);
     expect(isNavLinkActive("/tools/offset-calculator", "/tools")).toBe(true);
+    expect(isNavLinkActive("/tools/hanger-spacing", "/tools")).toBe(true);
     expect(isNavLinkActive("/tools/ductulator", "/")).toBe(false);
     expect(isNavLinkActive("/services", "/tools")).toBe(false);
   });

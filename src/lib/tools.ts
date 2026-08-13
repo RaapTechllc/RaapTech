@@ -17,6 +17,15 @@ export const TOOLS = [
       "Lay out two-elbow offsets or solve the bend angle, centerline radius, and straight spool required to fit a known run.",
     cta: "Open offset calculator",
   },
+  {
+    slug: "hanger-spacing",
+    name: "Hanger spacing calculator",
+    href: "/tools/hanger-spacing",
+    eyebrow: "Support",
+    summary:
+      "Estimate maximum hanger spacing, extra hangers near elbows and tees, and a suggested rod size for a horizontal metal-duct run.",
+    cta: "Open hanger calculator",
+  },
 ] as const;
 
 export type Tool = (typeof TOOLS)[number];
