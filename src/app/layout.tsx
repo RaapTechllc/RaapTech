@@ -95,7 +95,7 @@ const jsonLd = {
       areaServed: ["Chicago", "Midwest", "United States"],
       founder: { "@id": "https://raaptech.com/#tim" },
       email: "TRaap@RaapTech.com",
-      telephone: "+1-224-202-6962",
+      telephone: "+1-708-581-6922",
     },
     {
       "@type": "Person",
