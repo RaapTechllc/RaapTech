@@ -76,6 +76,10 @@ describe("page smoke tests", () => {
       /Talk to someone who has run the floor\./,
     );
     expect(screen.getByRole("link", { name: /Write an email/i })).toBeInTheDocument();
+    expect(
+      screen.getAllByRole("link").some((link) => link.getAttribute("href")?.startsWith("tel:")),
+    ).toBe(false);
+    expect(screen.getAllByText(/calls are scheduled after/i).length).toBeGreaterThan(0);
   });
 
   it("tools index links to each field calculator", () => {

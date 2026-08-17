@@ -13,6 +13,9 @@ describe("Footer", () => {
     render(<Footer />);
     const email = screen.getByRole("link", { name: "TRaap@RaapTech.com" });
     expect(email).toHaveAttribute("href", "mailto:TRaap@RaapTech.com");
+    expect(
+      screen.getAllByRole("link").some((link) => link.getAttribute("href")?.startsWith("tel:")),
+    ).toBe(false);
   });
 
   it("renders the LinkedIn link", () => {
