@@ -11,8 +11,8 @@ export const SITE = {
   url: "https://raaptech.com",
   founder: "Tim Raap",
   email: "TRaap@RaapTech.com",
-  phone: "224-202-6962",
-  phoneHref: "tel:+12242026962",
+  phone: "708-581-6922",
+  phoneHref: "tel:+17085816922",
   location: "Elmwood Park, IL — Chicagoland",
   linkedIn: "https://www.linkedin.com/company/raaptech",
   /**

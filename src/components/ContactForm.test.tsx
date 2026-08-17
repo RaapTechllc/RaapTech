@@ -13,7 +13,7 @@ describe("ContactForm honest fallback", () => {
     expect(email.getAttribute("href")).toMatch(/^mailto:/);
     expect(email.getAttribute("href")).toContain(encodeURIComponent("RaapTech project inquiry"));
 
-    const phone = screen.getByRole("link", { name: /Call 224-202-6962/i });
+    const phone = screen.getByRole("link", { name: /Call 708-581-6922/i });
     expect(phone).toHaveAttribute("href", SITE.phoneHref);
   });
 
