@@ -61,14 +61,6 @@ export default function Footer() {
                   {SITE.email}
                 </a>
               </li>
-              <li>
-                <a
-                  href={SITE.phoneHref}
-                  className="font-mono text-sm text-gray-3 transition-colors hover:text-paper"
-                >
-                  {SITE.phone}
-                </a>
-              </li>
               <li className="font-mono text-xs uppercase tracking-label text-gray-3">
                 {SITE.location}
               </li>
